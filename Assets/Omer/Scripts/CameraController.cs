@@ -17,12 +17,6 @@ public class CameraController : MonoBehaviour
     private void Start()
     {
         targetZoom = cam.fieldOfView;
-        //cam = Camera.main;
-
-        cam = GetComponent<Camera>();
-        cam = FindAnyObjectByType<Camera>();
-
-
     }
 
     void LateUpdate()
