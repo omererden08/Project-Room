@@ -17,9 +17,6 @@ public class FirstPersonController : MonoBehaviour
     // Movement variables
     [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private float sprintSpeed = 8f;
-    [SerializeField] private float jumpHeight = 1.5f;
-    [SerializeField] private float gravity = -9.81f;
-
     // Camera variables
     [SerializeField] private Camera cam;
     [SerializeField] private float mouseSensitivity = 100f;
@@ -37,18 +34,40 @@ public class FirstPersonController : MonoBehaviour
     private Vector2 _movementInput;
     private Vector2 _lookInput;
     private bool isZooming;
+    public float minZoom = 10f;
+    public float maxZoom = 60f;
+    private float targetZoom = 60f;
     private bool isSprinting;
     public float interactionDistance;
+    public float scrollValue;
     public LayerMask interactableLayer;
-    public IInteractable currentInteractable;   
+    private IInteractable _currentInteractable;
+    private IInteractable _latestInteractable;
+
+    public IInteractable CurrentInteractable
+    {
+        get => _currentInteractable;
+        set
+        {
+            if (_currentInteractable != value)
+            {
+                _latestInteractable = _currentInteractable;
+                _currentInteractable = value;
+                InteractChanged();
+            }
+        }
+    }
+    public IInteractable LatestInteractable
+    {
+        get => _latestInteractable;
+        set => _latestInteractable = value;
+    }
 
     void Awake()
     {
         // Get components
         controller = GetComponent<CharacterController>();
         playerInput = GetComponent<PlayerInput>();
-        //diger yol bu noktada daha mantikli geldi
-        jumpAction = playerInput.actions["Jump"];
         // Lock cursor
         Cursor.lockState = CursorLockMode.Locked;
     }
@@ -67,10 +86,10 @@ public class FirstPersonController : MonoBehaviour
     void OnInteract()
     {
         Debug.Log("Interacting...");
-        if (currentInteractable != null)
+        if (CurrentInteractable != null)
         {
-            currentInteractable.Interact();
-            Debug.Log("Interacting with: " + currentInteractable);
+            CurrentInteractable.Interact();
+            Debug.Log("Interacting with: " + CurrentInteractable);
         }
         else
         {
@@ -86,13 +105,14 @@ public class FirstPersonController : MonoBehaviour
     {
         isSprinting = value.isPressed;
     }
+
     #endregion
     void Update()
     {
         HandleMovement();
         HandleRotation();
-        HandleZoom();
         HandleInteraction();
+        Zoom();
     }
     void HandleMovement()
     {
@@ -107,19 +127,7 @@ public class FirstPersonController : MonoBehaviour
         // Use sprint action instead of direct keyboard check
         float currentSpeed = isSprinting ? sprintSpeed : moveSpeed;
         controller.Move(move.normalized * currentSpeed * Time.deltaTime);
-
-        if (jumpAction.triggered && isGrounded)
-        {
-            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
-        }
-
-        velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
-    }
-    void HandleZoom()
-    {
-        float targetZoom = isZooming ? zoomFOV : normalFOV;
-        cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, targetZoom, Time.deltaTime * zoomSpeed);
     }
     void HandleRotation()
     {
@@ -138,21 +146,45 @@ public class FirstPersonController : MonoBehaviour
         if (Physics.Raycast(ray, out hit, interactionDistance, interactableLayer))
         {
             IInteractable interactable = hit.collider.GetComponent<IInteractable>();
-            
+
             if (interactable != null)
             {
-                currentInteractable = interactable;
+                CurrentInteractable = interactable;
                 // Optional: Add UI hint or crosshair change here
             }
             else
             {
-                currentInteractable = null;
+                CurrentInteractable = null;
             }
+
         }
         else
         {
-            currentInteractable = null;
+            CurrentInteractable = null;
         }
+    }
+
+    void InteractChanged()
+    {
+        if (CurrentInteractable != null && LatestInteractable == null)
+        {
+            CurrentInteractable.OutlineShow();
+            //optional: outline or glow effect in here, will start
+        }
+        else if (CurrentInteractable == null && LatestInteractable != null)
+        {
+            LatestInteractable.OutlineHide();
+            //optional: outline or glow effect in here, will stop        
+        }
+
+
+    }
+    void Zoom()
+    {
+        float scroll = Input.GetAxis("Mouse ScrollWheel");
+        targetZoom -= scroll * zoomSpeed;
+        targetZoom = Mathf.Clamp(targetZoom, minZoom, maxZoom);
+        cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, targetZoom, Time.deltaTime * zoomSpeed);
     }
     void OnDestroy()
     {
