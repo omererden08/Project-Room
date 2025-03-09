@@ -22,9 +22,6 @@ public class FirstPersonController : MonoBehaviour
     [SerializeField] private float mouseSensitivity = 100f;
     private float xRotation = 0f;
 
-    // Zoom variables
-    [SerializeField] private float normalFOV = 60f;
-    [SerializeField] private float zoomFOV = 30f;
     [SerializeField] private float zoomSpeed = 10f;
     // Physics variables
     private Vector3 velocity;
@@ -189,5 +186,18 @@ public class FirstPersonController : MonoBehaviour
     void OnDestroy()
     {
         Cursor.lockState = CursorLockMode.None;
+    }
+    void OnRead()
+    {
+        Debug.Log("OnRead triggered");
+        if (CurrentInteractable is Paper paper)
+        {
+            Debug.Log("Yess");
+            Debug.Log(paper.content);
+        }
+        else
+        {
+            Debug.Log("IInteractable is not a paper");
+        }
     }
 }
