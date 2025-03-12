@@ -8,10 +8,6 @@ public class HoldableObjects : IInteractable
         
     }
 
-    public void PickUp()
-    {
-        Debug.Log("Picked up " + gameObject.name);
-    }
     public void Drop()
     {
         Debug.Log("Dropped " + gameObject.name);

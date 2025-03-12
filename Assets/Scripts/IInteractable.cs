@@ -10,5 +10,9 @@ public class IInteractable : MonoBehaviour
     {
         Debug.Log(gameObject.name + " outline hide");
     }
+    public virtual void PickUp()
+    {
+        Debug.Log("Picked up " + gameObject.name);
+    }
     public virtual void Interact() { Debug.Log("Interacted with " + gameObject.name); }
 }

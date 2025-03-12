@@ -1,4 +1,5 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -23,18 +24,22 @@ public class FirstPersonController : MonoBehaviour
     private float xRotation = 0f;
 
     // Zoom variables
-    [SerializeField] private float normalFOV = 60f;
-    [SerializeField] private float zoomFOV = 30f;
     [SerializeField] private float zoomSpeed = 10f;
     // Physics variables
     private Vector3 velocity;
     private bool isGrounded;
+    // Interactable variables
+    [SerializeField] private Transform holdPos;
+    [SerializeField] private bool isRotatingObjects;
+    private bool isHeld;
+
+
     //inputs
     public bool cursorInputForLook = true;
     private Vector2 _movementInput;
     private Vector2 _lookInput;
-    private bool isZooming;
-    public float minZoom = 10f;
+    private bool isZooming;                                                                                                                                                                                                                                             
+    public float minZoom = 40f;
     public float maxZoom = 60f;
     private float targetZoom = 60f;
     private bool isSprinting;
@@ -109,10 +114,23 @@ public class FirstPersonController : MonoBehaviour
     #endregion
     void Update()
     {
-        HandleMovement();
-        HandleRotation();
+        Rotate();
+        if (!isRotatingObjects)
+        {
+            HandleRotation();
+        }
+        else
+        {
+            _lookInput = Vector2.zero;
+        }
+        if (!isRotatingObjects)
+        {
+            HandleMovement();
+        }
+
         HandleInteraction();
         Zoom();
+        PickUp();
     }
     void HandleMovement()
     {
@@ -132,11 +150,18 @@ public class FirstPersonController : MonoBehaviour
     void HandleRotation()
     {
         Vector2 lookInput = _lookInput * mouseSensitivity * Time.deltaTime;
-        transform.Rotate(Vector3.up * lookInput.x);
 
-        xRotation -= lookInput.y;
-        xRotation = Mathf.Clamp(xRotation, -90f, 90f);
-        cam.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+        if (lookInput.x != 0)
+        {
+            transform.Rotate(Vector3.up * lookInput.x);
+        }
+
+        if (lookInput.y != 0)
+        {
+            xRotation -= lookInput.y;
+            xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+            cam.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+        }
     }
     void HandleInteraction()
     {
@@ -163,21 +188,18 @@ public class FirstPersonController : MonoBehaviour
             CurrentInteractable = null;
         }
     }
-
     void InteractChanged()
     {
-        if (CurrentInteractable != null && LatestInteractable == null)
+        if (CurrentInteractable != null && LatestInteractable == null && !isHeld)
         {
             CurrentInteractable.OutlineShow();
             //optional: outline or glow effect in here, will start
         }
-        else if (CurrentInteractable == null && LatestInteractable != null)
+        else if (CurrentInteractable == null && LatestInteractable != null) //tutma kisminda outline show olmuyor ama outline hide oluyor. 
         {
             LatestInteractable.OutlineHide();
             //optional: outline or glow effect in here, will stop        
         }
-
-
     }
     void Zoom()
     {
@@ -186,6 +208,52 @@ public class FirstPersonController : MonoBehaviour
         targetZoom = Mathf.Clamp(targetZoom, minZoom, maxZoom);
         cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, targetZoom, Time.deltaTime * zoomSpeed);
     }
+    void PickUp()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (!isHeld && CurrentInteractable != null)
+            {
+                CurrentInteractable.gameObject.transform.SetParent(cam.transform);
+                CurrentInteractable.gameObject.transform.position = holdPos.position;
+                isHeld = true;
+            }
+            else
+            {
+                LatestInteractable.gameObject.transform.SetParent(null);
+                isHeld = false;
+            }
+        }
+    }
+    void Rotate()
+    {
+        Vector2 lookInput = _lookInput * mouseSensitivity * Time.deltaTime;
+
+        if (Input.GetKey(KeyCode.Q) || Input.GetKey(KeyCode.E))
+        {
+            isRotatingObjects = true;
+
+            if (Input.GetKey(KeyCode.Q) && lookInput.x != 0)
+            {
+                LatestInteractable.gameObject.transform.Rotate(Vector3.up * lookInput.x);
+            }
+
+            if (Input.GetKey(KeyCode.E) && lookInput.y != 0)
+            {
+                xRotation -= lookInput.y;
+                xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+                LatestInteractable.gameObject.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+            }
+        }
+        else
+        {
+            isRotatingObjects = false; 
+            lookInput = Vector2.zero;
+        }
+    }
+
+
+
     void OnDestroy()
     {
         Cursor.lockState = CursorLockMode.None;
