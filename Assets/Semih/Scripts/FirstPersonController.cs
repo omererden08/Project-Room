@@ -187,17 +187,5 @@ public class FirstPersonController : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.None;
     }
-    void OnRead()
-    {
-        Debug.Log("OnRead triggered");
-        if (CurrentInteractable is Paper paper)
-        {
-            Debug.Log("Yess");
-            Debug.Log(paper.content);
-        }
-        else
-        {
-            Debug.Log("IInteractable is not a paper");
-        }
-    }
+
 }
