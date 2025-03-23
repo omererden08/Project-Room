@@ -20,14 +20,18 @@ public class BallController : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            Magnet();
+            MagnetIncrease();
+        }
+        if (Input.GetMouseButtonDown(1))
+        {
+            MagnetDecrease();
         }
 
         MoveAll();
 
     }
 
-    public void Magnet()
+    public void MagnetIncrease()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
@@ -40,7 +44,7 @@ public class BallController : MonoBehaviour
                 {
                     if (force[i] <= 9)
                     {
-                        force[i] += 5;
+                        force[i] += 3;
                     }
                     else
                     {
@@ -63,6 +67,43 @@ public class BallController : MonoBehaviour
             }
         }
     }
+    public void MagnetDecrease()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, hitLayer))
+        {
+
+            for (int i = 0; i < magnet.Length; i++)
+            {
+                if (magnet[i] == hit.collider.gameObject)
+                {
+                    if (force[i] <= 9)
+                    {
+                        force[i] -= 3;
+                    }
+                    else
+                    {
+                        force[i] = 0;
+                    }
+
+                    return;
+                }
+            }
+
+            // Boþ bir magnet slotu bul ve atama yap
+            for (int i = 0; i < magnet.Length; i++)
+            {
+                if (magnet[i] == null)
+                {
+                    magnet[i] = hit.collider.gameObject;
+                    force[i] = 5;
+                    return;
+                }
+            }
+        }
+    }
+
 
     void MoveAll()
     {
