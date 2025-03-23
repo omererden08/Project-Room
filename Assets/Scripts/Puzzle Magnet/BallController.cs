@@ -78,7 +78,7 @@ public class BallController : MonoBehaviour
             {
                 if (magnet[i] == hit.collider.gameObject)
                 {
-                    if (force[i] <= 9)
+                    if (force[i] >= 0)
                     {
                         force[i] -= 3;
                     }
