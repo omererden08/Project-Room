@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class IInteractable : MonoBehaviour
 {
+    public Item item;
     public virtual void OutlineShow()
     {
         Debug.Log(gameObject.name + " outline show");

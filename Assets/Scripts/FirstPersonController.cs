@@ -33,6 +33,8 @@ public class FirstPersonController : MonoBehaviour
     [SerializeField] private bool isRotatingObjects;
     private bool isHeld;
 
+    //inventory
+    public Inventory inventory;
 
     //inputs
     public bool cursorInputForLook = true;
@@ -48,6 +50,8 @@ public class FirstPersonController : MonoBehaviour
     public LayerMask interactableLayer;
     private IInteractable _currentInteractable;
     private IInteractable _latestInteractable;
+
+
 
     public IInteractable CurrentInteractable
     {
@@ -77,6 +81,12 @@ public class FirstPersonController : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
     }
     #region Inputs
+
+    private void Start()
+    {
+        inventory = GameObject.Find("InventoryManager").GetComponent<Inventory>();
+    }
+
     void OnMove(InputValue value)
     {
         _movementInput = value.Get<Vector2>();
@@ -114,7 +124,7 @@ public class FirstPersonController : MonoBehaviour
     #endregion
     void Update()
     {
-        Rotate();
+        //Rotate();
         if (!isRotatingObjects)
         {
             HandleRotation();
@@ -131,7 +141,10 @@ public class FirstPersonController : MonoBehaviour
         HandleInteraction();
         Zoom();
         PickUp();
+
+        
     }
+    
     void HandleMovement()
     {
         isGrounded = controller.isGrounded;
@@ -212,17 +225,13 @@ public class FirstPersonController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            if (!isHeld && CurrentInteractable != null)
+            if (CurrentInteractable != null)
             {
-                CurrentInteractable.gameObject.transform.SetParent(cam.transform);
-                CurrentInteractable.gameObject.transform.position = holdPos.position;
-                isHeld = true;
+                inventory.AddItem(CurrentInteractable.item);
+                CurrentInteractable.gameObject.SetActive(false);
+                print("item geldi");
             }
-            else
-            {
-                LatestInteractable.gameObject.transform.SetParent(null);
-                isHeld = false;
-            }
+            
         }
     }
     void Rotate()
