@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -35,12 +36,13 @@ public class FirstPersonController : MonoBehaviour
 
     //inventory
     public Inventory inventory;
+    private List<IInteractable> pickedItems = new List<IInteractable>();
 
     //inputs
     public bool cursorInputForLook = true;
     private Vector2 _movementInput;
     private Vector2 _lookInput;
-    private bool isZooming;                                                                                                                                                                                                                                             
+    private bool isZooming;
     public float minZoom = 40f;
     public float maxZoom = 60f;
     private float targetZoom = 60f;
@@ -86,7 +88,28 @@ public class FirstPersonController : MonoBehaviour
     {
         inventory = GameObject.Find("InventoryManager").GetComponent<Inventory>();
     }
+    void Update()
+    {
+        //Rotate();
+        if (!isRotatingObjects)
+        {
+            HandleRotation();
+        }
+        else
+        {
+            _lookInput = Vector2.zero;
+        }
+        if (!isRotatingObjects)
+        {
+            HandleMovement();
+        }
 
+        HandleInteraction();
+        Zoom();
+        PickUp();
+        Drop();
+
+    }
     void OnMove(InputValue value)
     {
         _movementInput = value.Get<Vector2>();
@@ -120,31 +143,7 @@ public class FirstPersonController : MonoBehaviour
     {
         isSprinting = value.isPressed;
     }
-
     #endregion
-    void Update()
-    {
-        //Rotate();
-        if (!isRotatingObjects)
-        {
-            HandleRotation();
-        }
-        else
-        {
-            _lookInput = Vector2.zero;
-        }
-        if (!isRotatingObjects)
-        {
-            HandleMovement();
-        }
-
-        HandleInteraction();
-        Zoom();
-        PickUp();
-
-        
-    }
-    
     void HandleMovement()
     {
         isGrounded = controller.isGrounded;
@@ -228,12 +227,29 @@ public class FirstPersonController : MonoBehaviour
             if (CurrentInteractable != null)
             {
                 inventory.AddItem(CurrentInteractable.item);
+                pickedItems.Add(CurrentInteractable);
                 CurrentInteractable.gameObject.SetActive(false);
                 print("item geldi");
             }
-            
+        }
+
+    }
+    void Drop()
+    {
+        if (Input.GetKeyDown(KeyCode.U))
+        {
+            if (LatestInteractable != null)
+            {
+                IInteractable lastPicked = pickedItems[pickedItems.Count - 1];
+                pickedItems.RemoveAt(pickedItems.Count - 1);
+
+                inventory.RemoveItem(lastPicked.item);
+                lastPicked.gameObject.SetActive(true);
+                print("item gitti");
+            }
         }
     }
+    //kullanilmiyor suan
     void Rotate()
     {
         Vector2 lookInput = _lookInput * mouseSensitivity * Time.deltaTime;
@@ -256,7 +272,7 @@ public class FirstPersonController : MonoBehaviour
         }
         else
         {
-            isRotatingObjects = false; 
+            isRotatingObjects = false;
             lookInput = Vector2.zero;
         }
     }
@@ -267,4 +283,4 @@ public class FirstPersonController : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.None;
     }
-}
+}  

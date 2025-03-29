@@ -27,8 +27,7 @@ public class Inventory : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.I))
         {
-            isInventoryOpen = !isInventoryOpen;
-            inventoryUI.gameObject.SetActive(isInventoryOpen);
+            OnInventoy();
         }
 
     }
@@ -71,10 +70,14 @@ public class Inventory : MonoBehaviour
         {
             existingItem.quantity -= quantity;
             if (existingItem.quantity <= 0)
+            {
                 inventory.Remove(existingItem);
+                UpdateUI();
+            }
 
             Debug.Log($"Removed {item.itemName}, remaining: {existingItem.quantity}");
         }
+
     }
 
     private void UpdateUI()
@@ -94,5 +97,10 @@ public class Inventory : MonoBehaviour
         }
     }
 
+    void OnInventoy()
+    {
+        isInventoryOpen = !isInventoryOpen;
+        inventoryUI.gameObject.SetActive(isInventoryOpen);
+    }
 
 }
