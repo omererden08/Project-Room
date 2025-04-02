@@ -1,6 +1,7 @@
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.Events;
+
 public class Gear : MonoBehaviour
 {
     public Transform FirstPosition;
@@ -9,12 +10,19 @@ public class Gear : MonoBehaviour
     private bool isDragging = false;
     private Vector3 offset;
     private float zCoordinate;
-    private Slot currentSlot;
+    private Slot currentSlot; // Private olarak kalıyor
+    private GearPuzzle gearPuzzle;
 
     public UnityEvent action;
+
+    // Getter ekledik
+    public Slot CurrentSlot => currentSlot;
+
     void Start()
     {
         FirstPosition = transform;
+        // Eski metod: FindObjectOfType
+        gearPuzzle = UnityEngine.Object.FindObjectOfType<GearPuzzle>();
     }
 
     void OnMouseDown()
@@ -63,6 +71,7 @@ public class Gear : MonoBehaviour
         transform.DOMove(targetPosition.position, 0.5f).OnComplete(() =>
         {
             CheckPosition(targetPosition);
+            gearPuzzle.UpdateAllGears();
         });
     }
 
@@ -71,11 +80,20 @@ public class Gear : MonoBehaviour
         Slot slot = targetPosition.GetComponent<Slot>();
         if (slot != null && !slot.isOccupied)
         {
+            int slotIndex = System.Array.IndexOf(gearPuzzle.slots, slot);
+            
             if (slot == targetSlot)
             {
-                StartSpinning();
                 slot.isOccupied = true;
-                slot.isCorrect = true;
+                if (gearPuzzle.CanGearSpin(slotIndex))
+                {
+                    StartSpinning();
+                    slot.isCorrect = true;
+                }
+                else
+                {
+                    slot.isCorrect = false;
+                }
             }
             else
             {
@@ -92,7 +110,30 @@ public class Gear : MonoBehaviour
             MoveToPosition(FirstPosition);
         }
         action.Invoke();
+    }
 
+    public void CheckAndUpdateSpinning()
+    {
+        if (currentSlot != null && currentSlot == targetSlot)
+        {
+            int slotIndex = System.Array.IndexOf(gearPuzzle.slots, currentSlot);
+            if (gearPuzzle.CanGearSpin(slotIndex))
+            {
+                if (!currentSlot.isCorrect)
+                {
+                    StartSpinning();
+                    currentSlot.isCorrect = true;
+                }
+            }
+            else
+            {
+                if (currentSlot.isCorrect)
+                {
+                    transform.DOKill(); // Dönmeyi durdur
+                    currentSlot.isCorrect = false;
+                }
+            }
+        }
     }
 
     private void StartSpinning()
@@ -113,7 +154,8 @@ public class Gear : MonoBehaviour
 
     private Slot FindNearestSlot()
     {
-        Slot[] allSlots = FindObjectsOfType<Slot>();
+        // Eski metod: FindObjectsOfType
+        Slot[] allSlots = UnityEngine.Object.FindObjectsOfType<Slot>();
         Slot nearestSlot = null;
         float minDistance = float.MaxValue;
         float snapDistance = 0.3f;

@@ -3,10 +3,9 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
-
 public class GearPuzzle : MonoBehaviour
 {
-    public Slot[] slots;
+    public Slot[] slots; // Slotlar sıralı olmalı (1, 2, 3, 4, 5 gibi)
 
     void Start()
     {
@@ -24,15 +23,51 @@ public class GearPuzzle : MonoBehaviour
             return;
         }
 
-        foreach (Slot slot in slots)
+        bool allCorrect = true;
+        for (int i = 0; i < slots.Length; i++)
         {
-            if (!slot.isCorrect)
+            if (!slots[i].isCorrect)
             {
-                Debug.Log("Puzzle not completed!");
-                return;
+                allCorrect = false;
+                break;
             }
         }
 
-        Debug.Log("Puzzle Completed!");
+        if (allCorrect)
+        {
+            Debug.Log("Puzzle Completed!");
+        }
+        else
+        {
+            Debug.Log("Puzzle not completed!");
+        }
+    }
+
+    public bool CanGearSpin(int slotIndex)
+    {
+        if (slotIndex == 0) return true; // İlk çark her zaman dönebilir
+        
+        for (int i = 0; i < slotIndex; i++)
+        {
+            if (!slots[i].isCorrect)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public void UpdateAllGears()
+    {
+        // Eski metod: FindObjectsOfType
+        Gear[] allGears = UnityEngine.Object.FindObjectsOfType<Gear>();
+        foreach (Gear gear in allGears)
+        {
+            if (gear.CurrentSlot != null) // Getter ile erişiyoruz
+            {
+                gear.CheckAndUpdateSpinning();
+            }
+        }
+        CheckPuzzleCompletion();
     }
 }
