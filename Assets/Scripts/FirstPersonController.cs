@@ -13,7 +13,7 @@ public class FirstPersonController : MonoBehaviour
     private InputAction lookAction;
     private InputAction jumpAction;
     private InputAction zoomAction;
-    private InputAction sprintAction;  // New sprint action
+    private InputAction sprintAction;
 
     // Movement variables
     [SerializeField] private float moveSpeed = 5f;
@@ -33,7 +33,6 @@ public class FirstPersonController : MonoBehaviour
     [SerializeField] private bool isRotatingObjects;
     private bool isHeld;
 
-
     //inputs
     public bool cursorInputForLook = true;
     private Vector2 _movementInput;
@@ -48,6 +47,31 @@ public class FirstPersonController : MonoBehaviour
     public LayerMask interactableLayer;
     private IInteractable _currentInteractable;
     private IInteractable _latestInteractable;
+
+    // Controller state variables
+    [SerializeField] private bool _isPaused = false;
+    public bool IsPaused 
+    { 
+        get => _isPaused;
+        private set 
+        {
+            bool oldValue = _isPaused;
+            _isPaused = value;
+            
+            // Fire event if value changed
+            if (oldValue != value)
+            {
+                if (_isPaused)
+                    OnControllerPaused?.Invoke();
+                else
+                    OnControllerResumed?.Invoke();
+            }
+        }
+    }
+
+    // Events
+    public event Action OnControllerPaused;
+    public event Action OnControllerResumed;
 
     public IInteractable CurrentInteractable
     {
@@ -76,6 +100,7 @@ public class FirstPersonController : MonoBehaviour
         // Lock cursor
         Cursor.lockState = CursorLockMode.Locked;
     }
+
     #region Inputs
     void OnMove(InputValue value)
     {
@@ -90,6 +115,9 @@ public class FirstPersonController : MonoBehaviour
     }
     void OnInteract()
     {
+        // Skip interaction if controller is paused
+        if (IsPaused) return;
+
         Debug.Log("Interacting...");
         if (CurrentInteractable != null)
         {
@@ -104,36 +132,43 @@ public class FirstPersonController : MonoBehaviour
     void OnZoom(InputValue value)
     {
         isZooming = value.isPressed;
-
     }
     void OnSprint(InputValue value)
     {
         isSprinting = value.isPressed;
     }
-
     #endregion
+
     void Update()
     {
-        Rotate();
-        if (!isRotatingObjects)
+        // Skip most functionality if paused
+        if (!IsPaused)
         {
-            HandleRotation();
-        }
-        else
-        {
-            _lookInput = Vector2.zero;
-        }
-        if (!isRotatingObjects)
-        {
-            HandleMovement();
-        }
+            Rotate();
+            if (!isRotatingObjects)
+            {
+                HandleRotation();
+            }
+            else
+            {
+                _lookInput = Vector2.zero;
+            }
+            if (!isRotatingObjects)
+            {
+                HandleMovement();
+            }
 
-        HandleInteraction();
-        Zoom();
-        PickUp();
+            HandleInteraction();
+            Zoom();
+            PickUp();
+        }
     }
+
     void HandleMovement()
     {
+        // Skip if paused
+        if (IsPaused) return;
+
         isGrounded = controller.isGrounded;
         if (isGrounded && velocity.y < 0)
         {
@@ -147,8 +182,12 @@ public class FirstPersonController : MonoBehaviour
         controller.Move(move.normalized * currentSpeed * Time.deltaTime);
         controller.Move(velocity * Time.deltaTime);
     }
+
     void HandleRotation()
     {
+        // Skip if paused
+        if (IsPaused) return;
+
         Vector2 lookInput = _lookInput * mouseSensitivity * Time.deltaTime;
 
         if (lookInput.x != 0)
@@ -163,8 +202,12 @@ public class FirstPersonController : MonoBehaviour
             cam.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
         }
     }
+
     void HandleInteraction()
     {
+        // Skip if paused
+        if (IsPaused) return;
+
         Ray ray = cam.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
         RaycastHit hit;
 
@@ -181,13 +224,13 @@ public class FirstPersonController : MonoBehaviour
             {
                 CurrentInteractable = null;
             }
-
         }
         else
         {
             CurrentInteractable = null;
         }
     }
+
     void InteractChanged()
     {
         if (CurrentInteractable != null && LatestInteractable == null && !isHeld)
@@ -195,21 +238,29 @@ public class FirstPersonController : MonoBehaviour
             CurrentInteractable.OutlineShow();
             //optional: outline or glow effect in here, will start
         }
-        else if (CurrentInteractable == null && LatestInteractable != null) //tutma kisminda outline show olmuyor ama outline hide oluyor. 
+        else if (CurrentInteractable == null && LatestInteractable != null)
         {
             LatestInteractable.OutlineHide();
             //optional: outline or glow effect in here, will stop        
         }
     }
+
     void Zoom()
     {
+        // Skip if paused
+        if (IsPaused) return;
+
         float scroll = Input.GetAxis("Mouse ScrollWheel");
         targetZoom -= scroll * zoomSpeed;
         targetZoom = Mathf.Clamp(targetZoom, minZoom, maxZoom);
         cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, targetZoom, Time.deltaTime * zoomSpeed);
     }
+
     void PickUp()
     {
+        // Skip if paused
+        if (IsPaused) return;
+
         if (Input.GetKeyDown(KeyCode.Space))
         {
             if (!isHeld && CurrentInteractable != null)
@@ -225,8 +276,12 @@ public class FirstPersonController : MonoBehaviour
             }
         }
     }
+
     void Rotate()
     {
+        // Skip if paused
+        if (IsPaused) return;
+
         Vector2 lookInput = _lookInput * mouseSensitivity * Time.deltaTime;
 
         if (Input.GetKey(KeyCode.Q) || Input.GetKey(KeyCode.E))
@@ -252,7 +307,29 @@ public class FirstPersonController : MonoBehaviour
         }
     }
 
+    // Public methods to pause/resume the controller
+    public void PauseController()
+    {
+        // Store initial input state or reset them if needed
+        _movementInput = Vector2.zero;
+        _lookInput = Vector2.zero;
+        
+        IsPaused = true;
+    }
 
+    public void ResumeController()
+    {
+        IsPaused = false;
+    }
+
+    // Toggle method for convenience
+    public void TogglePause()
+    {
+        if (IsPaused)
+            ResumeController();
+        else
+            PauseController();
+    }
 
     void OnDestroy()
     {
