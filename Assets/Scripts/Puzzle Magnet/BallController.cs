@@ -3,11 +3,12 @@ using UnityEngine;
 public class BallController : MonoBehaviour
 {
     private Rigidbody rb;
-    [SerializeField]
-    private GameObject[] magnet = new GameObject[3];
-    [SerializeField]
-    private int[] force = new int[3];
-    public LayerMask hitLayer;
+    [SerializeField] private GameObject[] magnet = new GameObject[3];
+    [SerializeField] private int[] force = new int[3];
+    [SerializeField] private int forceValue;
+    [SerializeField] private LayerMask hitLayer;
+    private int selectedMagnetIndex = 0;
+
 
     private readonly Vector3[] directions = { Vector3.right, Vector3.left, Vector3.up };
 
@@ -20,89 +21,58 @@ public class BallController : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            MagnetIncrease();
-        }
-        if (Input.GetMouseButtonDown(1))
-        {
-            MagnetDecrease();
+            Magnet();
         }
 
         MoveAll();
 
     }
 
-    public void MagnetIncrease()
+    public void Magnet()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, hitLayer))
         {
+            GameObject clickedObject = hit.collider.gameObject;
 
+            int existingIndex = -1;
             for (int i = 0; i < magnet.Length; i++)
             {
-                if (magnet[i] == hit.collider.gameObject)
+                if (magnet[i] == clickedObject)
                 {
-                    if (force[i] <= 9)
-                    {
-                        force[i] += 3;
-                    }
-                    else
-                    {
-                        force[i] = 0;
-                    }
-
-                    return;
+                    existingIndex = i;
+                    break;
                 }
             }
 
-            // Boþ bir magnet slotu bul ve atama yap
-            for (int i = 0; i < magnet.Length; i++)
+            if (existingIndex != -1)
             {
-                if (magnet[i] == null)
+                for (int i = 0; i < force.Length; i++)
                 {
-                    magnet[i] = hit.collider.gameObject;
-                    force[i] = 5;
-                    return;
+                    force[i] = (i == existingIndex) ? forceValue : 0;
                 }
             }
-        }
-    }
-    public void MagnetDecrease()
-    {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity, hitLayer))
-        {
-
-            for (int i = 0; i < magnet.Length; i++)
+            else
             {
-                if (magnet[i] == hit.collider.gameObject)
+                for (int i = 0; i < magnet.Length; i++)
                 {
-                    if (force[i] >= 0)
+                    if (magnet[i] == null)
                     {
-                        force[i] -= 3;
-                    }
-                    else
-                    {
-                        force[i] = 0;
-                    }
+                        magnet[i] = clickedObject;
 
-                    return;
-                }
-            }
+                        for (int j = 0; j < force.Length; j++)
+                        {
+                            force[j] = (j == i) ? forceValue : 0;
+                        }
 
-            // Boþ bir magnet slotu bul ve atama yap
-            for (int i = 0; i < magnet.Length; i++)
-            {
-                if (magnet[i] == null)
-                {
-                    magnet[i] = hit.collider.gameObject;
-                    force[i] = 5;
-                    return;
+                        break;
+                    }
                 }
             }
         }
     }
+
 
 
     void MoveAll()
