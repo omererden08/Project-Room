@@ -50,7 +50,16 @@ public class BallController : MonoBehaviour
             {
                 for (int i = 0; i < force.Length; i++)
                 {
-                    force[i] = (i == existingIndex) ? forceValue : 0;
+                    if (force[i] != forceValue)
+                    {
+                        force[i] = (i == existingIndex) ? forceValue : 0;
+
+                    }
+                    else
+                    {
+                        force[i] = 0;
+
+                    }
                 }
             }
             else
