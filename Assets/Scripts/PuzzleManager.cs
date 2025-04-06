@@ -14,7 +14,7 @@ public class PuzzleManager : IInteractable
 
     [Header("Puzzle Logic")]
     [SerializeField] private bool solved = false;
-    [SerializeField] private float autoExitDelay = 2f; // Time to wait after solving before exiting
+    [SerializeField] private float autoExitDelay = 0.2f; // Time to wait after solving before exiting
     [SerializeField] private KeyCode exitPuzzleKey = KeyCode.Escape;
 
     [Header("UI Elements")]
@@ -23,7 +23,7 @@ public class PuzzleManager : IInteractable
     // References
     private Camera mainCamera;
     private Transform originalCameraParent;
-    private Vector3 originalCameraPosition;
+    public Vector3 originalCameraPosition;
     private Quaternion originalCameraRotation;
     private bool inPuzzleMode = false;
 

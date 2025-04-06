@@ -12,7 +12,6 @@ public class BallController : MonoBehaviour
 
     private Lever[] levers = new Lever[3];
     private readonly Vector3[] directions = { Vector3.right, Vector3.left, Vector3.up };
-
     void Start()
     {
         rb = GetComponent<Rigidbody>();

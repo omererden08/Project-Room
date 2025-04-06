@@ -5,6 +5,7 @@ public class GearPuzzle : MonoBehaviour
 {
     public Slot[] slots;
     [SerializeField] private int requiredCorrectSlots;
+    public PuzzleManager puzzleManager;
 
     void Start()
     {
@@ -33,6 +34,7 @@ public class GearPuzzle : MonoBehaviour
         if (correctCount >= requiredCorrectSlots)
         {
             Debug.Log("Puzzle Completed!");
+            puzzleManager.PuzzleSolved();
         }
         else
         {
