@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -28,16 +29,15 @@ public class FirstPersonController : MonoBehaviour
     // Physics variables
     private Vector3 velocity;
     private bool isGrounded;
-    // Interactable variables
-    [SerializeField] private Transform holdPos;
-    [SerializeField] private bool isRotatingObjects;
-    private bool isHeld;
+    // Inventory variables
+    [SerializeField] private Inventory inventory;
+    [SerializeField] private List<IInteractable> pickedUpItems = new List<IInteractable>();
 
     //inputs
     public bool cursorInputForLook = true;
     private Vector2 _movementInput;
     private Vector2 _lookInput;
-    private bool isZooming;                                                                                                                                                                                                                                             
+    private bool isZooming;
     public float minZoom = 40f;
     public float maxZoom = 60f;
     private float targetZoom = 60f;
@@ -50,14 +50,14 @@ public class FirstPersonController : MonoBehaviour
 
     // Controller state variables
     [SerializeField] private bool _isPaused = false;
-    public bool IsPaused 
-    { 
+    public bool IsPaused
+    {
         get => _isPaused;
-        private set 
+        private set
         {
             bool oldValue = _isPaused;
             _isPaused = value;
-            
+
             // Fire event if value changed
             if (oldValue != value)
             {
@@ -97,6 +97,7 @@ public class FirstPersonController : MonoBehaviour
         // Get components
         controller = GetComponent<CharacterController>();
         playerInput = GetComponent<PlayerInput>();
+        inventory = GameObject.Find("InventoryManager").GetComponent<Inventory>();
         // Lock cursor
         Cursor.lockState = CursorLockMode.Locked;
     }
@@ -144,23 +145,12 @@ public class FirstPersonController : MonoBehaviour
         // Skip most functionality if paused
         if (!IsPaused)
         {
-            Rotate();
-            if (!isRotatingObjects)
-            {
-                HandleRotation();
-            }
-            else
-            {
-                _lookInput = Vector2.zero;
-            }
-            if (!isRotatingObjects)
-            {
-                HandleMovement();
-            }
-
+            HandleMovement();
+            HandleRotation();
             HandleInteraction();
             Zoom();
             PickUp();
+            Drop();
         }
     }
 
@@ -233,7 +223,7 @@ public class FirstPersonController : MonoBehaviour
 
     void InteractChanged()
     {
-        if (CurrentInteractable != null && LatestInteractable == null && !isHeld)
+        if (CurrentInteractable != null && LatestInteractable == null)
         {
             CurrentInteractable.OutlineShow();
             //optional: outline or glow effect in here, will start
@@ -261,49 +251,35 @@ public class FirstPersonController : MonoBehaviour
         // Skip if paused
         if (IsPaused) return;
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.F))
         {
-            if (!isHeld && CurrentInteractable != null)
+            if (CurrentInteractable != null)
             {
-                CurrentInteractable.gameObject.transform.SetParent(cam.transform);
-                CurrentInteractable.gameObject.transform.position = holdPos.position;
-                isHeld = true;
+                inventory.AddItem(CurrentInteractable.item);
+                pickedUpItems.Add(CurrentInteractable);
+                CurrentInteractable.gameObject.SetActive(false);
             }
-            else
-            {
-                LatestInteractable.gameObject.transform.SetParent(null);
-                isHeld = false;
-            }
+
         }
     }
-
-    void Rotate()
+    void Drop()
     {
         // Skip if paused
         if (IsPaused) return;
 
-        Vector2 lookInput = _lookInput * mouseSensitivity * Time.deltaTime;
-
-        if (Input.GetKey(KeyCode.Q) || Input.GetKey(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.U))
         {
-            isRotatingObjects = true;
 
-            if (Input.GetKey(KeyCode.Q) && lookInput.x != 0)
+            if (pickedUpItems.Count > 0)
             {
-                LatestInteractable.gameObject.transform.Rotate(Vector3.up * lookInput.x);
+                IInteractable dropItems = pickedUpItems[pickedUpItems.Count - 1]; // En son alýnan
+                pickedUpItems.RemoveAt(pickedUpItems.Count - 1); // Listeden çýkar
+
+                inventory.RemoveItem(dropItems.item);
+                dropItems.gameObject.SetActive(true);
             }
 
-            if (Input.GetKey(KeyCode.E) && lookInput.y != 0)
-            {
-                xRotation -= lookInput.y;
-                xRotation = Mathf.Clamp(xRotation, -90f, 90f);
-                LatestInteractable.gameObject.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
-            }
-        }
-        else
-        {
-            isRotatingObjects = false; 
-            lookInput = Vector2.zero;
+
         }
     }
 
@@ -313,7 +289,7 @@ public class FirstPersonController : MonoBehaviour
         // Store initial input state or reset them if needed
         _movementInput = Vector2.zero;
         _lookInput = Vector2.zero;
-        
+
         IsPaused = true;
     }
 

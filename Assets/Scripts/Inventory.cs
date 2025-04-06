@@ -4,10 +4,11 @@ using UnityEngine.UI;
 
 public class Inventory : MonoBehaviour
 {
-    public int maxSlots = 7;
-    public Image inventoryUI;
-    private bool isInventoryOpen;
-    public Image[] slots = new Image[7];
+    [SerializeField] private int maxSlots = 7;
+    [SerializeField] private Image inventoryUI;
+    [SerializeField] private bool isInventoryOpen;
+    [SerializeField] private Image[] slots = new Image[7];
+    private Image slotImage;
 
     public List<InventoryItem> inventory = new List<InventoryItem>();
 
@@ -19,6 +20,7 @@ public class Inventory : MonoBehaviour
         for (int i = 0; i < slots.Length; i++)
         {
             slots[i] = inventoryUI.transform.GetChild(i).GetComponent<Image>();
+            slotImage = slots[i].GetComponent<Image>();
         }
 
     }
@@ -91,8 +93,8 @@ public class Inventory : MonoBehaviour
             }
             else
             {
-                slots[i].sprite = null;
-                slots[i].color = new Color(1, 1, 1, 0); // boþ slotu görünmez yap
+                slots[i].sprite = slotImage.sprite; 
+                //slots[i].color = new Color(1, 1, 1, 0); // boþ slotu görünmez yap
             }
         }
     }
