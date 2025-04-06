@@ -1,7 +1,11 @@
 using UnityEngine;
-using DG.Tweening;
+
+[System.Serializable]
 public class Slot : MonoBehaviour
 {
-    public bool isCorrect = false;
-    public bool isOccupied = false;
+    public bool isCorrect;          // Doğru pozisyonda mı
+    public GearSize[] acceptedSizes;// Kabul edilen çark boyutları
+    public Gear currentGear;        // Şu anki çark
+    public bool isFakeSlot;         // Fake slot mu
+    public bool isOccupied;         // Slot dolu mu
 }

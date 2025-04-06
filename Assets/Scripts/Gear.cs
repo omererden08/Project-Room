@@ -1,28 +1,35 @@
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.Events;
+using System.Linq; // Contains metodu için
+
+public enum GearSize
+{
+    Medium,
+    Large
+}
 
 public class Gear : MonoBehaviour
 {
     public Transform FirstPosition;
     public Slot targetSlot;
+    public GearSize size;
     
     private bool isDragging = false;
     private Vector3 offset;
     private float zCoordinate;
-    private Slot currentSlot; // Private olarak kalıyor
+    private Slot currentSlot;
     private GearPuzzle gearPuzzle;
 
     public UnityEvent action;
 
-    // Getter ekledik
     public Slot CurrentSlot => currentSlot;
+    public bool IsSpinning => transform.GetComponent<Tween>()?.IsActive() ?? false;
 
     void Start()
     {
         FirstPosition = transform;
-        // Eski metod: FindObjectOfType
-        gearPuzzle = UnityEngine.Object.FindObjectOfType<GearPuzzle>();
+        gearPuzzle = UnityEngine.Object.FindFirstObjectByType<GearPuzzle>();
     }
 
     void OnMouseDown()
@@ -34,11 +41,12 @@ public class Gear : MonoBehaviour
         if (currentSlot != null)
         {
             currentSlot.isOccupied = false;
+            currentSlot.currentGear = null;
             currentSlot.isCorrect = false;
             currentSlot = null;
         }
         
-        transform.DOKill(); // Dönmeyi durdur
+        transform.DOKill();
     }
 
     void OnMouseUp()
@@ -51,6 +59,7 @@ public class Gear : MonoBehaviour
         {
             MoveToPosition(nearestSlot.transform);
             currentSlot = nearestSlot;
+            currentSlot.currentGear = this;
         }
         else
         {
@@ -82,9 +91,11 @@ public class Gear : MonoBehaviour
         {
             int slotIndex = System.Array.IndexOf(gearPuzzle.slots, slot);
             
-            if (slot == targetSlot)
+            slot.isOccupied = true;
+            slot.currentGear = this;
+
+            if (slot.acceptedSizes.Contains(size))
             {
-                slot.isOccupied = true;
                 if (gearPuzzle.CanGearSpin(slotIndex))
                 {
                     StartSpinning();
@@ -97,7 +108,6 @@ public class Gear : MonoBehaviour
             }
             else
             {
-                slot.isOccupied = true;
                 slot.isCorrect = false;
             }
         }
@@ -114,10 +124,12 @@ public class Gear : MonoBehaviour
 
     public void CheckAndUpdateSpinning()
     {
-        if (currentSlot != null && currentSlot == targetSlot)
+        if (currentSlot != null)
         {
             int slotIndex = System.Array.IndexOf(gearPuzzle.slots, currentSlot);
-            if (gearPuzzle.CanGearSpin(slotIndex))
+            
+            if (currentSlot.acceptedSizes.Contains(size) && 
+                gearPuzzle.CanGearSpin(slotIndex))
             {
                 if (!currentSlot.isCorrect)
                 {
@@ -129,7 +141,7 @@ public class Gear : MonoBehaviour
             {
                 if (currentSlot.isCorrect)
                 {
-                    transform.DOKill(); // Dönmeyi durdur
+                    transform.DOKill();
                     currentSlot.isCorrect = false;
                 }
             }
@@ -154,8 +166,7 @@ public class Gear : MonoBehaviour
 
     private Slot FindNearestSlot()
     {
-        // Eski metod: FindObjectsOfType
-        Slot[] allSlots = UnityEngine.Object.FindObjectsOfType<Slot>();
+        Slot[] allSlots = UnityEngine.Object.FindObjectsByType<Slot>(FindObjectsSortMode.None);
         Slot nearestSlot = null;
         float minDistance = float.MaxValue;
         float snapDistance = 0.3f;
@@ -163,7 +174,7 @@ public class Gear : MonoBehaviour
         foreach (Slot slot in allSlots)
         {
             float distance = Vector3.Distance(transform.position, slot.transform.position);
-            if (distance < minDistance && distance < snapDistance)
+            if (distance < minDistance && distance < snapDistance && !slot.isOccupied)
             {
                 minDistance = distance;
                 nearestSlot = slot;
