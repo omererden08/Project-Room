@@ -11,7 +11,6 @@ public class BallController : MonoBehaviour
     [SerializeField] private LayerMask hitLayer;
 
     private Lever[] levers = new Lever[3];
-
     private readonly Vector3[] directions = { Vector3.right, Vector3.left, Vector3.up };
 
     void Start()
@@ -32,13 +31,20 @@ public class BallController : MonoBehaviour
         {
             Magnet();
         }
-
         MoveAll();
-
     }
 
     public void Magnet()
     {
+        // Herhangi bir lever hareket halindeyse yeni tıklama işlemini engelle
+        for (int i = 0; i < levers.Length; i++)
+        {
+            if (levers[i] != null && levers[i].IsMoving())
+            {
+                return; // Hareket varsa fonksiyondan çık
+            }
+        }
+
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, hitLayer))
@@ -81,13 +87,13 @@ public class BallController : MonoBehaviour
                             // Eğer zaten açıksa → kapat
                             if (levers[i].isOpen)
                             {
-                                levers[i].isOpen = true;   // animasyonda !isOpen yapılacak
+                                levers[i].isOpen = false; // Kapanacak
                                 levers[i].isClicked = true;
                                 force[i] = 0;
                             }
                             else
                             {
-                                levers[i].isOpen = false;  // açılacak
+                                levers[i].isOpen = true;  // Açılacak
                                 levers[i].isClicked = true;
                                 force[i] = forceValue;
                             }
@@ -95,7 +101,7 @@ public class BallController : MonoBehaviour
                         else
                         {
                             // Diğer lever'lar kapanmalı
-                            levers[i].isOpen = true; // kapanacak
+                            levers[i].isOpen = false;
                             levers[i].isClicked = true;
                             force[i] = 0;
                         }
@@ -104,11 +110,6 @@ public class BallController : MonoBehaviour
             }
         }
     }
-
-
-
-
-
 
     void MoveAll()
     {
@@ -121,23 +122,15 @@ public class BallController : MonoBehaviour
         }
     }
 
-
-
     void Move(int directionIndex)
     {
-        // Geçerli bir index mi kontrol edelim.
         if (directionIndex < 0 || directionIndex >= directions.Length || magnet[directionIndex] == null)
         {
             Debug.LogWarning("Invalid direction index or no magnet assigned.");
             return;
         }
 
-        // Eğer yön yukarıysa (Vector3.up), force pozitif olur, diğer yönlerde negatif olur
-        int forceValue = (directions[directionIndex] == Vector3.up) ? force[directionIndex] : -force[directionIndex];
-
-        rb.AddForce(directions[directionIndex] * forceValue);
+        int appliedForce = (directions[directionIndex] == Vector3.up) ? force[directionIndex] : -force[directionIndex];
+        rb.AddForce(directions[directionIndex] * appliedForce);
     }
-
-
-
 }

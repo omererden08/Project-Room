@@ -37,11 +37,9 @@ public class Lever : MonoBehaviour
     {
         if (!isMoving && isClicked)
         {
-            StartCoroutine(MoveLever(!isOpen));
-
+            StartCoroutine(MoveLever(isOpen)); // isOpen'ı tersine çevirmeden doğrudan kullan
             isClicked = false; // Reset isClicked to prevent multiple clicks
         }
-
     }
 
     private IEnumerator MoveLever(bool open)
@@ -54,7 +52,7 @@ public class Lever : MonoBehaviour
         Quaternion toRot = open ? targetRotation : initialRotation;
 
         float elapsedTime = 0f;
-        float duration = 1f;
+        float duration = moveDuration > 0 ? moveDuration : 1f; // moveDuration sıfır veya negatifse varsayılan 1 saniye
 
         while (elapsedTime < duration)
         {
@@ -70,8 +68,11 @@ public class Lever : MonoBehaviour
 
         isMoving = false;
         isOpen = open;
-
     }
 
-
+    // Dışarıdan isMoving durumunu kontrol etmek için metod
+    public bool IsMoving()
+    {
+        return isMoving;
+    }
 }
