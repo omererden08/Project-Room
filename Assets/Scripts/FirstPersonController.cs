@@ -171,6 +171,12 @@ public class FirstPersonController : MonoBehaviour
         float currentSpeed = isSprinting ? sprintSpeed : moveSpeed;
         controller.Move(move.normalized * currentSpeed * Time.deltaTime);
         controller.Move(velocity * Time.deltaTime);
+
+        if(transform.position.y > 4)
+        {
+            transform.position = new Vector3(transform.position.x, 4, transform.position.z);
+        }
+
     }
 
     void HandleRotation()
