@@ -11,7 +11,8 @@ public class Lever : MonoBehaviour
 
     [SerializeField] private float moveDuration;
     [SerializeField] private Transform leverSwitch;
-
+    [Tooltip("Dogru olmasina diggat et")]
+    public PuzzleManager puzzleManager;
     public bool isClicked = false;
     private bool isMoving = false;
 
@@ -35,7 +36,7 @@ public class Lever : MonoBehaviour
 
     private void Update()
     {
-        if (!isMoving && isClicked)
+        if (!isMoving && isClicked && puzzleManager.inPuzzleMode)
         {
             StartCoroutine(MoveLever(isOpen)); // isOpen'ı tersine çevirmeden doğrudan kullan
             isClicked = false; // Reset isClicked to prevent multiple clicks

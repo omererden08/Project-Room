@@ -14,7 +14,7 @@ public class Gear : MonoBehaviour
     public Transform FirstPosition;
     public Slot targetSlot;
     public GearSize size;
-    
+
     private bool isDragging = false;
     private Vector3 offset;
     private float zCoordinate;
@@ -22,7 +22,8 @@ public class Gear : MonoBehaviour
     private GearPuzzle gearPuzzle;
 
     public UnityEvent action;
-
+    [Tooltip("Dogru oldugundan emin ol")]
+    public PuzzleManager puzzleManager;
     public Slot CurrentSlot => currentSlot;
     public bool IsSpinning => transform.GetComponent<Tween>()?.IsActive() ?? false;
 
@@ -34,10 +35,12 @@ public class Gear : MonoBehaviour
 
     void OnMouseDown()
     {
+        if (!puzzleManager.inPuzzleMode) return;
+
         zCoordinate = Camera.main.WorldToScreenPoint(transform.position).z;
         offset = transform.position - GetMouseWorldPosition();
         isDragging = true;
-        
+
         if (currentSlot != null)
         {
             currentSlot.isOccupied = false;
@@ -45,16 +48,18 @@ public class Gear : MonoBehaviour
             currentSlot.isCorrect = false;
             currentSlot = null;
         }
-        
+
         transform.DOKill();
     }
 
     void OnMouseUp()
     {
+        if (!puzzleManager.inPuzzleMode) return;
+
         isDragging = false;
-        
+
         Slot nearestSlot = FindNearestSlot();
-        
+
         if (nearestSlot != null && !nearestSlot.isOccupied)
         {
             MoveToPosition(nearestSlot.transform);
@@ -90,7 +95,7 @@ public class Gear : MonoBehaviour
         if (slot != null && !slot.isOccupied)
         {
             int slotIndex = System.Array.IndexOf(gearPuzzle.slots, slot);
-            
+
             slot.isOccupied = true;
             slot.currentGear = this;
 
@@ -127,8 +132,8 @@ public class Gear : MonoBehaviour
         if (currentSlot != null)
         {
             int slotIndex = System.Array.IndexOf(gearPuzzle.slots, currentSlot);
-            
-            if (currentSlot.acceptedSizes.Contains(size) && 
+
+            if (currentSlot.acceptedSizes.Contains(size) &&
                 gearPuzzle.CanGearSpin(slotIndex))
             {
                 if (!currentSlot.isCorrect)
@@ -151,7 +156,7 @@ public class Gear : MonoBehaviour
     private void StartSpinning()
     {
         transform.DOKill();
-        transform.DORotate(new Vector3(0, 360, 0), 1f, RotateMode.LocalAxisAdd)
+        transform.DORotate(new Vector3(0, 360, 0), 5f, RotateMode.LocalAxisAdd)
             .SetEase(Ease.Linear)
             .SetLoops(-1, LoopType.Restart)
             .SetRelative();

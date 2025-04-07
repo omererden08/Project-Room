@@ -25,7 +25,7 @@ public class PuzzleManager : IInteractable
     private Transform originalCameraParent;
     private Vector3 originalCameraPosition;
     private Quaternion originalCameraRotation;
-    private bool inPuzzleMode = false;
+    public bool inPuzzleMode = false;
     private FirstPersonController playerController;
 
     // Static lock to ensure only one PuzzleManager is active
