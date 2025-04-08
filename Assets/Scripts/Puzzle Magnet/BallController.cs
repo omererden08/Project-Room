@@ -7,7 +7,7 @@ public class BallController : MonoBehaviour
     // Magnet variables
     [SerializeField] private GameObject[] magnet = new GameObject[3];
     [SerializeField] private int[] force = new int[3];
-    [SerializeField] private int forceValue;
+    [SerializeField] private float forceValue;
     [SerializeField] private LayerMask hitLayer;
 
     private Lever[] levers = new Lever[3];
