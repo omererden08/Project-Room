@@ -13,7 +13,7 @@ public class PuzzleManager : IInteractable
     [SerializeField] private Ease cameraEaseType = Ease.InOutSine;
 
     [Header("Puzzle Logic")]
-    [SerializeField] private bool solved = false;
+    [SerializeField] public bool solved = false;
     [SerializeField] private float autoExitDelay = 0.2f;
     [SerializeField] private KeyCode exitPuzzleKey = KeyCode.Escape;
 
@@ -33,7 +33,7 @@ public class PuzzleManager : IInteractable
     public Material LightMaterial;
 
     public bool CanSolvable;
-
+    public CheckEnd checkEnd;
     //Ending
     [SerializeField] private CanvasGroup endScreenCanvasGroup;
     [SerializeField] private float fadeDuration = 1f;
@@ -189,6 +189,7 @@ public class PuzzleManager : IInteractable
         LightMaterial.EnableKeyword("_EMISSION");
         LightMaterial.SetColor("_EmissionColor", Color.green);
         CanSolvable = false;
+        checkEnd.Check();
         Debug.Log("Puzzle solved!");
         counter++;
         if (counter == 2)
