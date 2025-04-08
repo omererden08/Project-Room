@@ -13,6 +13,7 @@ public class CheckEnd : MonoBehaviour
             }
         }
         Debug.Log("All puzzles solved!");
+        EndGame();
     }
     void EndGame()
     {
