@@ -1,7 +1,7 @@
 using UnityEngine;
 using DG.Tweening;
 using System.Collections;
-
+using UnityEngine.SceneManagement;
 
 public class PuzzleManager : IInteractable
 {
@@ -33,6 +33,21 @@ public class PuzzleManager : IInteractable
     public Material LightMaterial;
 
     public bool CanSolvable;
+
+    //Ending
+    [SerializeField] private CanvasGroup endScreenCanvasGroup;
+    [SerializeField] private float fadeDuration = 1f;
+
+    private bool isGameEnded = false;
+    private int counter = 0;
+
+    private void Awake()
+    {
+        endScreenCanvasGroup.alpha = 0f;
+        endScreenCanvasGroup = GameObject.Find("CanvasEnd").GetComponent<CanvasGroup>();
+    }
+
+
     private void Start()
     {
         CanSolvable = true;
@@ -44,7 +59,7 @@ public class PuzzleManager : IInteractable
 
         mainCamera = Camera.main;
 
-        playerController = FindObjectOfType<FirstPersonController>();
+        playerController = GameObject.Find("Player").GetComponent<FirstPersonController>();
         if (playerController == null)
             Debug.LogWarning("PuzzleManager: FirstPersonController not found!");
 
@@ -58,6 +73,23 @@ public class PuzzleManager : IInteractable
         {
             ExitPuzzle();
         }
+        if (isGameEnded)
+        {
+            EndGame();
+        }
+        
+    }
+
+    void EndGame()
+    {
+        isGameEnded = true;
+        endScreenCanvasGroup.DOFade(1f, fadeDuration).OnComplete(() =>
+        {
+            Debug.Log("Oyun bitti!");
+            int nextSceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
+            SceneManager.LoadScene(nextSceneIndex);
+            Destroy(gameObject);
+        });
     }
 
     public override void Interact()
@@ -158,6 +190,11 @@ public class PuzzleManager : IInteractable
         LightMaterial.SetColor("_EmissionColor", Color.green);
         CanSolvable = false;
         Debug.Log("Puzzle solved!");
+        counter++;
+        if (counter == 2)
+        {
+            isGameEnded = true;
+        }
         StartCoroutine(AutoExitAfterSolve());
     }
 
