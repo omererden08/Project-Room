@@ -30,9 +30,15 @@ public class PuzzleManager : IInteractable
 
     // Static lock to ensure only one PuzzleManager is active
     private static PuzzleManager activePuzzleManager = null;
+    public Material LightMaterial;
 
+    public bool CanSolvable;
     private void Start()
     {
+        CanSolvable = true;
+        LightMaterial.color = Color.red;
+        LightMaterial.EnableKeyword("_EMISSION");
+        LightMaterial.SetColor("_EmissionColor", Color.red);
         if (cameraFocusPoint == null)
             cameraFocusPoint = transform;
 
@@ -58,7 +64,7 @@ public class PuzzleManager : IInteractable
     {
         base.Interact(); // Temel sınıfın Interact metodunu çağırır
 
-        if (!inPuzzleMode)
+        if (!inPuzzleMode && CanSolvable)
             StartPuzzle();
         else
             ExitPuzzle();
@@ -147,6 +153,10 @@ public class PuzzleManager : IInteractable
     public void PuzzleSolved()
     {
         solved = true;
+        LightMaterial.color = Color.green;
+        LightMaterial.EnableKeyword("_EMISSION");
+        LightMaterial.SetColor("_EmissionColor", Color.green);
+        CanSolvable = false;
         Debug.Log("Puzzle solved!");
         StartCoroutine(AutoExitAfterSolve());
     }
