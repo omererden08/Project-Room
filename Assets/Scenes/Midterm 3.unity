@@ -8806,7 +8806,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3251739260635720985, guid: e86b12c52009c3946a13c0c932b619d4, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0.07
       objectReference: {fileID: 0}
     - target: {fileID: 3607997063680024715, guid: e86b12c52009c3946a13c0c932b619d4, type: 3}
       propertyPath: m_LocalScale.x
@@ -8838,10 +8838,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4809362911977198288, guid: e86b12c52009c3946a13c0c932b619d4, type: 3}
       propertyPath: m_Mass
-      value: 1.4
+      value: 1.1
       objectReference: {fileID: 0}
     - target: {fileID: 4809362911977198288, guid: e86b12c52009c3946a13c0c932b619d4, type: 3}
       propertyPath: m_UseGravity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4809362911977198288, guid: e86b12c52009c3946a13c0c932b619d4, type: 3}
+      propertyPath: m_AngularDrag
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4904658733955423131, guid: e86b12c52009c3946a13c0c932b619d4, type: 3}
@@ -8920,13 +8924,17 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8181689918902353429, guid: e86b12c52009c3946a13c0c932b619d4, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 13400000, guid: 972ace7e781e67d49b6da214c5aa3b4b, type: 2}
     - target: {fileID: 8424252210748759390, guid: e86b12c52009c3946a13c0c932b619d4, type: 3}
       propertyPath: forceValue
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8424252210748759390, guid: e86b12c52009c3946a13c0c932b619d4, type: 3}
       propertyPath: gravityForce
-      value: 150
+      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
@@ -8998,8 +9006,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 11.018703, y: 10.884519, z: 0.55274117}
-  m_Center: {x: -4.293727, y: 1.5877811, z: -0.8498009}
+  m_Size: {x: 11.018703, y: 10.884519, z: 0.2394677}
+  m_Center: {x: -4.2937274, y: 1.5877813, z: -1.0064387}
 --- !u!1001 &1678492591
 PrefabInstance:
   m_ObjectHideFlags: 0

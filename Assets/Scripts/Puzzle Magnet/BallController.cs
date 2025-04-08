@@ -13,8 +13,7 @@ public class BallController : MonoBehaviour
 
     private Lever[] levers = new Lever[3];
     private readonly Vector3[] directions = { Vector3.right, Vector3.left, Vector3.up };
-    private Vector3 gravityDirection = Vector3.down;
-    [SerializeField] private float gravityForce;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -34,12 +33,6 @@ public class BallController : MonoBehaviour
             Magnet();
         }
         MoveAll();
-    }
-
-    void FixedUpdate()
-    {
-        // Gravity effect
-        rb.AddForce(gravityDirection * gravityForce * Time.fixedDeltaTime);
     }
 
     public void Magnet()
