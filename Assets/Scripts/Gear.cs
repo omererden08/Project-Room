@@ -1,7 +1,7 @@
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.Events;
-using System.Linq; // Contains metodu için
+using System.Linq;
 
 public enum GearSize
 {
@@ -43,10 +43,14 @@ public class Gear : MonoBehaviour
 
         if (currentSlot != null)
         {
+            int slotIndex = System.Array.IndexOf(gearPuzzle.slots, currentSlot);
             currentSlot.isOccupied = false;
             currentSlot.currentGear = null;
             currentSlot.isCorrect = false;
             currentSlot = null;
+
+            gearPuzzle.StopSpinningAfterIndex(slotIndex);
+            gearPuzzle.UpdateGearsBeforeIndex(slotIndex);
         }
 
         transform.DOKill();
@@ -85,7 +89,14 @@ public class Gear : MonoBehaviour
         transform.DOMove(targetPosition.position, 0.5f).OnComplete(() =>
         {
             CheckPosition(targetPosition);
-            gearPuzzle.UpdateAllGears();
+            if (currentSlot != null)
+            {
+                int slotIndex = System.Array.IndexOf(gearPuzzle.slots, currentSlot);
+                Debug.Log($"Gear placed at slot {slotIndex}. Updating gears...");
+                gearPuzzle.UpdateGearsBeforeIndex(slotIndex + 1);
+                gearPuzzle.UpdateGearsAfterIndex(slotIndex);
+                gearPuzzle.CheckPuzzleCompletion();
+            }
         });
     }
 
@@ -133,10 +144,18 @@ public class Gear : MonoBehaviour
         {
             int slotIndex = System.Array.IndexOf(gearPuzzle.slots, currentSlot);
 
-            if (currentSlot.acceptedSizes.Contains(size) &&
-                gearPuzzle.CanGearSpin(slotIndex))
+            bool canSpin = currentSlot.acceptedSizes.Contains(size) && gearPuzzle.CanGearSpin(slotIndex);
+            Debug.Log($"Gear at slot {slotIndex}: CanSpin = {canSpin}, IsCorrect = {currentSlot.isCorrect}");
+
+            if (canSpin)
             {
                 if (!currentSlot.isCorrect)
+                {
+                    StartSpinning();
+                    currentSlot.isCorrect = true;
+                    Debug.Log($"Gear at slot {slotIndex} started spinning.");
+                }
+                if (currentSlot.isCorrect)
                 {
                     StartSpinning();
                     currentSlot.isCorrect = true;
@@ -148,6 +167,7 @@ public class Gear : MonoBehaviour
                 {
                     transform.DOKill();
                     currentSlot.isCorrect = false;
+                    Debug.Log($"Gear at slot {slotIndex} stopped spinning.");
                 }
             }
         }
@@ -156,10 +176,18 @@ public class Gear : MonoBehaviour
     private void StartSpinning()
     {
         transform.DOKill();
-        transform.DORotate(new Vector3(0, 360, 0), 5f, RotateMode.LocalAxisAdd)
+        Tween tween = transform.DORotate(new Vector3(0, 360, 0), 5f, RotateMode.LocalAxisAdd)
             .SetEase(Ease.Linear)
             .SetLoops(-1, LoopType.Restart)
             .SetRelative();
+        if (tween == null)
+        {
+            Debug.LogError($"DOTween failed to create tween for {gameObject.name}");
+        }
+        else
+        {
+            Debug.Log($"StartSpinning successful for {gameObject.name}");
+        }
     }
 
     private Vector3 GetMouseWorldPosition()
