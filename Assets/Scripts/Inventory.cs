@@ -42,7 +42,7 @@ public class Inventory : MonoBehaviour
         {
             existingItem.quantity += quantity;
 
-            // Stack edilen item'ý listenin baþýna al
+            // Stack edilen item'ï¿½ listenin baï¿½ï¿½na al
             inventory.Remove(existingItem);
             inventory.Insert(0, existingItem);
             UpdateUI();
@@ -51,11 +51,9 @@ public class Inventory : MonoBehaviour
         }
         else
         {
-            // Yeni item'ý baþa ekle
             inventory.Insert(0, new InventoryItem(item, quantity));
             Debug.Log($"Added {item.itemName} x{quantity} to front");
 
-            // Slot kapasitesini aþarsa sondakini sil
             if (inventory.Count > maxSlots)
             {
                 inventory.RemoveAt(inventory.Count - 1);
@@ -94,7 +92,7 @@ public class Inventory : MonoBehaviour
             else
             {
                 slots[i].sprite = slotImage.sprite; 
-                //slots[i].color = new Color(1, 1, 1, 0); // boþ slotu görünmez yap
+                //slots[i].color = new Color(1, 1, 1, 0); // boï¿½ slotu gï¿½rï¿½nmez yap
             }
         }
     }

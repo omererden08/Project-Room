@@ -1,14 +1,27 @@
 using UnityEngine;
-
+using UnityEngine.Rendering;
 public class IInteractable : MonoBehaviour
 {
     public Item item;
+    public Outline outline;
+    void Start()
+    {
+        if (outline == null)
+        {
+            Debug.Log("Outline component is missing on " + gameObject.name);
+        }
+        else
+            outline = GetComponent<Outline>();
+        outline.enabled = false;
+    }
     public virtual void OutlineShow()
     {
+        outline.enabled = true;
         Debug.Log(gameObject.name + " outline show");
     }
     public virtual void OutlineHide()
     {
+        outline.enabled = false;
         Debug.Log(gameObject.name + " outline hide");
     }
     public virtual void PickUp()

@@ -20,6 +20,8 @@ public class PuzzleManager : IInteractable
     [Header("UI Elements")]
     [SerializeField] private GameObject puzzleUI;
 
+    [SerializeField] private GameObject[] gameUI;
+
     // References
     private Camera mainCamera;
     private Transform originalCameraParent;
@@ -65,6 +67,9 @@ public class PuzzleManager : IInteractable
 
         if (puzzleUI != null)
             puzzleUI.SetActive(false);
+
+        if (gameUI == null)
+            Debug.LogError("Game UI null!");
     }
 
     private void Update()
@@ -77,7 +82,7 @@ public class PuzzleManager : IInteractable
         {
             EndGame();
         }
-        
+
     }
 
     void EndGame()
@@ -109,7 +114,6 @@ public class PuzzleManager : IInteractable
             Debug.LogWarning("Another puzzle is already active!");
             return;
         }
-
         activePuzzleManager = this;
 
         originalCameraParent = mainCamera.transform.parent;
@@ -171,6 +175,11 @@ public class PuzzleManager : IInteractable
 
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+        foreach (GameObject obj in gameUI)
+        {
+            obj.SetActive(false);
+        }
+
     }
 
     private void DisablePuzzleInteraction()
@@ -180,6 +189,11 @@ public class PuzzleManager : IInteractable
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        foreach (GameObject obj in gameUI)
+        {
+            obj.SetActive(true);
+        }
     }
 
     public void PuzzleSolved()

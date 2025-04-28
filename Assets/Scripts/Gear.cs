@@ -110,7 +110,7 @@ public class Gear : MonoBehaviour
             slot.isOccupied = true;
             slot.currentGear = this;
 
-            if (slot.acceptedSizes.Contains(size))
+            if (!slot.isFakeSlot && slot.acceptedSizes.Contains(size))
             {
                 if (gearPuzzle.CanGearSpin(slotIndex))
                 {
@@ -127,14 +127,13 @@ public class Gear : MonoBehaviour
                 slot.isCorrect = false;
             }
         }
-        else if (targetPosition == FirstPosition)
-        {
-            // İlk pozisyona döndü
-        }
         else
         {
+            Debug.Log("Fake slot detected or invalid drop, returning to FirstPosition.");
             MoveToPosition(FirstPosition);
+            currentSlot = null;
         }
+
         action.Invoke();
     }
 
@@ -202,7 +201,7 @@ public class Gear : MonoBehaviour
         Slot[] allSlots = UnityEngine.Object.FindObjectsByType<Slot>(FindObjectsSortMode.None);
         Slot nearestSlot = null;
         float minDistance = float.MaxValue;
-        float snapDistance = 0.3f;
+        float snapDistance = 0.1f;
 
         foreach (Slot slot in allSlots)
         {
