@@ -4,7 +4,7 @@ using UnityEngine;
 public class Drawer : MonoBehaviour
 {
     [SerializeField] private Transform targetPos;
-    [SerializeField] private float moveDuration = 1f;
+    private float moveDuration = 0.55f;
 
     private Vector3 initialPos;
     private bool isMoving = false;

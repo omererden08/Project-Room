@@ -172,9 +172,9 @@ public class FirstPersonController : MonoBehaviour
         controller.Move(move.normalized * currentSpeed * Time.deltaTime);
         controller.Move(velocity * Time.deltaTime);
 
-        if(transform.position.y != 4)
+        if(transform.position.y != 1.5f)
         {
-            transform.position = new Vector3(transform.position.x, 4, transform.position.z);
+            transform.position = new Vector3(transform.position.x, 1.5f, transform.position.z);
         }
 
     }
