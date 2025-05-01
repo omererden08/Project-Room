@@ -1,37 +1,52 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Inventory : MonoBehaviour
 {
-    [SerializeField] private int maxSlots = 7;
+    [Header("Inventory Config")]
+    [SerializeField] private int maxSlots = 8;
     [SerializeField] private Image inventoryUI;
-    [SerializeField] private bool isInventoryOpen;
-    [SerializeField] private Image[] slots = new Image[7];
-    private Image slotImage;
+    [SerializeField] private Image[] slots;
+    [SerializeField] private Sprite emptySlotSprite;
+   
 
-    public List<InventoryItem> inventory = new List<InventoryItem>();
+    [Header("UI Movement")]
+    [SerializeField] private RectTransform rectTransform;
+    [SerializeField] private float moveDuration = 0.3f;
+    private Vector3 initialPos;
+    private Vector3 targetPos;
+    private bool isInventoryOpen;
+    private bool isMoving;
+
+    private List<InventoryItem> inventory = new List<InventoryItem>();
 
     void Start()
     {
-        inventoryUI = GameObject.Find("InventoryUI").GetComponent<Image>();
-        inventoryUI.gameObject.SetActive(false);
-
-        for (int i = 0; i < slots.Length; i++)
+        if (inventoryUI == null || rectTransform == null)
         {
-            slots[i] = inventoryUI.transform.GetChild(i).GetComponent<Image>();
-            slotImage = slots[i].GetComponent<Image>();
+            Debug.LogError("InventoryUI veya RectTransform atanmamış!");
+            return;
         }
 
+        initialPos = rectTransform.localPosition;
+        targetPos = new Vector3(initialPos.x + 200f, initialPos.y, initialPos.z);
+
+        if (slots.Length != maxSlots)
+        {
+            Debug.LogWarning("Slot sayısı maxSlots ile eşleşmiyor, güncelleyiniz.");
+        }
+
+        UpdateUI();
     }
 
-    private void Update()
+    void Update()
     {
-        if (Input.GetKeyDown(KeyCode.I))
+        if (Input.GetKeyDown(KeyCode.Tab))
         {
-            OnInventoy();
+            ToggleInventory();
         }
-
     }
 
     public void AddItem(Item item, int quantity = 1)
@@ -41,18 +56,12 @@ public class Inventory : MonoBehaviour
         if (existingItem != null && item.isStackable)
         {
             existingItem.quantity += quantity;
-
-            // Stack edilen item'� listenin ba��na al
             inventory.Remove(existingItem);
-            inventory.Insert(0, existingItem);
-            UpdateUI();
-
-            Debug.Log($"Stacked and moved {item.itemName} to front. Quantity: {existingItem.quantity}");
+            inventory.Insert(0, existingItem); // Stack edilen item'ı başa al
         }
         else
         {
             inventory.Insert(0, new InventoryItem(item, quantity));
-            Debug.Log($"Added {item.itemName} x{quantity} to front");
 
             if (inventory.Count > maxSlots)
             {
@@ -72,12 +81,10 @@ public class Inventory : MonoBehaviour
             if (existingItem.quantity <= 0)
             {
                 inventory.Remove(existingItem);
-                UpdateUI();
             }
 
-            Debug.Log($"Removed {item.itemName}, remaining: {existingItem.quantity}");
+            UpdateUI();
         }
-
     }
 
     private void UpdateUI()
@@ -91,16 +98,40 @@ public class Inventory : MonoBehaviour
             }
             else
             {
-                slots[i].sprite = slotImage.sprite; 
-                //slots[i].color = new Color(1, 1, 1, 0); // bo� slotu g�r�nmez yap
+                slots[i].sprite = emptySlotSprite;
+                slots[i].color = new Color(1, 1, 1, 0.3f);
+
             }
         }
+
     }
 
-    void OnInventoy()
+    void ToggleInventory()
     {
+        if (isMoving) return;
+
         isInventoryOpen = !isInventoryOpen;
-        inventoryUI.gameObject.SetActive(isInventoryOpen);
+        StartCoroutine(MoveInventory(isInventoryOpen));
     }
 
+    private IEnumerator MoveInventory(bool open)
+    {
+        isMoving = true;
+
+        Vector3 start = rectTransform.localPosition;
+        Vector3 end = open ? targetPos : initialPos;
+
+        float elapsedTime = 0f;
+
+        while (elapsedTime < moveDuration)
+        {
+            float t = elapsedTime / moveDuration;
+            rectTransform.localPosition = Vector3.Lerp(start, end, t);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        rectTransform.localPosition = end;
+        isMoving = false;
+    }
 }

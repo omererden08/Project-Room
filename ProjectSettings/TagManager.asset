@@ -6,6 +6,9 @@ TagManager:
   tags:
   - LeverSwitch
   - Ball
+  - Platform
+  - Bomb
+  - Door
   layers:
   - Default
   - TransparentFX
@@ -42,6 +45,12 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Interactable
+    uniqueID: 1338232235
+    locked: 0
+  - name: New Layer 2
+    uniqueID: 4190994995
     locked: 0
   m_RenderingLayers:
   - Default
