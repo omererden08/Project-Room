@@ -114,6 +114,8 @@ public class PuzzleManager : IInteractable
             Debug.LogWarning("Another puzzle is already active!");
             return;
         }
+
+        Debug.Log("puzzle solving");
         activePuzzleManager = this;
 
         originalCameraParent = mainCamera.transform.parent;

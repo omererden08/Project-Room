@@ -7,10 +7,6 @@ public class IInteractable : MonoBehaviour
     void Start()
     {
         if (outline == null)
-        {
-            Debug.Log("Outline component is missing on " + gameObject.name);
-        }
-        else
             outline = GetComponent<Outline>();
         outline.enabled = false;
     }

@@ -27,7 +27,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.53389204, y: 0.20522359, z: 1.6511592}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 5.110222, y: 5.110222, z: 5.110222}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 570652578026120676}
@@ -71,7 +71,6 @@ MonoBehaviour:
   - {fileID: 510991963498374105}
   - {fileID: 1229532557372510656}
   - {fileID: 670217831961283397}
-  requiredCorrectSlots: 6
   puzzleManager: {fileID: 6566101948862702949}
 --- !u!1 &1057094677394052951
 GameObject:
@@ -103,7 +102,7 @@ Transform:
   m_GameObject: {fileID: 1057094677394052951}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -1.647, y: -0.113, z: -1.3}
+  m_LocalPosition: {x: -0.425, y: -0.571, z: -1.3}
   m_LocalScale: {x: 0.13, y: 0.005134999, z: 0.13}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -197,25 +196,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e44dfa9b863a2a4a9fcf0d87aa2fe0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FirstPosition: {fileID: 0}
-  targetSlot: {fileID: 8417678651746418313}
+  firstPosition: {fileID: 0}
   size: 0
-  action:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: GearPuzzle, Assembly-CSharp
-        m_MethodName: CheckPuzzleCompletion
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  puzzleManager: {fileID: 0}
 --- !u!114 &3371686217665958040
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -242,7 +224,7 @@ GameObject:
   - component: {fileID: 2971080999622003718}
   - component: {fileID: 2148650073255014848}
   m_Layer: 0
-  m_Name: Gear (2)
+  m_Name: gear big 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -257,7 +239,7 @@ Transform:
   m_GameObject: {fileID: 1072784091350377856}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -1.29, y: 0.127, z: -1.3}
+  m_LocalPosition: {x: -1.104, y: 0.116, z: -1.3}
   m_LocalScale: {x: 0.08, y: 0.0031599996, z: 0.08}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -351,25 +333,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e44dfa9b863a2a4a9fcf0d87aa2fe0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FirstPosition: {fileID: 0}
-  targetSlot: {fileID: 670217831961283397}
+  firstPosition: {fileID: 0}
   size: 1
-  action:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: GearPuzzle, Assembly-CSharp
-        m_MethodName: CheckPuzzleCompletion
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  puzzleManager: {fileID: 6566101948862702949}
 --- !u!1 &1391190955517922277
 GameObject:
   m_ObjectHideFlags: 0
@@ -493,11 +458,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70fbe30b832632d4f827e1084d8315a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isCorrect: 0
+  correctGears: []
+  clockwise: 0
   acceptedSizes: 00000000
   currentGear: {fileID: 0}
   isFakeSlot: 0
-  isOccupied: 0
 --- !u!1 &1765439629915934631
 GameObject:
   m_ObjectHideFlags: 0
@@ -512,7 +477,7 @@ GameObject:
   - component: {fileID: 626107218935897084}
   - component: {fileID: 2204095019652164670}
   m_Layer: 0
-  m_Name: Gear (1)
+  m_Name: gear big 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -527,7 +492,7 @@ Transform:
   m_GameObject: {fileID: 1765439629915934631}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -1.288, y: -0.362, z: -1.3}
+  m_LocalPosition: {x: -1.257, y: -0.457, z: -1.327}
   m_LocalScale: {x: 0.080000006, y: 0.022520415, z: 0.080000006}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -621,25 +586,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e44dfa9b863a2a4a9fcf0d87aa2fe0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FirstPosition: {fileID: 0}
-  targetSlot: {fileID: 4554154546182505142}
+  firstPosition: {fileID: 0}
   size: 1
-  action:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: GearPuzzle, Assembly-CSharp
-        m_MethodName: CheckPuzzleCompletion
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  puzzleManager: {fileID: 6566101948862702949}
 --- !u!1 &2964505012825227854
 GameObject:
   m_ObjectHideFlags: 0
@@ -670,7 +618,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.159, y: 0.151, z: -1.13}
-  m_LocalScale: {x: 2.3944757, y: 1.9819831, z: 0.2}
+  m_LocalScale: {x: 2.9138374, y: 2.6768663, z: 0.2}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2027572202927603278}
@@ -762,6 +710,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item: {fileID: 0}
+  outline: {fileID: 0}
   cameraFocusPoint: {fileID: 1030322653991051615}
   cameraDistance: 2
   cameraHeight: 0
@@ -771,7 +720,14 @@ MonoBehaviour:
   autoExitDelay: 2
   exitPuzzleKey: 27
   puzzleUI: {fileID: 0}
+  gameUI:
+  - {fileID: 0}
   inPuzzleMode: 0
+  LightMaterial: {fileID: 2100000, guid: 246346687e79079478d648ed529bcc3e, type: 2}
+  CanSolvable: 0
+  checkEnd: {fileID: 0}
+  endScreenCanvasGroup: {fileID: 0}
+  fadeDuration: 1
 --- !u!1 &4195588514176307960
 GameObject:
   m_ObjectHideFlags: 0
@@ -896,25 +852,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e44dfa9b863a2a4a9fcf0d87aa2fe0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FirstPosition: {fileID: 0}
-  targetSlot: {fileID: 1229532557372510656}
+  firstPosition: {fileID: 0}
   size: 0
-  action:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: GearPuzzle, Assembly-CSharp
-        m_MethodName: CheckPuzzleCompletion
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  puzzleManager: {fileID: 6566101948862702949}
 --- !u!114 &8223766832127319399
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1050,11 +989,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70fbe30b832632d4f827e1084d8315a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isCorrect: 0
+  correctGears: []
+  clockwise: 0
   acceptedSizes: 00000000
   currentGear: {fileID: 0}
   isFakeSlot: 0
-  isOccupied: 0
 --- !u!1 &4507367602961825735
 GameObject:
   m_ObjectHideFlags: 0
@@ -1116,7 +1055,7 @@ Transform:
   m_GameObject: {fileID: 5280158723184476280}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -1.631, y: 0.41, z: -1.3}
+  m_LocalPosition: {x: -0.818, y: -0.492, z: -1.3}
   m_LocalScale: {x: 0.13, y: 0.005134999, z: 0.13}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -1210,25 +1149,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e44dfa9b863a2a4a9fcf0d87aa2fe0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FirstPosition: {fileID: 0}
-  targetSlot: {fileID: 1249740321524787508}
+  firstPosition: {fileID: 0}
   size: 0
-  action:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: GearPuzzle, Assembly-CSharp
-        m_MethodName: CheckPuzzleCompletion
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  puzzleManager: {fileID: 6566101948862702949}
 --- !u!114 &6294603654976011259
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1365,25 +1287,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e44dfa9b863a2a4a9fcf0d87aa2fe0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FirstPosition: {fileID: 0}
-  targetSlot: {fileID: 510991963498374105}
+  firstPosition: {fileID: 0}
   size: 0
-  action:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: GearPuzzle, Assembly-CSharp
-        m_MethodName: CheckPuzzleCompletion
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  puzzleManager: {fileID: 6566101948862702949}
 --- !u!114 &6643967446632688908
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1519,11 +1424,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70fbe30b832632d4f827e1084d8315a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isCorrect: 0
-  acceptedSizes: 00000000
+  correctGears: []
+  clockwise: 0
+  acceptedSizes: 0000000001000000
   currentGear: {fileID: 0}
   isFakeSlot: 1
-  isOccupied: 0
 --- !u!1 &6933986880251811433
 GameObject:
   m_ObjectHideFlags: 0
@@ -1552,8 +1457,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6933986880251811433}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -0.793, y: -0.079, z: -1.3}
+  m_LocalRotation: {x: 0.70710677, y: -0, z: -0, w: 0.70710677}
+  m_LocalPosition: {x: -0.793, y: -0.07900037, z: -1.3000001}
   m_LocalScale: {x: 0.06, y: 0.1, z: 0.06}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1647,11 +1552,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70fbe30b832632d4f827e1084d8315a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isCorrect: 0
-  acceptedSizes: 01000000
+  correctGears: []
+  clockwise: 0
+  acceptedSizes: 0100000000000000
   currentGear: {fileID: 0}
   isFakeSlot: 0
-  isOccupied: 0
 --- !u!1 &7080853877055034117
 GameObject:
   m_ObjectHideFlags: 0
@@ -1775,11 +1680,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70fbe30b832632d4f827e1084d8315a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isCorrect: 0
+  correctGears: []
+  clockwise: 0
   acceptedSizes: 00000000
   currentGear: {fileID: 0}
   isFakeSlot: 0
-  isOccupied: 0
 --- !u!1 &7389866252925700293
 GameObject:
   m_ObjectHideFlags: 0
@@ -1794,7 +1699,7 @@ GameObject:
   - component: {fileID: 6635438236986811952}
   - component: {fileID: 8138851328874622061}
   m_Layer: 0
-  m_Name: Gear (3)
+  m_Name: gear big 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1809,7 +1714,7 @@ Transform:
   m_GameObject: {fileID: 7389866252925700293}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -1.233, y: 0.634, z: -1.3}
+  m_LocalPosition: {x: -1.239, y: 0.66, z: -1.3}
   m_LocalScale: {x: 0.08, y: 0.019705364, z: 0.08}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1903,25 +1808,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e44dfa9b863a2a4a9fcf0d87aa2fe0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FirstPosition: {fileID: 0}
-  targetSlot: {fileID: 7642828217284691715}
+  firstPosition: {fileID: 0}
   size: 1
-  action:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: GearPuzzle, Assembly-CSharp
-        m_MethodName: CheckPuzzleCompletion
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  puzzleManager: {fileID: 6566101948862702949}
 --- !u!1 &8400393122150468837
 GameObject:
   m_ObjectHideFlags: 0
@@ -2045,11 +1933,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70fbe30b832632d4f827e1084d8315a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isCorrect: 0
+  correctGears: []
+  clockwise: 0
   acceptedSizes: 01000000
   currentGear: {fileID: 0}
   isFakeSlot: 0
-  isOccupied: 0
 --- !u!1 &8804968291691591885
 GameObject:
   m_ObjectHideFlags: 0
@@ -2173,11 +2061,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70fbe30b832632d4f827e1084d8315a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isCorrect: 0
+  correctGears: []
+  clockwise: 0
   acceptedSizes: 00000000
   currentGear: {fileID: 0}
   isFakeSlot: 0
-  isOccupied: 0
 --- !u!1 &8818538119423201942
 GameObject:
   m_ObjectHideFlags: 0
@@ -2302,25 +2190,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e44dfa9b863a2a4a9fcf0d87aa2fe0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FirstPosition: {fileID: 0}
-  targetSlot: {fileID: 4862962200474897967}
+  firstPosition: {fileID: 0}
   size: 0
-  action:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: GearPuzzle, Assembly-CSharp
-        m_MethodName: CheckPuzzleCompletion
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  puzzleManager: {fileID: 6566101948862702949}
 --- !u!114 &497424421500337726
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2456,8 +2327,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70fbe30b832632d4f827e1084d8315a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isCorrect: 0
+  correctGears: []
+  clockwise: 0
   acceptedSizes: 01000000
   currentGear: {fileID: 0}
   isFakeSlot: 0
-  isOccupied: 0

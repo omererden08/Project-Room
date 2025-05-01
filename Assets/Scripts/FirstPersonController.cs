@@ -278,8 +278,8 @@ public class FirstPersonController : MonoBehaviour
 
             if (pickedUpItems.Count > 0)
             {
-                IInteractable dropItems = pickedUpItems[pickedUpItems.Count - 1]; // En son alýnan
-                pickedUpItems.RemoveAt(pickedUpItems.Count - 1); // Listeden çýkar
+                IInteractable dropItems = pickedUpItems[pickedUpItems.Count - 1]; // En son alï¿½nan
+                pickedUpItems.RemoveAt(pickedUpItems.Count - 1); // Listeden ï¿½ï¿½kar
 
                 inventory.RemoveItem(dropItems.item);
                 dropItems.gameObject.SetActive(true);

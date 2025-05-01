@@ -1,7 +1,5 @@
 using UnityEngine;
 using DG.Tweening;
-using UnityEngine.Events;
-using System.Linq;
 
 public enum GearSize
 {
@@ -11,29 +9,28 @@ public enum GearSize
 
 public class Gear : MonoBehaviour
 {
-    public Transform FirstPosition;
-    public Slot targetSlot;
+    public Transform firstPosition;
     public GearSize size;
 
-    private bool isDragging = false;
+    private bool isDragging;
     private Vector3 offset;
     private float zCoordinate;
     private Slot currentSlot;
     private GearPuzzle gearPuzzle;
+    private PuzzleManager puzzleManager;
 
-    public UnityEvent action;
-    [Tooltip("Dogru oldugundan emin ol")]
-    public PuzzleManager puzzleManager;
     public Slot CurrentSlot => currentSlot;
     public bool IsSpinning => transform.GetComponent<Tween>()?.IsActive() ?? false;
 
-    void Start()
+    private void Awake()
     {
-        FirstPosition = transform;
-        gearPuzzle = UnityEngine.Object.FindFirstObjectByType<GearPuzzle>();
+        firstPosition = transform;
+        gearPuzzle = FindFirstObjectByType<GearPuzzle>();
+        puzzleManager = FindFirstObjectByType<PuzzleManager>();
+        Debug.Log($"Gear {name} initialized: Size={size}");
     }
 
-    void OnMouseDown()
+    private void OnMouseDown()
     {
         if (!puzzleManager.inPuzzleMode) return;
 
@@ -43,40 +40,31 @@ public class Gear : MonoBehaviour
 
         if (currentSlot != null)
         {
-            int slotIndex = System.Array.IndexOf(gearPuzzle.slots, currentSlot);
-            currentSlot.isOccupied = false;
-            currentSlot.currentGear = null;
-            currentSlot.isCorrect = false;
+            currentSlot.ClearGear();
             currentSlot = null;
-
-            gearPuzzle.StopSpinningAfterIndex(slotIndex);
-            gearPuzzle.UpdateGearsBeforeIndex(slotIndex);
         }
 
         transform.DOKill();
     }
 
-    void OnMouseUp()
+    private void OnMouseUp()
     {
         if (!puzzleManager.inPuzzleMode) return;
 
         isDragging = false;
-
         Slot nearestSlot = FindNearestSlot();
 
-        if (nearestSlot != null && !nearestSlot.isOccupied)
+        if (nearestSlot != null && !nearestSlot.IsOccupied)
         {
-            MoveToPosition(nearestSlot.transform);
-            currentSlot = nearestSlot;
-            currentSlot.currentGear = this;
+            MoveToSlot(nearestSlot);
         }
         else
         {
-            MoveToPosition(FirstPosition);
+            MoveToFirstPosition();
         }
     }
 
-    void Update()
+    private void Update()
     {
         if (isDragging)
         {
@@ -84,109 +72,35 @@ public class Gear : MonoBehaviour
         }
     }
 
-    public void MoveToPosition(Transform targetPosition)
+    public void MoveToSlot(Slot slot)
     {
-        transform.DOMove(targetPosition.position, 0.5f).OnComplete(() =>
+        currentSlot = slot;
+        transform.DOMove(slot.transform.position, 0.5f).OnComplete(() =>
         {
-            CheckPosition(targetPosition);
-            if (currentSlot != null)
-            {
-                int slotIndex = System.Array.IndexOf(gearPuzzle.slots, currentSlot);
-                Debug.Log($"Gear placed at slot {slotIndex}. Updating gears...");
-                gearPuzzle.UpdateGearsBeforeIndex(slotIndex + 1);
-                gearPuzzle.UpdateGearsAfterIndex(slotIndex);
-                gearPuzzle.CheckPuzzleCompletion();
-            }
+            Debug.Log($"Gear {name} moved to slot {slot.name}");
+            slot.ValidateGear(this);
         });
     }
 
-    private void CheckPosition(Transform targetPosition)
+    public void MoveToFirstPosition()
     {
-        Slot slot = targetPosition.GetComponent<Slot>();
-        if (slot != null && !slot.isOccupied)
-        {
-            int slotIndex = System.Array.IndexOf(gearPuzzle.slots, slot);
-
-            slot.isOccupied = true;
-            slot.currentGear = this;
-
-            if (!slot.isFakeSlot && slot.acceptedSizes.Contains(size))
-            {
-                if (gearPuzzle.CanGearSpin(slotIndex))
-                {
-                    StartSpinning();
-                    slot.isCorrect = true;
-                }
-                else
-                {
-                    slot.isCorrect = false;
-                }
-            }
-            else
-            {
-                slot.isCorrect = false;
-            }
-        }
-        else
-        {
-            Debug.Log("Fake slot detected or invalid drop, returning to FirstPosition.");
-            MoveToPosition(FirstPosition);
-            currentSlot = null;
-        }
-
-        action.Invoke();
+        transform.DOMove(firstPosition.position, 0.5f);
+        currentSlot = null;
+        Debug.Log($"Gear {name} returned to first position");
     }
 
-    public void CheckAndUpdateSpinning()
-    {
-        if (currentSlot != null)
-        {
-            int slotIndex = System.Array.IndexOf(gearPuzzle.slots, currentSlot);
-
-            bool canSpin = currentSlot.acceptedSizes.Contains(size) && gearPuzzle.CanGearSpin(slotIndex);
-            Debug.Log($"Gear at slot {slotIndex}: CanSpin = {canSpin}, IsCorrect = {currentSlot.isCorrect}");
-
-            if (canSpin)
-            {
-                if (!currentSlot.isCorrect)
-                {
-                    StartSpinning();
-                    currentSlot.isCorrect = true;
-                    Debug.Log($"Gear at slot {slotIndex} started spinning.");
-                }
-                if (currentSlot.isCorrect)
-                {
-                    StartSpinning();
-                    currentSlot.isCorrect = true;
-                }
-            }
-            else
-            {
-                if (currentSlot.isCorrect)
-                {
-                    transform.DOKill();
-                    currentSlot.isCorrect = false;
-                    Debug.Log($"Gear at slot {slotIndex} stopped spinning.");
-                }
-            }
-        }
-    }
-
-    private void StartSpinning()
+    public void UpdateSpinning(bool shouldSpin, bool clockwise)
     {
         transform.DOKill();
-        Tween tween = transform.DORotate(new Vector3(0, 360, 0), 5f, RotateMode.LocalAxisAdd)
-            .SetEase(Ease.Linear)
-            .SetLoops(-1, LoopType.Restart)
-            .SetRelative();
-        if (tween == null)
+
+        if (shouldSpin)
         {
-            Debug.LogError($"DOTween failed to create tween for {gameObject.name}");
+            transform.DORotate(new Vector3(0, clockwise ? 360 : -360, 0), 5f, RotateMode.LocalAxisAdd)
+                .SetEase(Ease.Linear)
+                .SetLoops(-1, LoopType.Restart)
+                .SetRelative();
         }
-        else
-        {
-            Debug.Log($"StartSpinning successful for {gameObject.name}");
-        }
+        Debug.Log($"Gear {name}: Spinning={shouldSpin}, Clockwise={clockwise}");
     }
 
     private Vector3 GetMouseWorldPosition()
@@ -198,15 +112,17 @@ public class Gear : MonoBehaviour
 
     private Slot FindNearestSlot()
     {
-        Slot[] allSlots = UnityEngine.Object.FindObjectsByType<Slot>(FindObjectsSortMode.None);
+        Slot[] allSlots = FindObjectsByType<Slot>(FindObjectsSortMode.None);
         Slot nearestSlot = null;
         float minDistance = float.MaxValue;
-        float snapDistance = 0.1f;
+        const float snapDistance = 0.1f;
 
         foreach (Slot slot in allSlots)
         {
+            if (slot.IsOccupied) continue;
+
             float distance = Vector3.Distance(transform.position, slot.transform.position);
-            if (distance < minDistance && distance < snapDistance && !slot.isOccupied)
+            if (distance < minDistance && distance < snapDistance)
             {
                 minDistance = distance;
                 nearestSlot = slot;
