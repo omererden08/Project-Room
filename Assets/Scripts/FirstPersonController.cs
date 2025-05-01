@@ -24,14 +24,15 @@ public class FirstPersonController : MonoBehaviour
     [SerializeField] private float mouseSensitivity = 100f;
     private float xRotation = 0f;
 
-    // Zoom variables
-    [SerializeField] private float zoomSpeed = 10f;
     // Physics variables
     private Vector3 velocity;
     private bool isGrounded;
     // Inventory variables
     [SerializeField] private Inventory inventory;
     [SerializeField] private List<IInteractable> pickedUpItems = new List<IInteractable>();
+    int selectedIndex = 0;
+    [SerializeField] private float scrollSpeed = 10f;
+
 
     //inputs
     public bool cursorInputForLook = true;
@@ -98,6 +99,7 @@ public class FirstPersonController : MonoBehaviour
         controller = GetComponent<CharacterController>();
         playerInput = GetComponent<PlayerInput>();
         inventory = GameObject.Find("InventoryManager").GetComponent<Inventory>();
+
         // Lock cursor
         Cursor.lockState = CursorLockMode.Locked;
     }
@@ -146,11 +148,22 @@ public class FirstPersonController : MonoBehaviour
         if (!IsPaused)
         {
             HandleMovement();
-            HandleRotation();
             HandleInteraction();
-            Zoom();
             PickUp();
             Drop();
+            
+            float scroll = Input.mouseScrollDelta.y;
+            if (scroll != 0)
+            {
+                SelectItem(scroll);
+            }
+        }
+    }
+    private void LateUpdate()
+    {
+        if (!IsPaused)
+        {
+            HandleRotation();
         }
     }
 
@@ -172,7 +185,7 @@ public class FirstPersonController : MonoBehaviour
         controller.Move(move.normalized * currentSpeed * Time.deltaTime);
         controller.Move(velocity * Time.deltaTime);
 
-        if(transform.position.y != 1.5f)
+        if (transform.position.y != 1.5f)
         {
             transform.position = new Vector3(transform.position.x, 1.5f, transform.position.z);
         }
@@ -241,29 +254,43 @@ public class FirstPersonController : MonoBehaviour
         }
     }
 
-    void Zoom()
-    {
-        // Skip if paused
-        if (IsPaused) return;
 
-        float scroll = Input.GetAxis("Mouse ScrollWheel");
-        targetZoom -= scroll * zoomSpeed;
-        targetZoom = Mathf.Clamp(targetZoom, minZoom, maxZoom);
-        cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, targetZoom, Time.deltaTime * zoomSpeed);
+    void SelectItem(float scroll)
+    {
+        if (IsPaused) return;
+        if (pickedUpItems == null || pickedUpItems.Count == 0) return;
+
+        if (scroll > 0f)
+        {
+            selectedIndex--;
+        }
+        else if (scroll < 0f)
+        {
+            selectedIndex++;
+        }
+
+        selectedIndex = Mathf.Clamp(selectedIndex, 0, pickedUpItems.Count - 1);
+
+        Debug.Log("Selected Item: " + pickedUpItems[selectedIndex].name);
     }
+
 
     void PickUp()
     {
         // Skip if paused
         if (IsPaused) return;
 
-        if (Input.GetKeyDown(KeyCode.F))
+        if (Input.GetMouseButtonDown(0))
         {
             if (CurrentInteractable != null)
             {
-                inventory.AddItem(CurrentInteractable.item);
-                pickedUpItems.Add(CurrentInteractable);
-                CurrentInteractable.gameObject.SetActive(false);
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity))
+                {
+                    inventory.AddItem(CurrentInteractable.item);
+                    pickedUpItems.Add(CurrentInteractable);
+                    CurrentInteractable.gameObject.SetActive(false);
+                }
             }
 
         }
@@ -273,7 +300,7 @@ public class FirstPersonController : MonoBehaviour
         // Skip if paused
         if (IsPaused) return;
 
-        if (Input.GetKeyDown(KeyCode.U))
+        if (Input.GetMouseButtonDown(1))
         {
 
             if (pickedUpItems.Count > 0)

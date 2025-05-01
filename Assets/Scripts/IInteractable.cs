@@ -3,15 +3,15 @@ using UnityEngine.Rendering;
 public class IInteractable : MonoBehaviour
 {
     public Item item;
-    public Outline outline;
+    public Outline3D outline;
     void Start()
     {
         if (outline == null)
         {
             Debug.Log("Outline component is missing on " + gameObject.name);
+            outline = GetComponent<Outline3D>();
         }
-        else
-            outline = GetComponent<Outline>();
+       
         outline.enabled = false;
     }
     public virtual void OutlineShow()

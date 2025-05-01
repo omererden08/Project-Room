@@ -32,7 +32,6 @@ public class StartScreen : MonoBehaviour
         startScreenCanvasGroup.DOFade(0f, fadeDuration).OnComplete(() =>
         {
             startScreenCanvasGroup.gameObject.SetActive(false);
-            Debug.Log("Oyun başladı!");
             Destroy(gameObject);
         });
     }
