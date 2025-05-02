@@ -10,17 +10,12 @@ public class PlayerInputHandler : MonoBehaviour
     // Input values
     private Vector2 movementInput;
     private Vector2 lookInput;
-    private bool isZooming;
-    private bool isSprinting;
+
     private float scrollValue;
     
     // Input properties
     public Vector2 MovementInput => movementInput;
     public Vector2 LookInput => lookInput;
-    public bool IsZooming => isZooming;
-    public bool IsSprinting => isSprinting;
-    public float ScrollValue => scrollValue;
-    
     // Settings
     public bool cursorInputForLook = true;
     
@@ -93,22 +88,7 @@ public class PlayerInputHandler : MonoBehaviour
         }
     }
     
-    public void OnZoom(InputValue value)
-    {
-        if (!IsPaused)
-        {
-            isZooming = value.isPressed;
-        }
-    }
-    
-    public void OnSprint(InputValue value)
-    {
-        if (!IsPaused)
-        {
-            isSprinting = value.isPressed;
-        }
-    }
-    
+
     public void OnPickup(InputValue value)
     {
         if (!IsPaused && value.isPressed)
@@ -147,8 +127,6 @@ public class PlayerInputHandler : MonoBehaviour
     {
         movementInput = Vector2.zero;
         lookInput = Vector2.zero;
-        isZooming = false;
-        isSprinting = false;
         scrollValue = 0f;
     }
 }

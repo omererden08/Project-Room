@@ -8,7 +8,6 @@ public class PuzzleManager : IInteractable
     [Header("Puzzle Camera Settings")]
     [SerializeField] private Transform cameraFocusPoint;
     [SerializeField] private UnityEngine.Vector3 cameraDistance;
-    [SerializeField] private float cameraHeight = 1f;
     [SerializeField] private float transitionDuration = 1.5f;
     [SerializeField] private Ease cameraEaseType = Ease.InOutSine;
 
@@ -35,7 +34,7 @@ public class PuzzleManager : IInteractable
     public Material LightMaterial;
 
     public bool CanSolvable;
-    public CheckEnd checkEnd;
+
     //Ending
     [SerializeField] private CanvasGroup endScreenCanvasGroup;
     [SerializeField] private float fadeDuration = 1f;
@@ -207,7 +206,7 @@ public class PuzzleManager : IInteractable
         LightMaterial.EnableKeyword("_EMISSION");
         LightMaterial.SetColor("_EmissionColor", Color.green);
         CanSolvable = false;
-        checkEnd.Check();
+        //end control in here
         Debug.Log("Puzzle solved!");
         counter++;
         if (counter == 2)
