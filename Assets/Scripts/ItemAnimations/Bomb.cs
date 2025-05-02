@@ -12,8 +12,8 @@ public class Bomb : MonoBehaviour
     private void Start()
     {
         initialPos = transform.position;
-        lastPos = new Vector3(initialPos.x, 0.1f, initialPos.z);
-        
+        lastPos = new Vector3(initialPos.x, 0.11f, initialPos.z);
+        transform.position = lastPos;
     }
 
     private void Update()
