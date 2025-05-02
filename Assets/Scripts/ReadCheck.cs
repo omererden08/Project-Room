@@ -2,10 +2,10 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 public class ReadCheck : MonoBehaviour
 {
-    private FirstPersonController controller;
+    private InteractionSystem controller;
     void Start()
     {
-        controller = FindAnyObjectByType<FirstPersonController>();
+        controller = FindAnyObjectByType<InteractionSystem>();
     }
     void OnRead()
     {

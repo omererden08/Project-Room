@@ -7,7 +7,7 @@ public class PuzzleManager : IInteractable
 {
     [Header("Puzzle Camera Settings")]
     [SerializeField] private Transform cameraFocusPoint;
-    [SerializeField] private float cameraDistance = 2f;
+    [SerializeField] private UnityEngine.Vector3 cameraDistance;
     [SerializeField] private float cameraHeight = 1f;
     [SerializeField] private float transitionDuration = 1.5f;
     [SerializeField] private Ease cameraEaseType = Ease.InOutSine;
@@ -28,7 +28,7 @@ public class PuzzleManager : IInteractable
     private Vector3 originalCameraPosition;
     private Quaternion originalCameraRotation;
     public bool inPuzzleMode = false;
-    private FirstPersonController playerController;
+    private PlayerController playerController;
 
     // Static lock to ensure only one PuzzleManager is active
     private static PuzzleManager activePuzzleManager = null;
@@ -61,7 +61,7 @@ public class PuzzleManager : IInteractable
 
         mainCamera = Camera.main;
 
-        playerController = GameObject.Find("Player").GetComponent<FirstPersonController>();
+        playerController = GameObject.Find("Player").GetComponent<PlayerController>();
         if (playerController == null)
             Debug.LogWarning("PuzzleManager: FirstPersonController not found!");
 
@@ -114,6 +114,8 @@ public class PuzzleManager : IInteractable
             Debug.LogWarning("Another puzzle is already active!");
             return;
         }
+
+        Debug.Log("puzzle solving");
         activePuzzleManager = this;
 
         originalCameraParent = mainCamera.transform.parent;
@@ -122,10 +124,10 @@ public class PuzzleManager : IInteractable
 
         playerController?.PauseController();
 
-        Vector3 directionToCamera = -cameraFocusPoint.forward;
-        Vector3 targetPosition = cameraFocusPoint.position +
-                                directionToCamera * cameraDistance +
-                                Vector3.up * cameraHeight;
+        UnityEngine.Vector3 directionToCamera = -cameraFocusPoint.forward;
+        UnityEngine.Vector3 targetPosition = cameraFocusPoint.position +
+                                        directionToCamera + cameraDistance +
+                                        UnityEngine.Vector3.up ;
 
         Sequence cameraSequence = DOTween.Sequence();
         mainCamera.transform.SetParent(null);
@@ -168,6 +170,7 @@ public class PuzzleManager : IInteractable
         });
     }
 
+
     private void EnablePuzzleInteraction()
     {
         if (puzzleUI != null)
@@ -175,6 +178,7 @@ public class PuzzleManager : IInteractable
 
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+        outline.enabled = false;
         foreach (GameObject obj in gameUI)
         {
             obj.SetActive(false);
@@ -189,7 +193,7 @@ public class PuzzleManager : IInteractable
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-
+        outline.enabled = true;
         foreach (GameObject obj in gameUI)
         {
             obj.SetActive(true);
