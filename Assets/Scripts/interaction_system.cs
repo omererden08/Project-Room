@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -14,7 +15,15 @@ public class InteractionSystem : MonoBehaviour
     // Properties
     private IInteractable _currentInteractable;
     private IInteractable _latestInteractable;
-    
+
+    // Inventory variables
+    [SerializeField] private Inventory inventory;
+    [SerializeField] private List<IInteractable> pickedUpItems = new List<IInteractable>();
+    int selectedIndex = 0;
+    [SerializeField] private float scrollSpeed = 10f;
+
+
+
     public IInteractable CurrentInteractable
     {
         get => _currentInteractable;
@@ -46,6 +55,14 @@ public class InteractionSystem : MonoBehaviour
                 Debug.LogError("InteractionSystem: No camera assigned and cannot find main camera!");
             }
         }
+        if(inventory == null)
+        {
+            inventory = FindObjectOfType<Inventory>();
+            if (inventory == null)
+            {
+                Debug.LogError("InteractionSystem: No Inventory found in the scene!");
+            }
+        }
 
     }
     
@@ -54,6 +71,8 @@ public class InteractionSystem : MonoBehaviour
         if (!IsPaused)
         {
             CheckForInteractable();
+            SelectItem(scrollSpeed);
+            PickUpItem();
         }
     }
     
@@ -125,18 +144,43 @@ public class InteractionSystem : MonoBehaviour
             // Optional: Reset UI or other feedback
         }
     }
-    
-    // Public methods for inventory interactions
-    public bool PickUpCurrentInteractable(Inventory inventory)
+   
+    void PickUpItem()
     {
-        if (IsPaused || CurrentInteractable == null) return false;
-        
-        bool added = inventory.AddItem(CurrentInteractable.item);
-        if (added)
+        if (Input.GetMouseButtonDown(0))   //add item 
         {
-            CurrentInteractable.gameObject.SetActive(false);
-            return true;
+            if (CurrentInteractable != null)
+            {
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity))
+                {
+                    inventory.AddItem(CurrentInteractable.item);
+                    pickedUpItems.Add(CurrentInteractable);
+                    CurrentInteractable.gameObject.SetActive(false);
+                }
+            }
+
         }
-        return false;
+
     }
+
+    void SelectItem(float scroll)  //select item
+    {
+        if (IsPaused) return;
+        if (pickedUpItems == null || pickedUpItems.Count == 0) return;
+
+        if (scroll > 0f)
+        {
+            selectedIndex--;
+        }
+        else if (scroll < 0f)
+        {
+            selectedIndex++;
+        }
+
+        selectedIndex = Mathf.Clamp(selectedIndex, 0, pickedUpItems.Count - 1);
+
+        Debug.Log("Selected Item: " + pickedUpItems[selectedIndex].name);
+    }
+
 }

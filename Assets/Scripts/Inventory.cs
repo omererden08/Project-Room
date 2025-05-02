@@ -58,6 +58,7 @@ public class Inventory : MonoBehaviour
             existingItem.quantity += quantity;
             inventory.Remove(existingItem);
             inventory.Insert(0, existingItem); // Stack edilen item'ı başa al
+            UpdateUI();
             return true;
         }
         else
@@ -68,10 +69,10 @@ public class Inventory : MonoBehaviour
             }
 
             inventory.Insert(0, new InventoryItem(item, quantity));
+            UpdateUI();
             return true;
         }
 
-        UpdateUI();
     }
 
     public void RemoveItem(Item item, int quantity = 1)
@@ -89,7 +90,7 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    private void UpdateUI()
+    public void UpdateUI()
     {
         for (int i = 0; i < slots.Length; i++)
         {
