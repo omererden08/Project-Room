@@ -30,6 +30,12 @@ public class PuzzleLiquid : MonoBehaviour
         tube.Fill();
         Debug.Log($"Tube filled: {tube.name} now has {tube.currentLitre}L");
     }
+     public void FillTube(Tube tube, int amount)
+    {
+        tube.Fill(amount);
+        Debug.Log($"Tube filled: {tube.name} now has {tube.currentLitre}L");
+    }
+
 
     // Empties the specified tube
     public void EmptyTube(Tube tube)
@@ -72,7 +78,7 @@ public class PuzzleLiquid : MonoBehaviour
         // Perform the transfer
         chosen.currentLitre -= transferAmount;
         target.currentLitre += transferAmount;
-
+        
         Debug.Log($"Transferred {transferAmount}L from {chosen.name} ({chosen.currentLitre}L left) to {target.name} ({target.currentLitre}L now)");
 
         return true;

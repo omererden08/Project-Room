@@ -24,6 +24,7 @@ public class Inventory : MonoBehaviour
 
     void Start()
     {
+        EvntManager.StartListening("ToggleInventory",ToggleInventory);
         if (inventoryUI == null || rectTransform == null)
         {
             Debug.LogError("InventoryUI veya RectTransform atanmamış!");
@@ -37,7 +38,6 @@ public class Inventory : MonoBehaviour
         {
             Debug.LogWarning("Slot sayısı maxSlots ile eşleşmiyor, güncelleyiniz.");
         }
-
         UpdateUI();
     }
 

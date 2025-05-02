@@ -16,10 +16,8 @@ public class PuzzleManager : IInteractable
     [SerializeField] private float autoExitDelay = 0.2f;
     [SerializeField] private KeyCode exitPuzzleKey = KeyCode.Escape;
 
-    [Header("UI Elements")]
-    [SerializeField] private GameObject puzzleUI;
 
-    [SerializeField] private GameObject[] gameUI;
+
 
     // References
     private Camera mainCamera;
@@ -35,22 +33,15 @@ public class PuzzleManager : IInteractable
 
     public bool CanSolvable;
 
-    //Ending
-    [SerializeField] private CanvasGroup endScreenCanvasGroup;
-    [SerializeField] private float fadeDuration = 1f;
 
     private bool isGameEnded = false;
     private int counter = 0;
 
-    private void Awake()
-    {
-        endScreenCanvasGroup.alpha = 0f;
-        endScreenCanvasGroup = GameObject.Find("CanvasEnd").GetComponent<CanvasGroup>();
-    }
 
 
     private void Start()
     {
+        outline = GetComponent<Outline3D>();
         CanSolvable = true;
         LightMaterial.color = Color.red;
         LightMaterial.EnableKeyword("_EMISSION");
@@ -64,11 +55,6 @@ public class PuzzleManager : IInteractable
         if (playerController == null)
             Debug.LogWarning("PuzzleManager: FirstPersonController not found!");
 
-        if (puzzleUI != null)
-            puzzleUI.SetActive(false);
-
-        if (gameUI == null)
-            Debug.LogError("Game UI null!");
     }
 
     private void Update()
@@ -87,13 +73,12 @@ public class PuzzleManager : IInteractable
     void EndGame()
     {
         isGameEnded = true;
-        endScreenCanvasGroup.DOFade(1f, fadeDuration).OnComplete(() =>
-        {
-            Debug.Log("Oyun bitti!");
-            int nextSceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
-            SceneManager.LoadScene(nextSceneIndex);
-            Destroy(gameObject);
-        });
+
+        Debug.Log("Oyun bitti!");
+        int nextSceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
+        SceneManager.LoadScene(nextSceneIndex);
+        Destroy(gameObject);
+
     }
 
     public override void Interact()
@@ -126,7 +111,7 @@ public class PuzzleManager : IInteractable
         UnityEngine.Vector3 directionToCamera = -cameraFocusPoint.forward;
         UnityEngine.Vector3 targetPosition = cameraFocusPoint.position +
                                         directionToCamera + cameraDistance +
-                                        UnityEngine.Vector3.up ;
+                                        UnityEngine.Vector3.up;
 
         Sequence cameraSequence = DOTween.Sequence();
         mainCamera.transform.SetParent(null);
@@ -172,31 +157,24 @@ public class PuzzleManager : IInteractable
 
     private void EnablePuzzleInteraction()
     {
-        if (puzzleUI != null)
-            puzzleUI.SetActive(true);
+        EvntManager.TriggerEvent("ToggleInventory");
 
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         outline.enabled = false;
-        foreach (GameObject obj in gameUI)
-        {
-            obj.SetActive(false);
-        }
+        EvntManager.TriggerEvent("DisableCh");
 
     }
 
     private void DisablePuzzleInteraction()
     {
-        if (puzzleUI != null)
-            puzzleUI.SetActive(false);
+        EvntManager.TriggerEvent("ToggleInventory");
+
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         outline.enabled = true;
-        foreach (GameObject obj in gameUI)
-        {
-            obj.SetActive(true);
-        }
+        EvntManager.TriggerEvent("EnableCh");
     }
 
     public void PuzzleSolved()

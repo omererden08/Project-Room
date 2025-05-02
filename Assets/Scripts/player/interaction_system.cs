@@ -8,10 +8,10 @@ public class InteractionSystem : MonoBehaviour
     [SerializeField] private Camera playerCamera;
     [SerializeField] private float interactionDistance = 3f;
     [SerializeField] private LayerMask interactableLayer;
-    
+
     // Events
     public event Action<IInteractable> OnInteractableChanged;
-    
+
     // Properties
     private IInteractable _currentInteractable;
     private IInteractable _latestInteractable;
@@ -38,7 +38,7 @@ public class InteractionSystem : MonoBehaviour
             }
         }
     }
-    
+
     private bool _isPaused = false;
     public bool IsPaused
     {
@@ -55,7 +55,7 @@ public class InteractionSystem : MonoBehaviour
                 Debug.LogError("InteractionSystem: No camera assigned and cannot find main camera!");
             }
         }
-        if(inventory == null)
+        if (inventory == null)
         {
             inventory = FindObjectOfType<Inventory>();
             if (inventory == null)
@@ -65,7 +65,7 @@ public class InteractionSystem : MonoBehaviour
         }
 
     }
-    
+
     private void Update()
     {
         if (!IsPaused)
@@ -75,32 +75,30 @@ public class InteractionSystem : MonoBehaviour
             PickUpItem();
         }
     }
-    
+
     public void CheckForInteractable()
     {
         Ray ray = playerCamera.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
         RaycastHit hit;
-        
-        if (Physics.Raycast(ray, out hit, interactionDistance, interactableLayer))
+
+        IInteractable interactable = null;
+        if (Physics.Raycast(ray, out hit, interactionDistance))
         {
-            IInteractable interactable = hit.collider.GetComponent<IInteractable>();
-            
-            if (interactable != null)
-            {
-                CurrentInteractable = interactable;
-                // Optional: UI hint could be triggered here or via the event
-            }
-            else
-            {
-                CurrentInteractable = null;
-            }
+            interactable = hit.collider.GetComponent<IInteractable>();
+            Debug.Log(hit.collider.gameObject.name);
+
+        }
+
+        if (interactable != null)
+        {
+            CurrentInteractable = interactable;
         }
         else
         {
             CurrentInteractable = null;
         }
     }
-       void OnInteract()
+    void OnInteract()
     {
         // Skip interaction if controller is paused
         if (IsPaused) return;
@@ -119,7 +117,7 @@ public class InteractionSystem : MonoBehaviour
     public void InteractWithCurrent()
     {
         if (IsPaused) return;
-        
+
         if (CurrentInteractable != null)
         {
             CurrentInteractable.Interact();
@@ -130,7 +128,7 @@ public class InteractionSystem : MonoBehaviour
             Debug.Log("Nothing to interact with");
         }
     }
-    
+
     private void InteractableChanged()
     {
         if (CurrentInteractable != null && _latestInteractable == null)
@@ -144,7 +142,7 @@ public class InteractionSystem : MonoBehaviour
             // Optional: Reset UI or other feedback
         }
     }
-   
+
     void PickUpItem()
     {
         if (Input.GetMouseButtonDown(0))   //add item 

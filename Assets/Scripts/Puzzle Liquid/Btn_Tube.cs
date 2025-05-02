@@ -50,22 +50,15 @@ public class Btn_Tube : MonoBehaviour
             outline.OutlineColor = Color.green;
             Debug.Log($"Selected {gameObject.name} as chosen tube");
         }
-        else if (puzzleLiquid.chosenTube != null && puzzleLiquid.targetTube == null && puzzleLiquid.chosenTube != tube)
+        else if (puzzleLiquid.chosenTube != null && puzzleLiquid.targetTube == null)
         {
             // Second click: Set as target tube and attempt transfer
             puzzleLiquid.SetTarget(tube);
-            if (puzzleLiquid.TransferLiquid(puzzleLiquid.chosenTube, puzzleLiquid.targetTube))
-            {
-                // Transfer successful, reset selections
-                ResetSelection();
-                puzzleLiquid.SetChosen(null);
-                puzzleLiquid.SetTarget(null);
-            }
-            else
-            {
-                // Transfer failed, keep chosen tube, clear target
-                puzzleLiquid.SetTarget(null);
-            }
+            puzzleLiquid.TransferLiquid(puzzleLiquid.chosenTube, puzzleLiquid.targetTube);
+            ResetSelection();
+            puzzleLiquid.SetChosen(null);
+            puzzleLiquid.SetTarget(null);
+            EvntManager.TriggerEvent("ApplyLitre");
         }
     }
 
