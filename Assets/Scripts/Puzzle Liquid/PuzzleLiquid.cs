@@ -10,9 +10,13 @@ public class PuzzleLiquid : MonoBehaviour
 
     public Tube chosenTube;
     public Tube targetTube;
+    public PuzzleManager pm;
+    public bool isSolved = false;
 
     void Start()
     {
+        pm=GetComponentInChildren<PuzzleManager>();
+        EvntManager.StartListening("CheckLevelLiq",CheckLevelLiq);
         // Initialize tubes array by finding all Tube components in the scene
         tubes = FindObjectsOfType<Tube>();
         foreach (var tube in tubes)
@@ -30,7 +34,7 @@ public class PuzzleLiquid : MonoBehaviour
         tube.Fill();
         Debug.Log($"Tube filled: {tube.name} now has {tube.currentLitre}L");
     }
-     public void FillTube(Tube tube, int amount)
+    public void FillTube(Tube tube, int amount)
     {
         tube.Fill(amount);
         Debug.Log($"Tube filled: {tube.name} now has {tube.currentLitre}L");
@@ -78,7 +82,7 @@ public class PuzzleLiquid : MonoBehaviour
         // Perform the transfer
         chosen.currentLitre -= transferAmount;
         target.currentLitre += transferAmount;
-        
+
         Debug.Log($"Transferred {transferAmount}L from {chosen.name} ({chosen.currentLitre}L left) to {target.name} ({target.currentLitre}L now)");
 
         return true;
@@ -96,5 +100,18 @@ public class PuzzleLiquid : MonoBehaviour
     {
         targetTube = tar;
         Debug.Log(targetTube != null ? $"Target tube set: {targetTube.name}" : "Target tube cleared");
+    }
+
+
+    public void CheckLevelLiq()
+    {
+        
+        Debug.Log("controlling CheckLevelLiq");
+        if (!isSolved&&t_8l.currentLitre == 4 && t_6l.currentLitre == 4 && t_5l.currentLitre == 4)
+        {
+            isSolved=true;
+            pm.PuzzleSolved();
+            Debug.Log("Puzzle Solved!");
+        }
     }
 }

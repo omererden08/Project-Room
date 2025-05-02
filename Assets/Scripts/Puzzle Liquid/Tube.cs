@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using DG.Tweening;
 public class Tube : MonoBehaviour
 {
     public int capacity;
@@ -78,19 +78,11 @@ public class Tube : MonoBehaviour
 
     public void ApplyLitre()
     {
-
         float fillValue = currentLitre / (float)capacity;
-        float corrected = fillValue;;
-        if (fillValue > 0.5)
-        {
-            corrected = fillValue * 2;
-        }
-        if(fillValue < 0.5)
-        {
-            corrected = fillValue - 1;
-        }
-        Debug.Log("fillalueeeee   " + fillValue);
-        material.SetFloat("_fill", corrected);
+        float corrected = 2 * fillValue - 1;
+        Debug.Log("fillValue: " + fillValue + " corrected: " + corrected);
+
+        material.DOFloat(corrected, "_fill", 0.6f).OnComplete(() => EvntManager.TriggerEvent("CheckLevelLiq"));
 
     }
 }
