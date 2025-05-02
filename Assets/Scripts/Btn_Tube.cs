@@ -4,17 +4,18 @@ public class Btn_Tube : MonoBehaviour
 {
     public PuzzleLiquid puzzleLiquid;
     public Tube tube;
-    public Outline outline;
+    public Outline3D outline;
     private bool isChosen = false;
 
     void Start()
     {
         // Initialize components
-        outline = GetComponent<Outline>();
+        outline = GetComponent<Outline3D>();
         tube = GetComponentInParent<Tube>();
         puzzleLiquid = FindObjectOfType<PuzzleLiquid>();
         outline.enabled = false;
     }
+
 
     public void OnMouseEnter()
     {

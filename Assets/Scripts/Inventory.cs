@@ -10,7 +10,7 @@ public class Inventory : MonoBehaviour
     [SerializeField] private Image inventoryUI;
     [SerializeField] private Image[] slots;
     [SerializeField] private Sprite emptySlotSprite;
-   
+
 
     [Header("UI Movement")]
     [SerializeField] private RectTransform rectTransform;
@@ -49,7 +49,7 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    public void AddItem(Item item, int quantity = 1)
+    public bool AddItem(Item item, int quantity = 1)
     {
         InventoryItem existingItem = inventory.Find(i => i.item == item);
 
@@ -58,15 +58,17 @@ public class Inventory : MonoBehaviour
             existingItem.quantity += quantity;
             inventory.Remove(existingItem);
             inventory.Insert(0, existingItem); // Stack edilen item'ı başa al
+            return true;
         }
         else
         {
-            inventory.Insert(0, new InventoryItem(item, quantity));
-
-            if (inventory.Count > maxSlots)
+            if (inventory.Count >= maxSlots)
             {
-                inventory.RemoveAt(inventory.Count - 1);
+                return false; // Inventory is full
             }
+
+            inventory.Insert(0, new InventoryItem(item, quantity));
+            return true;
         }
 
         UpdateUI();

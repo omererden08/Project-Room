@@ -3,11 +3,11 @@ using UnityEngine.Rendering;
 public class IInteractable : MonoBehaviour
 {
     public Item item;
-    public Outline outline;
+    public Outline3D outline;
     void Start()
     {
         if (outline == null)
-            outline = GetComponent<Outline>();
+            outline = GetComponent<Outline3D>();
         outline.enabled = false;
     }
     public virtual void OutlineShow()
