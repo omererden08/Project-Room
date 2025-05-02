@@ -33,35 +33,36 @@ public class Inventory : MonoBehaviour
         }
 
     }
+public bool AddItem(Item item, int quantity = 1)
+{
+    InventoryItem existingItem = inventory.Find(i => i.item == item);
 
-    public void AddItem(Item item, int quantity = 1)
+    if (existingItem != null && item.isStackable)
     {
-        InventoryItem existingItem = inventory.Find(i => i.item == item);
+        existingItem.quantity += quantity;
 
-        if (existingItem != null && item.isStackable)
-        {
-            existingItem.quantity += quantity;
-
-            // Stack edilen item'� listenin ba��na al
-            inventory.Remove(existingItem);
-            inventory.Insert(0, existingItem);
-            UpdateUI();
-
-            Debug.Log($"Stacked and moved {item.itemName} to front. Quantity: {existingItem.quantity}");
-        }
-        else
-        {
-            inventory.Insert(0, new InventoryItem(item, quantity));
-            Debug.Log($"Added {item.itemName} x{quantity} to front");
-
-            if (inventory.Count > maxSlots)
-            {
-                inventory.RemoveAt(inventory.Count - 1);
-            }
-        }
-
+        // Stack edilen item'� listenin ba��na al
+        inventory.Remove(existingItem);
+        inventory.Insert(0, existingItem);
         UpdateUI();
+
+        Debug.Log($"Stacked and moved {item.itemName} to front. Quantity: {existingItem.quantity}");
+        return true;
     }
+    else
+    {
+        if (inventory.Count >= maxSlots)
+        {
+            Debug.Log("Inventory is full, cannot add item.");
+            return false;
+        }
+
+        inventory.Insert(0, new InventoryItem(item, quantity));
+        Debug.Log($"Added {item.itemName} x{quantity} to front");
+        UpdateUI();
+        return true;
+    }
+}
 
     public void RemoveItem(Item item, int quantity = 1)
     {
