@@ -1,64 +1,63 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using TMPro;
 
 public class InventorySlotUI : MonoBehaviour, IPointerClickHandler
 {
-    public Item item;
+    public InventoryItem inventoryItem;
     public Image image;
-    public TMPro.TMP_Text quantityText;
+    [SerializeField] private TextMeshProUGUI quantityText;
+
+
     void Start()
     {
-        quantityText = GetComponentInChildren<TMPro.TMP_Text>();
+        if (image == null)
+            image = GetComponent<Image>();
+        if (quantityText == null)
+            quantityText = GetComponentInChildren<TextMeshProUGUI>();
     }
 
-    public void SetItem(Item newItem, Sprite emptySprite, int quantity)
+    public void SetItem(InventoryItem newInventoryItem, Sprite emptySprite)
     {
-        item = newItem;
+        inventoryItem = newInventoryItem;
 
         if (image == null)
             image = GetComponent<Image>();
 
-        if (item != null)
+        if (inventoryItem != null && inventoryItem.item != null)
         {
-            image.sprite = item.itemSprite;
+            image.sprite = inventoryItem.item.itemSprite;
             image.color = Color.white;
-            quantityText.text = quantity.ToString();
+
+            if (inventoryItem.item.isStackable && inventoryItem.quantity > 1)
+            {
+                quantityText.text = inventoryItem.quantity.ToString();
+            }
+            else
+            {
+                quantityText.text = "";
+            }
         }
         else
         {
             image.sprite = emptySprite;
             image.color = new Color(1, 1, 1, 0.3f);
+            quantityText.text = "";
         }
     }
-    public void SetItem(Item newItem, Sprite emptySprite)
-    {
-        item = newItem;
 
-        if (image == null)
-            image = GetComponent<Image>();
-
-        if (item != null)
-        {
-            image.sprite = item.itemSprite;
-            image.color = Color.white;
-        }
-        else
-        {
-            image.sprite = emptySprite;
-            image.color = new Color(1, 1, 1, 0.3f);
-        }
-    }
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (item != null && item.itemPrefab != null)
+        if (inventoryItem != null && inventoryItem.item != null && inventoryItem.item.itemPrefab != null)
         {
             Vector3 spawnPos = GetMouseWorldPosition();
-            Instantiate(item.itemPrefab, spawnPos, Quaternion.identity);
-            Debug.Log($"Instantiate edildi: {item.itemName}");
+            Instantiate(inventoryItem.item.itemPrefab, spawnPos, Quaternion.identity);
+            Debug.Log($"Instantiate edildi: {inventoryItem.item.itemName}");
         }
     }
+
 
     private Vector3 GetMouseWorldPosition()
     {
@@ -67,6 +66,6 @@ public class InventorySlotUI : MonoBehaviour, IPointerClickHandler
         {
             return hit.point;
         }
-        return ray.GetPoint(5f); // Eï¿½er raycast boï¿½a giderse
+        return ray.GetPoint(5f); // Eðer raycast boþa giderse
     }
 }
