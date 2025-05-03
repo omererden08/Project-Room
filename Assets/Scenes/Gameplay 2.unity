@@ -1053,6 +1053,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: -7015141661737671829, guid: e58ff7ff37d46624089a2069775074b3, type: 3}
+      propertyPath: m_TagString
+      value: InventoryItem
+      objectReference: {fileID: 0}
     - target: {fileID: -4844975337723969068, guid: e58ff7ff37d46624089a2069775074b3, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.004
@@ -1930,6 +1934,7 @@ MonoBehaviour:
   moveDuration: 0.3
   raycaster: {fileID: 820596025}
   eventSystem: {fileID: 952041122}
+  inventory: []
 --- !u!1 &379298196
 GameObject:
   m_ObjectHideFlags: 0

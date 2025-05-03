@@ -22,6 +22,7 @@ public class Inventory : MonoBehaviour
     private bool isInventoryOpen;
     private bool isMoving;
 
+    private Camera cam;
 
     public GraphicRaycaster raycaster;
     public EventSystem eventSystem;
@@ -30,6 +31,7 @@ public class Inventory : MonoBehaviour
 
     void Start()
     {
+        cam = Camera.main;
         EvntManager.StartListening("OpenInventory", OpentoPuzzle);
         EvntManager.StartListening("CloseInventory", ClosetoPuzzle);
 
@@ -191,16 +193,19 @@ public class Inventory : MonoBehaviour
 
             var slot = result.gameObject.GetComponent<InventorySlotUI>();
 
+            Vector3 spawnPos = cam.transform.position;
+
+
             Vector3 mousePos = Input.mousePosition;
             mousePos.x = 0.5f;
             Vector3 worldPos = Camera.main.ScreenToWorldPoint(mousePos);
-
+            
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out RaycastHit hit))
             {
                 if (slot.item.itemPrefab == null)
                 {
-                    Instantiate(slot.item.itemPrefab, worldPos, Quaternion.identity);
+                    Instantiate(slot.item.itemPrefab, spawnPos, Quaternion.identity);
                 }
 
                 var meshRenderer = slot.item.itemPrefab.GetComponent<MeshRenderer>();
