@@ -123,10 +123,11 @@ public class Inventory : MonoBehaviour
             var slotUI = slots[i].GetComponent<InventorySlotUI>();
             if (slotUI == null)
                 slotUI = slots[i].gameObject.AddComponent<InventorySlotUI>();
+                
 
             if (i < inventory.Count)
             {
-                slotUI.SetItem(inventory[i].item, emptySlotSprite);
+                slotUI.SetItem(inventory[i], emptySlotSprite);
             }
             else
             {
@@ -190,34 +191,33 @@ public class Inventory : MonoBehaviour
 
         foreach (RaycastResult result in results)
         {
-
             var slot = result.gameObject.GetComponent<InventorySlotUI>();
 
-            Vector3 spawnPos = cam.transform.position;
+            if (slot == null || slot.inventoryItem == null || slot.inventoryItem.item == null || slot.inventoryItem.item.itemPrefab == null)
+                continue;
 
+            // Kamera pozisyonundan 5 birim önde instantiate etmek için
+            Vector3 spawnPos = cam.transform.position + cam.transform.forward * 5f;
 
-            Vector3 mousePos = Input.mousePosition;
-            mousePos.x = 0.5f;
-            Vector3 worldPos = Camera.main.ScreenToWorldPoint(mousePos);
-            
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out RaycastHit hit))
+            // Instantiate edilen objeyi al
+            GameObject spawnedObj = Instantiate(slot.inventoryItem.item.itemPrefab, spawnPos, Quaternion.identity);
+
+            // Eğer MeshRenderer varsa, pozisyona göre görünürlüğünü kontrol et
+            var meshRenderer = spawnedObj.GetComponent<MeshRenderer>();
+            if (meshRenderer != null)
             {
-                if (slot.item.itemPrefab == null)
-                {
-                    Instantiate(slot.item.itemPrefab, spawnPos, Quaternion.identity);
-                }
-
-                var meshRenderer = slot.item.itemPrefab.GetComponent<MeshRenderer>();
-
                 meshRenderer.enabled = false;
 
-                if (slot.item.itemPrefab.transform.position.x < 3f)
+                if (spawnedObj.transform.position.x < 3f)
                 {
                     meshRenderer.enabled = true;
                 }
             }
+
+            Debug.Log("Item instantiated from drag: " + slot.inventoryItem.item.itemName);
+            break; // Birden fazla raycast sonucu varsa sadece ilkine tepki ver
         }
     }
+
 
 }
