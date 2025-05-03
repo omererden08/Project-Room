@@ -26,7 +26,7 @@ public class Inventory : MonoBehaviour
     public GraphicRaycaster raycaster;
     public EventSystem eventSystem;
 
-    private List<InventoryItem> inventory = new List<InventoryItem>();
+    [SerializeField] private List<InventoryItem> inventory = new List<InventoryItem>();
 
     void Start()
     {
@@ -58,62 +58,7 @@ public class Inventory : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            PointerEventData pointerData = new PointerEventData(eventSystem);
-            pointerData.position = Input.mousePosition;
-
-            List<RaycastResult> results = new List<RaycastResult>();
-            raycaster.Raycast(pointerData, results);
-            print("Raycast count: " + results.Count);
-
-            foreach (RaycastResult result in results)
-            {
-                print("Raycast hit: " + result.gameObject.name);
-
-                var slot = result.gameObject.GetComponent<InventorySlotUI>();
-
-                Vector3 mousePos = Input.mousePosition;
-                mousePos.z = 0.5f; // Kameradan 5 birim uzaklık (z düzlemi)
-                Vector3 worldPos = Camera.main.ScreenToWorldPoint(mousePos);
-
-
-                if (slot == null)
-                {
-                    print("InventorySlotUI yok!");
-                    continue;
-                }
-
-                if (slot.item == null)
-                {
-                    print("Slot boş!");
-                    continue;
-                }
-
-                if (slot.item.itemPrefab == null)
-                {
-                    print("Prefab eksik!");
-                    continue;
-                }
-
-                print("Instantiate edilmek üzere: " + slot.item.itemName);
-
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                if (Physics.Raycast(ray, out RaycastHit hit))
-                {
-                    Instantiate(slot.item.itemPrefab, worldPos, Quaternion.identity);
-                    
-                    var meshRenderer = slot.item.itemPrefab.GetComponent<MeshRenderer>();
-                    
-                    meshRenderer.enabled = false;
-
-                    Debug.Log("Instantiate edildi: " + slot.item.itemName);
-
-                    if(slot.item.itemPrefab.transform.position.x > 3f)
-                    {
-                        meshRenderer.enabled = true;
-                    }
-                }
-            }
-
+            DraggingItem();
         }
 
 
@@ -233,6 +178,41 @@ public class Inventory : MonoBehaviour
         isMoving = false;
     }
 
-    
+    void DraggingItem()
+    {
+        PointerEventData pointerData = new PointerEventData(eventSystem);
+        pointerData.position = Input.mousePosition;
+
+        List<RaycastResult> results = new List<RaycastResult>();
+        raycaster.Raycast(pointerData, results);
+
+        foreach (RaycastResult result in results)
+        {
+
+            var slot = result.gameObject.GetComponent<InventorySlotUI>();
+
+            Vector3 mousePos = Input.mousePosition;
+            mousePos.x = 0.5f;
+            Vector3 worldPos = Camera.main.ScreenToWorldPoint(mousePos);
+
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out RaycastHit hit))
+            {
+                if (slot.item.itemPrefab == null)
+                {
+                    Instantiate(slot.item.itemPrefab, worldPos, Quaternion.identity);
+                }
+
+                var meshRenderer = slot.item.itemPrefab.GetComponent<MeshRenderer>();
+
+                meshRenderer.enabled = false;
+
+                if (slot.item.itemPrefab.transform.position.x < 3f)
+                {
+                    meshRenderer.enabled = true;
+                }
+            }
+        }
+    }
 
 }

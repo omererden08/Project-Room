@@ -145,22 +145,32 @@ public class InteractionSystem : MonoBehaviour
 
     void PickUpItem()
     {
-        if (Input.GetMouseButtonDown(0))   //add item 
+        if (Input.GetMouseButtonDown(0))
         {
-            if (CurrentInteractable != null)
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity))
             {
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity))
+                GameObject clickedObject = hit.collider.gameObject;
+
+                if (clickedObject.CompareTag("InventoryItem"))
                 {
-                    inventory.AddItem(CurrentInteractable.item);
-                    pickedUpItems.Add(CurrentInteractable);
-                    CurrentInteractable.gameObject.SetActive(false);
+                    IInteractable interactable = clickedObject.GetComponent<IInteractable>();
+                    if (interactable != null)
+                    {
+                        inventory.AddItem(interactable.item);
+                        pickedUpItems.Add(interactable);
+                        clickedObject.SetActive(false);
+                        Debug.Log("Item picked up: " + interactable.item.itemName);
+                    }
+                    else
+                    {
+                        Debug.LogWarning("Týklanan obje 'InventoryItem' tag'li ama InteractableItem scripti yok!");
+                    }
                 }
             }
-
         }
-
     }
+
 
     void SelectItem(float scroll)  //select item
     {
