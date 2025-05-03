@@ -46,6 +46,7 @@ public class PuzzleManager : IInteractable
         LightMaterial.color = Color.red;
         LightMaterial.EnableKeyword("_EMISSION");
         LightMaterial.SetColor("_EmissionColor", Color.red);
+        EvntManager.TriggerEvent("GameMode");
         if (cameraFocusPoint == null)
             cameraFocusPoint = transform;
 
@@ -163,6 +164,7 @@ public class PuzzleManager : IInteractable
         Cursor.visible = true;
         outline.enabled = false;
         EvntManager.TriggerEvent("DisableCh");
+        EvntManager.TriggerEvent("PuzzleMode");
 
     }
 
@@ -175,6 +177,7 @@ public class PuzzleManager : IInteractable
         Cursor.visible = false;
         outline.enabled = true;
         EvntManager.TriggerEvent("EnableCh");
+        EvntManager.TriggerEvent("GameMode");
     }
 
     public void PuzzleSolved()
