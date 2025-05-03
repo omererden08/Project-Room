@@ -6,7 +6,31 @@ public class InventorySlotUI : MonoBehaviour, IPointerClickHandler
 {
     public Item item;
     public Image image;
+    public TMPro.TMP_Text quantityText;
+    void Start()
+    {
+        quantityText = GetComponentInChildren<TMPro.TMP_Text>();
+    }
 
+    public void SetItem(Item newItem, Sprite emptySprite, int quantity)
+    {
+        item = newItem;
+
+        if (image == null)
+            image = GetComponent<Image>();
+
+        if (item != null)
+        {
+            image.sprite = item.itemSprite;
+            image.color = Color.white;
+            quantityText.text = quantity.ToString();
+        }
+        else
+        {
+            image.sprite = emptySprite;
+            image.color = new Color(1, 1, 1, 0.3f);
+        }
+    }
     public void SetItem(Item newItem, Sprite emptySprite)
     {
         item = newItem;
@@ -43,6 +67,6 @@ public class InventorySlotUI : MonoBehaviour, IPointerClickHandler
         {
             return hit.point;
         }
-        return ray.GetPoint(5f); // Eðer raycast boþa giderse
+        return ray.GetPoint(5f); // Eï¿½er raycast boï¿½a giderse
     }
 }

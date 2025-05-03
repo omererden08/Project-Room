@@ -70,7 +70,7 @@ public class Inventory : MonoBehaviour
 
         if (existingItem != null && item.isStackable)
         {
-            existingItem.quantity += quantity;
+            existingItem.IncreaseQuantity();
             inventory.Remove(existingItem);
             inventory.Insert(0, existingItem); // Stack edilen item'ı başa al
             UpdateUI();
@@ -124,7 +124,7 @@ public class Inventory : MonoBehaviour
 
             if (i < inventory.Count)
             {
-                slotUI.SetItem(inventory[i].item, emptySlotSprite);
+                slotUI.SetItem(inventory[i].item, emptySlotSprite, inventory[i].quantity);
             }
             else
             {

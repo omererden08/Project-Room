@@ -15,6 +15,11 @@ public class InventoryItem
     public Item item;
     public int quantity;
 
+    public void IncreaseQuantity()
+    {
+        quantity++;
+        
+    }
     public InventoryItem(Item item, int quantity)
     {
         this.item = item;
