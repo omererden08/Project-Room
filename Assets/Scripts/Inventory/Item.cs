@@ -6,6 +6,7 @@ public class Item : ScriptableObject
     public string itemName;
     public Sprite itemSprite;
     public bool isStackable = true;
+    public GameObject itemPrefab;
 }
 
 [System.Serializable]

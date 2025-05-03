@@ -157,7 +157,7 @@ public class PuzzleManager : IInteractable
 
     private void EnablePuzzleInteraction()
     {
-        EvntManager.TriggerEvent("ToggleInventory");
+        EvntManager.TriggerEvent("OpenInventory");
 
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
@@ -168,7 +168,7 @@ public class PuzzleManager : IInteractable
 
     private void DisablePuzzleInteraction()
     {
-        EvntManager.TriggerEvent("ToggleInventory");
+        EvntManager.TriggerEvent("CloseInventory");
 
 
         Cursor.lockState = CursorLockMode.Locked;

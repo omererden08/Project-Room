@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
+
 
 public class Inventory : MonoBehaviour
 {
@@ -20,11 +22,17 @@ public class Inventory : MonoBehaviour
     private bool isInventoryOpen;
     private bool isMoving;
 
+
+    public GraphicRaycaster raycaster;
+    public EventSystem eventSystem;
+
     private List<InventoryItem> inventory = new List<InventoryItem>();
 
     void Start()
     {
-        EvntManager.StartListening("ToggleInventory",ToggleInventory);
+        EvntManager.StartListening("OpenInventory", OpentoPuzzle);
+        EvntManager.StartListening("CloseInventory", ClosetoPuzzle);
+
         if (inventoryUI == null || rectTransform == null)
         {
             Debug.LogError("InventoryUI veya RectTransform atanmamış!");
@@ -47,6 +55,68 @@ public class Inventory : MonoBehaviour
         {
             ToggleInventory();
         }
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            PointerEventData pointerData = new PointerEventData(eventSystem);
+            pointerData.position = Input.mousePosition;
+
+            List<RaycastResult> results = new List<RaycastResult>();
+            raycaster.Raycast(pointerData, results);
+            print("Raycast count: " + results.Count);
+
+            foreach (RaycastResult result in results)
+            {
+                print("Raycast hit: " + result.gameObject.name);
+
+                var slot = result.gameObject.GetComponent<InventorySlotUI>();
+
+                Vector3 mousePos = Input.mousePosition;
+                mousePos.z = 0.5f; // Kameradan 5 birim uzaklık (z düzlemi)
+                Vector3 worldPos = Camera.main.ScreenToWorldPoint(mousePos);
+
+
+                if (slot == null)
+                {
+                    print("InventorySlotUI yok!");
+                    continue;
+                }
+
+                if (slot.item == null)
+                {
+                    print("Slot boş!");
+                    continue;
+                }
+
+                if (slot.item.itemPrefab == null)
+                {
+                    print("Prefab eksik!");
+                    continue;
+                }
+
+                print("Instantiate edilmek üzere: " + slot.item.itemName);
+
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                if (Physics.Raycast(ray, out RaycastHit hit))
+                {
+                    Instantiate(slot.item.itemPrefab, worldPos, Quaternion.identity);
+                    
+                    var meshRenderer = slot.item.itemPrefab.GetComponent<MeshRenderer>();
+                    
+                    meshRenderer.enabled = false;
+
+                    Debug.Log("Instantiate edildi: " + slot.item.itemName);
+
+                    if(slot.item.itemPrefab.transform.position.x > 3f)
+                    {
+                        meshRenderer.enabled = true;
+                    }
+                }
+            }
+
+        }
+
+
     }
 
     public bool AddItem(Item item, int quantity = 1)
@@ -90,23 +160,32 @@ public class Inventory : MonoBehaviour
         }
     }
 
+    public Item GetItemAtSlot(int index)
+    {
+        if (index >= 0 && index < inventory.Count)
+        {
+            return inventory[index].item;
+        }
+        return null;
+    }
+
     public void UpdateUI()
     {
         for (int i = 0; i < slots.Length; i++)
         {
+            var slotUI = slots[i].GetComponent<InventorySlotUI>();
+            if (slotUI == null)
+                slotUI = slots[i].gameObject.AddComponent<InventorySlotUI>();
+
             if (i < inventory.Count)
             {
-                slots[i].sprite = inventory[i].item.itemSprite;
-                slots[i].color = Color.white;
+                slotUI.SetItem(inventory[i].item, emptySlotSprite);
             }
             else
             {
-                slots[i].sprite = emptySlotSprite;
-                slots[i].color = new Color(1, 1, 1, 0.3f);
-
+                slotUI.SetItem(null, emptySlotSprite);
             }
         }
-
     }
 
     void ToggleInventory()
@@ -114,6 +193,22 @@ public class Inventory : MonoBehaviour
         if (isMoving) return;
 
         isInventoryOpen = !isInventoryOpen;
+        StartCoroutine(MoveInventory(isInventoryOpen));
+    }
+
+    void OpentoPuzzle()
+    {
+        if (isMoving) return;
+        if (isInventoryOpen) return;
+        isInventoryOpen = true;
+        StartCoroutine(MoveInventory(isInventoryOpen));
+    }
+
+    void ClosetoPuzzle()
+    {
+        if (isMoving) return;
+        if (!isInventoryOpen) return;
+        isInventoryOpen = false;
         StartCoroutine(MoveInventory(isInventoryOpen));
     }
 
@@ -137,4 +232,7 @@ public class Inventory : MonoBehaviour
         rectTransform.localPosition = end;
         isMoving = false;
     }
+
+    
+
 }
