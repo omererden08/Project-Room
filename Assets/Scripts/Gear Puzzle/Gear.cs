@@ -27,7 +27,7 @@ public class Gear : MonoBehaviour
         firstPosition = transform;
         gearPuzzle = FindFirstObjectByType<GearPuzzle>();
         puzzleManager = FindFirstObjectByType<PuzzleManager>();
-        Debug.Log($"Gear {name} initialized: Size={size}");
+        //Debug.Log($"Gear {name} initialized: Size={size}");
     }
 
     private void OnMouseDown()

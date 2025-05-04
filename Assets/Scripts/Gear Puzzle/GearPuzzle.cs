@@ -10,7 +10,7 @@ public class GearPuzzle : MonoBehaviour
     private void Awake()
     {
         requiredCorrectSlots = slots.Count();
-        Debug.Log($"GearPuzzle: Required correct slots = {requiredCorrectSlots}, Total slots = {slots.Length}");
+        //Debug.Log($"GearPuzzle: Required correct slots = {requiredCorrectSlots}, Total slots = {slots.Length}");
     }
 
     public void UpdateGearStates()

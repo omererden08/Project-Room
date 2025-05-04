@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class PuzzleManager : IInteractable
 {
     [Header("Puzzle Camera Settings")]
-    [SerializeField] private Transform cameraFocusPoint;
+    [SerializeField] public Transform cameraFocusPoint;
     [SerializeField] private UnityEngine.Vector3 cameraDistance;
     [SerializeField] private float transitionDuration = 1.5f;
     [SerializeField] private Ease cameraEaseType = Ease.InOutSine;
@@ -17,7 +17,7 @@ public class PuzzleManager : IInteractable
     [SerializeField] private KeyCode exitPuzzleKey = KeyCode.Escape;
 
 
-
+    public static PuzzleManager ActivePuzzleManager => activePuzzleManager;
 
     // References
     private Camera mainCamera;
@@ -36,7 +36,6 @@ public class PuzzleManager : IInteractable
 
     private bool isGameEnded = false;
     private int counter = 0;
-
 
 
     private void Start()

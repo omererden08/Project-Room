@@ -29,7 +29,7 @@ public class Slot : MonoBehaviour
         gearPuzzle = FindFirstObjectByType<GearPuzzle>();
         currentGear = null;
         currentStat = SlotStat.Incorrect; // Explicitly initialize
-        Debug.Log($"Slot {name} initialized: isFake={isFakeSlot}, stat={currentStat}");
+        //Debug.Log($"Slot {name} initialized: isFake={isFakeSlot}, stat={currentStat}");
     }
 
     public SlotStat ValidateGear(Gear gear)
