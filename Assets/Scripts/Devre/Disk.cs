@@ -5,8 +5,7 @@ public class Disk : MonoBehaviour
     public float spinSpeed = 90f; // Degrees per second (positive = clockwise, negative = counterclockwise)
     private float currentSpinDirection = 0f; // Current spin direction (1, -1, or 0)
     private bool isSpinning = false;
-    [Tooltip("Disk numarası, girilmesi gerekli")]public int DiskNo;
-
+    [Tooltip("Disk numarası, girilmesi gerekli")] public int DiskNo;
     [Tooltip("saat yönü 1, saat tersi -1")] public int rotation = 1;
 
     void Update()

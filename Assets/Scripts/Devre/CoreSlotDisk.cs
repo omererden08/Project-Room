@@ -12,7 +12,7 @@ public class CoreSlotDisk : MonoBehaviour
     public CoreSlotStat stat;
     [SerializeField] private DevreSystem dS;
     private bool isColliding = false;
-    private float recalcInterval = 0.1f; // Recalculate every 0.1 seconds
+    private float recalcInterval = 0.5f; // Recalculate every 0.5 seconds to reduce lag
     private float lastRecalcTime = 0f;
 
     void Start()
@@ -36,6 +36,7 @@ public class CoreSlotDisk : MonoBehaviour
             if (dS != null)
             {
                 dS.CalculateSpin(this);
+                dS.NotifySlotStateChanged();
                 lastRecalcTime = Time.time;
             }
             else
@@ -71,6 +72,7 @@ public class CoreSlotDisk : MonoBehaviour
             if (dS != null)
             {
                 dS.CalculateSpin(this);
+                dS.NotifySlotStateChanged();
                 lastRecalcTime = Time.time;
             }
             else
