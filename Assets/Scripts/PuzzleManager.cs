@@ -37,9 +37,13 @@ public class PuzzleManager : IInteractable
     private bool isGameEnded = false;
     private int counter = 0;
 
+    public Collider col;
+
 
     private void Start()
     {
+        col = GetComponent<Collider>();
+        col.enabled = true;
         outline = GetComponent<Outline3D>();
         CanSolvable = true;
         LightMaterial.color = Color.red;
@@ -101,7 +105,7 @@ public class PuzzleManager : IInteractable
 
         Debug.Log("puzzle solving");
         activePuzzleManager = this;
-
+        col.enabled = false;
         originalCameraParent = mainCamera.transform.parent;
         originalCameraPosition = mainCamera.transform.position;
         originalCameraRotation = mainCamera.transform.rotation;
@@ -151,6 +155,7 @@ public class PuzzleManager : IInteractable
             playerController?.ResumeController();
             inPuzzleMode = false;
             activePuzzleManager = null;
+            col.enabled=true;
         });
     }
 

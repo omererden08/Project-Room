@@ -234,6 +234,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   puzzleLiquid: {fileID: 6440777885907040538}
+  puzzleManager: {fileID: 0}
   tube: {fileID: 0}
   outline: {fileID: 0}
 --- !u!114 &4349580924536877622
@@ -442,6 +443,7 @@ GameObject:
   - component: {fileID: 7169401931442408854}
   - component: {fileID: 3587961866427493739}
   - component: {fileID: 5894480450852745839}
+  - component: {fileID: 6103197512893253125}
   m_Layer: 0
   m_Name: BTN_A_FILL
   m_TagString: Untagged
@@ -539,6 +541,20 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6103197512893253125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 598186585304881570}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8850e7bfb4a8704ea92e3935a4eb78d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tube: {fileID: 0}
+  puzzleLiquid: {fileID: 0}
 --- !u!1 &661826013587150523
 GameObject:
   m_ObjectHideFlags: 0
@@ -923,7 +939,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b7ad658f077397548b0885d0eb5961c0, type: 2}
+  - {fileID: 2100000, guid: ea1d1f59418dba140a26ed5d79d91eec, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -980,6 +996,7 @@ GameObject:
   - component: {fileID: 1931010150404341136}
   - component: {fileID: 7235206752628397691}
   - component: {fileID: 6252210647743303040}
+  - component: {fileID: 1062381616957134159}
   m_Layer: 0
   m_Name: BTN_B_FILL
   m_TagString: Untagged
@@ -1077,6 +1094,20 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1062381616957134159
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1418676575423063372}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8850e7bfb4a8704ea92e3935a4eb78d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tube: {fileID: 0}
+  puzzleLiquid: {fileID: 0}
 --- !u!1 &1427716054177266477
 GameObject:
   m_ObjectHideFlags: 0
@@ -1201,6 +1232,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   puzzleLiquid: {fileID: 6440777885907040538}
+  puzzleManager: {fileID: 0}
   tube: {fileID: 0}
   outline: {fileID: 0}
 --- !u!114 &6398681959168723636
@@ -1266,6 +1298,7 @@ GameObject:
   - component: {fileID: 7076415998176805849}
   - component: {fileID: 6558961757254383004}
   - component: {fileID: 7325000843795431571}
+  - component: {fileID: 4789615916479080249}
   m_Layer: 0
   m_Name: BTN_D_EMPTY
   m_TagString: Untagged
@@ -1363,6 +1396,20 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4789615916479080249
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2789508163150073217}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7c326705097b594e8b17248362a40c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tube: {fileID: 0}
+  puzzleLiquid: {fileID: 0}
 --- !u!1 &2879960912356215691
 GameObject:
   m_ObjectHideFlags: 0
@@ -1485,6 +1532,8 @@ MonoBehaviour:
   t_3l: {fileID: 0}
   chosenTube: {fileID: 0}
   targetTube: {fileID: 0}
+  pm: {fileID: 0}
+  isSolved: 0
 --- !u!1 &3560924974914616421
 GameObject:
   m_ObjectHideFlags: 0
@@ -1497,6 +1546,7 @@ GameObject:
   - component: {fileID: 9075804243850610960}
   - component: {fileID: 5423697357391726212}
   - component: {fileID: 6107583173815424840}
+  - component: {fileID: 8353499314759980662}
   m_Layer: 0
   m_Name: BTN_B_EMPTY
   m_TagString: Untagged
@@ -1594,6 +1644,20 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8353499314759980662
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3560924974914616421}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7c326705097b594e8b17248362a40c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tube: {fileID: 0}
+  puzzleLiquid: {fileID: 0}
 --- !u!1 &3770867317291920706
 GameObject:
   m_ObjectHideFlags: 0
@@ -2105,6 +2169,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   capacity: 3
   currentLitre: 0
+  material: {fileID: 2100000, guid: 7ff974b7ab6a4ad49b649141590ba9fc, type: 2}
 --- !u!1 &4174623971588417031
 GameObject:
   m_ObjectHideFlags: 0
@@ -2227,6 +2292,7 @@ GameObject:
   - component: {fileID: 8718677426148990825}
   - component: {fileID: 538970089983016529}
   - component: {fileID: 8843309988194492221}
+  - component: {fileID: 4412408060547510943}
   m_Layer: 0
   m_Name: BTN_A_EMPTY
   m_TagString: Untagged
@@ -2324,6 +2390,20 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4412408060547510943
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4267644207687621513}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7c326705097b594e8b17248362a40c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tube: {fileID: 0}
+  puzzleLiquid: {fileID: 0}
 --- !u!1 &4332901237525794650
 GameObject:
   m_ObjectHideFlags: 0
@@ -2373,6 +2453,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   capacity: 8
   currentLitre: 0
+  material: {fileID: 2100000, guid: 3e9e536b8e4407b45a8a5b73b523cfeb, type: 2}
 --- !u!1 &4602420140419044251
 GameObject:
   m_ObjectHideFlags: 0
@@ -2438,7 +2519,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b7ad658f077397548b0885d0eb5961c0, type: 2}
+  - {fileID: 2100000, guid: 103711980d2bcd148aec15b3415a0841, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2761,7 +2842,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b7ad658f077397548b0885d0eb5961c0, type: 2}
+  - {fileID: 2100000, guid: 7ff974b7ab6a4ad49b649141590ba9fc, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2948,6 +3029,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   puzzleLiquid: {fileID: 6440777885907040538}
+  puzzleManager: {fileID: 0}
   tube: {fileID: 0}
   outline: {fileID: 0}
 --- !u!1 &5636873067080606928
@@ -2999,6 +3081,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   capacity: 5
   currentLitre: 0
+  material: {fileID: 2100000, guid: 103711980d2bcd148aec15b3415a0841, type: 2}
 --- !u!1 &5933284683411125560
 GameObject:
   m_ObjectHideFlags: 0
@@ -3224,6 +3307,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   capacity: 6
   currentLitre: 0
+  material: {fileID: 2100000, guid: ea1d1f59418dba140a26ed5d79d91eec, type: 2}
 --- !u!1 &6114713520986075809
 GameObject:
   m_ObjectHideFlags: 0
@@ -3236,6 +3320,7 @@ GameObject:
   - component: {fileID: 2420436925359129126}
   - component: {fileID: 5245841928441062149}
   - component: {fileID: 3309706465934246871}
+  - component: {fileID: 7978076101138822455}
   m_Layer: 0
   m_Name: BTN_C_EMPTY
   m_TagString: Untagged
@@ -3333,6 +3418,20 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &7978076101138822455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6114713520986075809}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7c326705097b594e8b17248362a40c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tube: {fileID: 0}
+  puzzleLiquid: {fileID: 0}
 --- !u!1 &6119844819214102162
 GameObject:
   m_ObjectHideFlags: 0
@@ -3398,7 +3497,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b7ad658f077397548b0885d0eb5961c0, type: 2}
+  - {fileID: 2100000, guid: 3e9e536b8e4407b45a8a5b73b523cfeb, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3918,7 +4017,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item: {fileID: 0}
-  outline: {fileID: 4548650861097785041}
+  outline: {fileID: 0}
   cameraFocusPoint: {fileID: 4727435229390758294}
   cameraDistance: {x: -2, y: 0, z: 1}
   transitionDuration: 1.5
@@ -3926,14 +4025,9 @@ MonoBehaviour:
   solved: 0
   autoExitDelay: 0.2
   exitPuzzleKey: 27
-  puzzleUI: {fileID: 0}
-  gameUI:
-  - {fileID: 0}
   inPuzzleMode: 0
-  LightMaterial: {fileID: 2100000, guid: 1a6c9d7ae87c8ae4e9c94f1acc21f027, type: 2}
+  LightMaterial: {fileID: 2100000, guid: 9edc3e8eb2a3a5846bc35fad80a0a486, type: 2}
   CanSolvable: 0
-  endScreenCanvasGroup: {fileID: 0}
-  fadeDuration: 1
 --- !u!114 &4548650861097785041
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4094,6 +4188,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   puzzleLiquid: {fileID: 6440777885907040538}
+  puzzleManager: {fileID: 0}
   tube: {fileID: 0}
   outline: {fileID: 0}
 --- !u!1 &7453591068575944431
@@ -4108,6 +4203,7 @@ GameObject:
   - component: {fileID: 1721114257533078889}
   - component: {fileID: 1769224769028855171}
   - component: {fileID: 4587939550814803439}
+  - component: {fileID: 2026062472574685622}
   m_Layer: 0
   m_Name: BTN_D_FILL
   m_TagString: Untagged
@@ -4205,6 +4301,20 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2026062472574685622
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7453591068575944431}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8850e7bfb4a8704ea92e3935a4eb78d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tube: {fileID: 0}
+  puzzleLiquid: {fileID: 0}
 --- !u!1 &7674850024503970717
 GameObject:
   m_ObjectHideFlags: 0
@@ -4569,6 +4679,7 @@ GameObject:
   - component: {fileID: 1507505675416423972}
   - component: {fileID: 4917709380485952520}
   - component: {fileID: 1529371432625300058}
+  - component: {fileID: 5462043075540942823}
   m_Layer: 0
   m_Name: BTN_C_FILL
   m_TagString: Untagged
@@ -4666,6 +4777,20 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5462043075540942823
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8150307055824835574}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8850e7bfb4a8704ea92e3935a4eb78d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tube: {fileID: 0}
+  puzzleLiquid: {fileID: 0}
 --- !u!1 &8931449056992888540
 GameObject:
   m_ObjectHideFlags: 0
