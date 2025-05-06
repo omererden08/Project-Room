@@ -9,7 +9,6 @@ public class InventorySlotUI : MonoBehaviour, IPointerClickHandler
     public Image image;
     [SerializeField] private TextMeshProUGUI quantityText;
 
-
     void Start()
     {
         if (image == null)
@@ -47,17 +46,14 @@ public class InventorySlotUI : MonoBehaviour, IPointerClickHandler
         }
     }
 
-
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (inventoryItem != null && inventoryItem.item != null && inventoryItem.item.itemPrefab != null)
+        // Removed instantiation logic; dragging will handle reactivation
+        if (inventoryItem != null && inventoryItem.item != null && inventoryItem.originalObject != null)
         {
-            Vector3 spawnPos = GetMouseWorldPosition();
-            Instantiate(inventoryItem.item.itemPrefab, spawnPos, Quaternion.identity);
-            Debug.Log($"Instantiate edildi: {inventoryItem.item.itemName}");
+            Debug.Log($"Clicked on slot with item: {inventoryItem.item.itemName}");
         }
     }
-
 
     private Vector3 GetMouseWorldPosition()
     {
@@ -66,6 +62,6 @@ public class InventorySlotUI : MonoBehaviour, IPointerClickHandler
         {
             return hit.point;
         }
-        return ray.GetPoint(5f); // Eðer raycast boþa giderse
+        return ray.GetPoint(5f);
     }
 }

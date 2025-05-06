@@ -18,6 +18,7 @@ public class Lever : MonoBehaviour
 
     private void Start()
     {
+        puzzleManager = GetComponentInParent<PuzzleManager>();
         foreach (Transform child in transform)
         {
             if (child.CompareTag("LeverSwitch"))

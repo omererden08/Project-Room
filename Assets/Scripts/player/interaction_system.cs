@@ -66,7 +66,7 @@ public class InteractionSystem : MonoBehaviour
 
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (!IsPaused)
         {
@@ -164,7 +164,7 @@ public class InteractionSystem : MonoBehaviour
                     }
                     else
                     {
-                        Debug.LogWarning("Týklanan obje 'InventoryItem' tag'li ama InteractableItem scripti yok!");
+                        Debug.LogWarning("Tï¿½klanan obje 'InventoryItem' tag'li ama InteractableItem scripti yok!");
                     }
                 }
             }

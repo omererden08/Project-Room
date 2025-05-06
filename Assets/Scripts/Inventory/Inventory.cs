@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System.Linq;
+
 public class Inventory : MonoBehaviour
 {
     [Header("Inventory Config")]
@@ -31,7 +32,12 @@ public class Inventory : MonoBehaviour
     // Dragging variables
     private GameObject draggedObject;
     private bool isDragging;
-    [SerializeField] private float dragDepthMultiplier = 0.5f; // Multiplier for dynamic drag depth
+    [SerializeField] private float dragDepthMultiplier = 0.5f;
+    [SerializeField] private float mouseDragSmoothness = 5f;
+
+
+
+    public List<GameObject> inv;
 
     void Start()
     {
@@ -46,7 +52,7 @@ public class Inventory : MonoBehaviour
         if (inventoryUI == null || rectTransform == null || slots == null || slots.Length == 0 || 
             emptySlotSprite == null || raycaster == null || eventSystem == null)
         {
-            Debug.LogError("Required components (InventoryUI, RectTransform, Slots, EmptySlotSprite, Raycaster, or EventSystem) not assigned!");
+            Debug.LogError("Required components not assigned!");
             enabled = false;
             return;
         }
@@ -79,7 +85,7 @@ public class Inventory : MonoBehaviour
             ToggleInventory();
         }
 
-        if (Input.GetMouseButtonDown(0) && !isDragging)
+        if (Input.GetMouseButtonDown(0) && !isDragging && isInventoryOpen)
         {
             DraggingItem();
         }
@@ -91,26 +97,27 @@ public class Inventory : MonoBehaviour
 
         if (Input.GetMouseButtonUp(0) && isDragging)
         {
-            StopDragging();
+            DropItem();
         }
     }
 
-    public bool AddItem(Item item, int quantity = 1)
+    public bool AddItem(Item item, int quantity = 1, GameObject originalObject = null)
     {
         if (item == null)
         {
             Debug.LogWarning("Attempted to add null item to inventory!");
             return false;
         }
-
-        InventoryItem existingItem = inventory.Find(i => i.item == item);
+        //envanter kontrolu saglanacak
+        inv.Add(originalObject);
+        InventoryItem existingItem = inventory.Find(i => i.item == item && i.originalObject == originalObject);
 
         if (existingItem != null && item.isStackable)
         {
             existingItem.quantity += quantity;
             inventory.Remove(existingItem);
-            inventory.Insert(0, existingItem); // Stack edilen item'ı başa al
-            UpdateSlot(0); // Update only the affected slot
+            inventory.Insert(0, existingItem);
+            UpdateSlot(0);
             return true;
         }
         else
@@ -121,13 +128,13 @@ public class Inventory : MonoBehaviour
                 return false;
             }
 
-            inventory.Insert(0, new InventoryItem(item, quantity));
-            UpdateUI(); // Full UI update for new items
+            inventory.Insert(0, new InventoryItem(item, quantity, originalObject));
+            UpdateUI();
             return true;
         }
     }
 
-    public void RemoveItem(Item item, int quantity = 1)
+    public void RemoveItem(Item item, int quantity = 1, GameObject originalObject = null)
     {
         if (item == null)
         {
@@ -135,7 +142,7 @@ public class Inventory : MonoBehaviour
             return;
         }
 
-        InventoryItem existingItem = inventory.Find(i => i.item == item);
+        InventoryItem existingItem = inventory.Find(i => i.item == item && i.originalObject == originalObject);
         if (existingItem == null)
         {
             Debug.LogWarning($"Item {item.itemName} not found in inventory!");
@@ -151,7 +158,7 @@ public class Inventory : MonoBehaviour
             inventory.Remove(existingItem);
         }
 
-        UpdateUI(); // Full UI update to ensure all slots reflect the current inventory state
+        UpdateUI();
     }
 
     public Item GetItemAtSlot(int index)
@@ -257,7 +264,7 @@ public class Inventory : MonoBehaviour
         foreach (RaycastResult result in results)
         {
             var slot = result.gameObject.GetComponent<InventorySlotUI>();
-            if (slot == null || slot.inventoryItem == null || slot.inventoryItem.item == null || slot.inventoryItem.item.itemPrefab == null)
+            if (slot == null || slot.inventoryItem == null || slot.inventoryItem.item == null || slot.inventoryItem.originalObject == null)
             {
                 continue;
             }
@@ -269,35 +276,42 @@ public class Inventory : MonoBehaviour
                 return;
             }
 
-            // Calculate dynamic drag depth
-            float dragDepth = Vector3.Distance(cam.transform.position, activePuzzle.cameraFocusPoint.position) * dragDepthMultiplier;
-            Vector3 spawnPos = activePuzzle.cameraFocusPoint.position + cam.transform.forward * dragDepth;
+            // Use the original object instead of instantiating
+            draggedObject = slot.inventoryItem.originalObject;
+            draggedObject.SetActive(true); // Reactivate the object
 
-            // Instantiate the object, parented to the PuzzleManager
-            draggedObject = Instantiate(slot.inventoryItem.item.itemPrefab, spawnPos, Quaternion.identity, activePuzzle.transform);
             ObjectsCreatedFromInventory.Add(draggedObject);
             Debug.Log($"Added {slot.inventoryItem.item.itemName} to ObjectsCreatedFromInventory. Total objects: {ObjectsCreatedFromInventory.Count}");
             isDragging = true;
 
             // Remove the item from inventory
-            RemoveItem(slot.inventoryItem.item, 1);
+            RemoveItem(slot.inventoryItem.item, 1, slot.inventoryItem.originalObject);
 
-            // Disable physics to prevent unwanted movement
+            // Disable physics to prevent unwanted movement while dragging
             var rb = draggedObject.GetComponent<Rigidbody>();
             if (rb != null)
             {
                 rb.isKinematic = true;
+                rb.useGravity = false;
             }
 
-            // Ensure the object is visible
-            var meshRenderer = draggedObject.GetComponent<MeshRenderer>();
-            if (meshRenderer != null)
+            // Ensure all renderers are enabled
+            var renderers = draggedObject.GetComponentsInChildren<Renderer>(true);
+            foreach (var renderer in renderers)
             {
-                meshRenderer.enabled = true;
+                renderer.enabled = true;
             }
 
-            Debug.Log($"Item instantiated for dragging: {slot.inventoryItem.item.itemName}");
-            break; // Process only the first valid slot
+            // Ensure all colliders are enabled but set to trigger during drag
+            var colliders = draggedObject.GetComponentsInChildren<Collider>(true);
+            foreach (var collider in colliders)
+            {
+                collider.enabled = true;
+                collider.isTrigger = true;
+            }
+
+            Debug.Log($"Item reactivated for dragging: {slot.inventoryItem.item.itemName}");
+            break;
         }
     }
 
@@ -309,29 +323,43 @@ public class Inventory : MonoBehaviour
         if (activePuzzle == null)
         {
             Debug.LogWarning("No active PuzzleManager found during drag!");
-            StopDragging();
+            DropItem();
             return;
         }
 
-        // Calculate dynamic drag depth
         float dragDepth = Vector3.Distance(cam.transform.position, activePuzzle.cameraFocusPoint.position) * dragDepthMultiplier;
 
-        // Convert mouse position to a world point
-        Vector3 mousePos = Input.mousePosition;
-        mousePos.z = Vector3.Distance(cam.transform.position, activePuzzle.cameraFocusPoint.position) + dragDepth;
-        Vector3 worldPos = cam.ScreenToWorldPoint(mousePos);
+        Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+        Vector3 targetPosition = ray.origin + ray.direction * dragDepth;
 
-        // Update the dragged object's position
-        draggedObject.transform.position = worldPos;
+        draggedObject.transform.position = Vector3.Lerp(
+            draggedObject.transform.position,
+            targetPosition,
+            Time.deltaTime * mouseDragSmoothness
+        );
     }
 
-    void StopDragging()
+    void DropItem()
     {
         if (draggedObject != null)
         {
-            Destroy(draggedObject); // Explicitly clean up
+            var rb = draggedObject.GetComponent<Rigidbody>();
+            if (rb != null)
+            {
+                rb.isKinematic = false;
+                rb.useGravity = true;
+            }
+
+            var colliders = draggedObject.GetComponentsInChildren<Collider>(true);
+            foreach (var collider in colliders)
+            {
+                collider.isTrigger = false;
+            }
+
+            Debug.Log($"Item dropped: {draggedObject.name}");
             draggedObject = null;
         }
+
         isDragging = false;
     }
 
