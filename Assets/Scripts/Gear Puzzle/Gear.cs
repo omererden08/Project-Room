@@ -20,6 +20,7 @@ public class Gear : MonoBehaviour
     private PuzzleManager puzzleManager;
 
     public Slot CurrentSlot => currentSlot;
+
     public bool IsSpinning => transform.GetComponent<Tween>()?.IsActive() ?? false;
 
     private void Awake()
@@ -64,7 +65,7 @@ public class Gear : MonoBehaviour
         }
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (isDragging)
         {

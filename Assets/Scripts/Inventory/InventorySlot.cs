@@ -4,7 +4,11 @@ using UnityEngine.EventSystems;
 using TMPro;
 using Unity.Mathematics;
 
-
+public enum PuzzleDirection
+{
+    x,  // X eksenine bakan puzzle
+    y   // Y eksenine bakan puzzle
+}
 
 public class InventorySlot : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler, IDropHandler
 {
@@ -13,23 +17,15 @@ public class InventorySlot : MonoBehaviour, IDragHandler, IBeginDragHandler, IEn
     private Item item;
     private Vector2 originalPosition;
     public GetActivePuzzleManager gAPM;
-    
-    // Kameranın uzaklık değeri
     [SerializeField] private float zCoordinate = 10f;
-    
-    // Etkileşim mesafesi
     [SerializeField] private float interactionDistance = 2f;
-    
-    // Puzzle yüzeyinden uzaklık offset değeri
-    [SerializeField] private float puzzleOffset = 0.5f;
-    
     private Camera mainCamera;
-    
-    // Sürüklemenin başladığı UI pozisyonu
     private Vector2 dragStartPosition;
-    
-    // Puzzle'ın transform'u
     private Transform puzzleTransform;
+    public float offset;
+    private GameObject activeObject; // Sürüklenen nesneyi sakla
+
+
 
     private void Awake()
     {
@@ -38,7 +34,7 @@ public class InventorySlot : MonoBehaviour, IDragHandler, IBeginDragHandler, IEn
         gAPM = FindAnyObjectByType<GetActivePuzzleManager>();
         mainCamera = Camera.main;
     }
-    
+
     private void Start()
     {
         NotVisibleSlot();
@@ -46,11 +42,13 @@ public class InventorySlot : MonoBehaviour, IDragHandler, IBeginDragHandler, IEn
 
     public void SetItem(Item newItem)
     {
+        if (newItem == null) return;
+
         VisibleSlot();
         item = newItem;
         itemIcon.sprite = item.icon;
         itemIcon.enabled = true;
-        quantityText.text = item.quantity > 1 ? item.quantity.ToString() : "";
+        quantityText.text = item.quantity > 0 ? item.quantity.ToString() : "";
     }
 
     public void ClearSlot()
@@ -59,192 +57,137 @@ public class InventorySlot : MonoBehaviour, IDragHandler, IBeginDragHandler, IEn
         itemIcon.sprite = null;
         itemIcon.enabled = false;
         quantityText.text = "";
+        NotVisibleSlot();
     }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        if (item == null) return;
-        
+        if (item == null || item.sceneObjects.Count == 0)
+        {
+            Debug.Log("OnBeginDrag: Item null veya sceneObjects boş");
+            return;
+        }
+
         originalPosition = transform.position;
         dragStartPosition = eventData.position;
-        
-        // Scene objesi aktifleştir
-        item.sceneObject.SetActive(true);
-        
-        // Cursor'ı göster
+        activeObject = item.sceneObjects.Find(obj => obj != null);
+
+        if (activeObject != null)
+        {
+            activeObject.SetActive(true);
+            Debug.Log($"OnBeginDrag: Active Object {activeObject.name} aktif edildi");
+        }
+        else
+        {
+            Debug.Log("OnBeginDrag: Geçerli activeObject bulunamadı");
+            return;
+        }
+
         Cursor.visible = true;
-        
-        // Puzzle transform'unu kaydet
         puzzleTransform = gAPM.GetPuzzleManager()?.transform;
-        
-        // Nesnenin başlangıç pozisyonunu ayarla
+
         if (puzzleTransform != null)
         {
             Vector3 worldPos = GetMouseWorldPosition(eventData);
-            
-            // PuzzleDirection'a göre pozisyonu ayarla
             PuzzleDirection direction = gAPM.GetPuzzleManager().direction;
             AdjustObjectBasedOnPuzzleDirection(worldPos, direction);
-            
-            Debug.Log($"Begin drag with direction: {direction}");
+            Debug.Log($"OnBeginDrag: Begin drag with direction = {direction}");
         }
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-        if (item == null || puzzleTransform == null) return;
-        
-        // Mouse'un dünya pozisyonunu al
+        if (item == null || activeObject == null || puzzleTransform == null)
+        {
+            Debug.Log("OnDrag: Item, activeObject veya puzzleTransform null");
+            return;
+        }
+
         Vector3 worldPos = GetMouseWorldPosition(eventData);
-        
-        // PuzzleDirection'a göre pozisyonu ayarla
         PuzzleDirection direction = gAPM.GetPuzzleManager().direction;
         AdjustObjectBasedOnPuzzleDirection(worldPos, direction);
-        
-        Debug.Log("Item position: " + item.sceneObject.transform.position);
+        Debug.Log($"OnDrag: Item position = {activeObject.transform.position}");
     }
-    
+
     private void AdjustObjectBasedOnPuzzleDirection(Vector3 mouseWorldPos, PuzzleDirection direction)
     {
-        if (item == null || item.sceneObject == null || puzzleTransform == null) return;
-        
+        if (activeObject == null || puzzleTransform == null) return;
+
         Vector3 puzzlePos = puzzleTransform.position;
         Vector3 newPosition = mouseWorldPos;
-        Vector3 offsetDirection = Vector3.zero;
-        
-        // Puzzle yönüne göre pozisyonu ayarla
+
         switch (direction)
         {
             case PuzzleDirection.x:
-                // X eksenine bakan puzzle (Z ekseni sabit)
-                // Offset yönü Z ekseni boyunca (puzzle'dan uzaklaşma)
-                offsetDirection = Vector3.forward;
-                
-                // Z pozisyonunu puzzle pozisyonuna offset ekleyerek ayarla
-                newPosition.z = puzzlePos.z + puzzleOffset;
-                
-                // X-Y düzleminde ilerle, rotasyonu X eksenine bakan şekilde ayarla
-                item.sceneObject.transform.rotation = Quaternion.LookRotation(Vector3.forward, Vector3.up);
+                newPosition.z = puzzlePos.z;
+                activeObject.transform.rotation = Quaternion.LookRotation(Vector3.forward, Vector3.up);
+                newPosition.y += offset;
                 break;
-                
             case PuzzleDirection.y:
-                // Y eksenine bakan puzzle (X ekseni sabit)
-                // Offset yönü X ekseni boyunca (puzzle'dan uzaklaşma)
-                offsetDirection = Vector3.right;
-                
-                // X pozisyonunu puzzle pozisyonuna offset ekleyerek ayarla
-                newPosition.x = puzzlePos.x + puzzleOffset;
-                
-                // Y-Z düzleminde ilerle, rotasyonu Y eksenine bakan şekilde ayarla
-                item.sceneObject.transform.rotation = Quaternion.LookRotation(Vector3.right, Vector3.up);
+                newPosition.x = puzzlePos.x;
+                activeObject.transform.rotation = Quaternion.LookRotation(Vector3.right, Vector3.up);
+                newPosition.x += offset;
                 break;
         }
-        
-        // Puzzle merkezine olan mesafeyi kontrol et (offset hariç)
-        // Offset yönünü hesaplamadan önce yatay mesafeyi hesapla
-        Vector3 horizontalDiff = newPosition - puzzlePos;
-        
-        // Offset yönündeki bileşeni çıkar (yatay mesafeyi hesaplamak için)
-        if (direction == PuzzleDirection.x)
+
+        float distanceToPuzzle = Vector3.Distance(newPosition, puzzlePos);
+        if (distanceToPuzzle > interactionDistance)
         {
-            horizontalDiff.z = 0; // Z yönünü (derinlik) hesaba katma
+            newPosition = puzzlePos + (newPosition - puzzlePos).normalized * interactionDistance;
         }
-        else // PuzzleDirection.y
-        {
-            horizontalDiff.x = 0; // X yönünü (genişlik) hesaba katma
-        }
-        
-        float horizontalDistance = horizontalDiff.magnitude;
-        
-        if (horizontalDistance > interactionDistance)
-        {
-            // Mesafeyi sınırla (sadece yatay düzlemde)
-            Vector3 horizontalDir = horizontalDiff.normalized;
-            horizontalDiff = horizontalDir * interactionDistance;
-            
-            // Yeni pozisyonu güncelle, offset korunarak
-            if (direction == PuzzleDirection.x)
-            {
-                newPosition.x = puzzlePos.x + horizontalDiff.x;
-                newPosition.y = puzzlePos.y + horizontalDiff.y;
-                // Z zaten offset ile ayarlandı
-            }
-            else // PuzzleDirection.y
-            {
-                newPosition.y = puzzlePos.y + horizontalDiff.y;
-                newPosition.z = puzzlePos.z + horizontalDiff.z;
-                // X zaten offset ile ayarlandı
-            }
-        }
-        
-        // Debug bilgisi
-        Debug.DrawLine(puzzlePos, newPosition, Color.yellow, 0.1f);
-        Debug.Log($"Offset direction: {offsetDirection}, Distance: {horizontalDistance}");
-        
-        // Nesnenin pozisyonunu güncelle
-        item.sceneObject.transform.position = newPosition;
+
+        activeObject.transform.position = newPosition;
     }
-    
+
     private Vector3 GetMouseWorldPosition(PointerEventData eventData)
     {
-        // Mouse pozisyonunu al
         Vector3 mousePos = eventData.position;
-        
-        // Eğer puzzle varsa, z değerini puzzle'ın kameraya olan mesafesi olarak ayarla
         if (puzzleTransform != null)
         {
-            // Puzzle'ın ekran pozisyonunu al
             Vector3 puzzleScreenPos = mainCamera.WorldToScreenPoint(puzzleTransform.position);
             mousePos.z = puzzleScreenPos.z;
         }
         else
         {
-            // Sabit z değeri kullan
             mousePos.z = zCoordinate;
         }
-        
-        // Ekran koordinatlarını dünya koordinatlarına çevir
-        Vector3 worldPos = mainCamera.ScreenToWorldPoint(mousePos);
-        
-        return worldPos;
+
+        return mainCamera.ScreenToWorldPoint(mousePos);
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        if (item == null) return;
-
-        if (InventorySystem.Instance.isPuzzleMode && puzzleTransform != null)
+        if (item == null || activeObject == null)
         {
-            // Nesne ile puzzle arasındaki mesafeyi kontrol et
-            float distance = Vector3.Distance(item.sceneObject.transform.position, puzzleTransform.position);
-            
-            if (distance <= interactionDistance)
-            {
-                // Nesne puzzle alanına yerleştirildi
-                item.sceneObject.SetActive(true);
-                InventorySystem.Instance.RemoveItem(item.itemName, 1);
-                Debug.Log($"Item {item.itemName} placed successfully at distance: {distance}");
-                
-                // Eğer puzzle manager'ın bir fonksiyonu varsa çağırabilirsiniz
-                // gAPM.GetPuzzleManager().OnItemPlaced(item);
-            }
-            else
-            {
-                // Nesne puzzle alanı dışına bırakıldı
-                item.sceneObject.SetActive(false);
-                Debug.Log("Item dropped too far from puzzle");
-            }
+            Debug.Log("OnEndDrag: Item veya activeObject null");
+            return;
+        }
+
+        Debug.Log($"OnEndDrag: Active Object = {activeObject.name}, SceneObjects Count = {item.sceneObjects.Count}");
+
+        if (puzzleTransform == null)
+        {
+            activeObject.SetActive(false);
+            Debug.Log("OnEndDrag: PuzzleTransform null, nesne gizlendi");
+            return;
+        }
+
+        float distanceToPuzzle = Vector3.Distance(activeObject.transform.position, puzzleTransform.position);
+        Debug.Log($"OnEndDrag: Distance to puzzle = {distanceToPuzzle}");
+
+        if (distanceToPuzzle < 1)
+        {
+            InventorySystem.Instance.RemoveItem(item.itemName, 1);
+            Debug.Log($"AAAAAAAAAAAAAAAAAAA = {item.itemName}");
         }
         else
         {
-            // Puzzle modu değilse, nesneyi gizle
-            if (item.sceneObject != null)
-            {
-                item.sceneObject.SetActive(false);
-            }
+            activeObject.SetActive(false);
+            Debug.Log($"OnEndDrag: Active Object {activeObject.name} gizlendi");
         }
-        
+
         transform.position = originalPosition;
+        activeObject = null; // activeObject'i sıfırla
     }
 
     public void OnDrop(PointerEventData eventData)
@@ -256,7 +199,7 @@ public class InventorySlot : MonoBehaviour, IDragHandler, IBeginDragHandler, IEn
     {
         itemIcon.color = new Color(255, 255, 255, 255);
     }
-    
+
     private void NotVisibleSlot()
     {
         itemIcon.color = new Color(255, 255, 255, 0);

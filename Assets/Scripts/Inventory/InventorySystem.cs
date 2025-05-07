@@ -6,8 +6,8 @@ public class InventorySystem : MonoBehaviour
     public static InventorySystem Instance { get; private set; }
     public List<Item> items = new List<Item>();
     public InventorySlot[] slots;
-    public bool isPuzzleMode { get; private set; } // Puzzle modunu kontrol eder
-    private const int MAX_SLOTS = 8; // Maksimum 8 slot
+    public bool isPuzzleMode { get; private set; }
+    private const int MAX_SLOTS = 8;
 
     private void Awake()
     {
@@ -30,27 +30,37 @@ public class InventorySystem : MonoBehaviour
 
     public bool AddItem(Item item)
     {
-        // Aynı isimde item varsa stackle
+        if (item == null || string.IsNullOrEmpty(item.itemName))
+        {
+            Debug.LogWarning("AddItem: Geçersiz item veya itemName");
+            return false;
+        }
+
         Item existingItem = items.Find(i => i.itemName == item.itemName);
         if (existingItem != null)
         {
             existingItem.quantity += item.quantity;
-            if (existingItem.sceneObject != null)
-                existingItem.sceneObject.SetActive(false); // Envantere eklenince nesneyi gizle
+            if (item.sceneObjects != null && item.sceneObjects.Count > 0)
+            {
+                foreach (var obj in item.sceneObjects)
+                {
+                    if (obj != null && !existingItem.sceneObjects.Contains(obj))
+                    {
+                        if (obj.activeSelf) obj.SetActive(false); // Yalnızca aktifse gizle
+                        existingItem.sceneObjects.Add(obj);
+                    }
+                }
+            }
             UpdateSlots();
             return true;
         }
 
-        // Yeni item için boş slot kontrolü
         if (items.Count >= MAX_SLOTS)
         {
             Debug.Log("Envanter dolu! Yeni item eklenemedi: " + item.itemName);
             return false;
         }
-
-        // Yeni item ekle
-        if (item.sceneObject != null)
-            item.sceneObject.SetActive(false); // Yeni nesneyi gizle
+        //BURADA BİR ŞEYLER VAR
         items.Add(item);
         UpdateSlots();
         return true;
@@ -58,14 +68,31 @@ public class InventorySystem : MonoBehaviour
 
     public void RemoveItem(string itemName, int quantity)
     {
+        if (string.IsNullOrEmpty(itemName))
+        {
+            Debug.LogWarning("RemoveItem: Geçersiz itemName");
+            return;
+        }
+
         Item existingItem = items.Find(i => i.itemName == itemName);
         if (existingItem != null)
         {
             existingItem.quantity -= quantity;
             if (existingItem.quantity <= 0)
             {
+                existingItem.sceneObjects.Clear();
                 items.Remove(existingItem);
             }
+            else
+            {
+                for (int i = 0; i < quantity && existingItem.sceneObjects.Count > 0; i++)
+                {
+                    existingItem.sceneObjects.RemoveAt(existingItem.sceneObjects.Count - 1);
+                }
+                // Null nesneleri temizle
+                existingItem.sceneObjects.RemoveAll(obj => obj == null);
+            }
+            Debug.Log($"RemoveItem: Item = {itemName}, Quantity = {existingItem.quantity}, SceneObjects Count = {existingItem.sceneObjects.Count}");
             UpdateSlots();
         }
     }
@@ -82,7 +109,7 @@ public class InventorySystem : MonoBehaviour
             if (i < items.Count)
             {
                 slots[i].SetItem(items[i]);
-                Debug.Log($"Slot {i}: {items[i].itemName}, Miktar: {items[i].quantity}");
+                Debug.Log($"UpdateSlots: Slot {i}: {items[i].itemName}, Quantity: {items[i].quantity}, SceneObjects Count: {items[i].sceneObjects.Count}");
             }
             else
             {

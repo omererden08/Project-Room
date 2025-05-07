@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 [System.Serializable]
 public class Item
@@ -6,13 +7,23 @@ public class Item
     public string itemName;
     public Sprite icon;
     public int quantity;
-    public GameObject sceneObject; // Sahnede önceden yerleştirilmiş nesne
+    public List<GameObject> sceneObjects; // Her item için birden fazla sceneObject tutar
 
-    public Item(string name, Sprite icon, int qty, GameObject sceneObject = null)
+    public Item(string name, Sprite icon, int qty, GameObject obj)
     {
-        this.itemName = name;
+        itemName = name;
         this.icon = icon;
-        this.quantity = qty;
-        this.sceneObject = sceneObject;
+        quantity = qty;
+        sceneObjects = new List<GameObject>();
+        if (obj != null)
+        {
+            obj.SetActive(false); // Nesneyi envantere eklerken gizle
+            sceneObjects.Add(obj);
+        }
     }
+    public int GetActiveItemCount()
+    {
+        return sceneObjects.Count;
+    }
+
 }

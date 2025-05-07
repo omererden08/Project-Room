@@ -2,12 +2,7 @@ using UnityEngine;
 using DG.Tweening;
 using System.Collections;
 using UnityEngine.SceneManagement;
-public enum PuzzleDirection
-{
-    x,
-    y,
-    z
-}
+
 public class PuzzleManager : IInteractable
 {
     [Header("Puzzle Camera Settings")]
