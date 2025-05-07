@@ -1,30 +1,18 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Item", menuName = "Scriptable Objects/Item")]
-public class Item : ScriptableObject
+[System.Serializable]
+public class Item
 {
     public string itemName;
-    public Sprite itemSprite;
-    public bool isStackable = true;
-    public GameObject itemPrefab;
-}
+    public Sprite icon;
+    public int quantity;
+    public GameObject sceneObject; // Sahnede önceden yerleştirilmiş nesne
 
-[System.Serializable]
-public class InventoryItem
-{
-    public Item item;
-    public int quantity = 0;
-    public GameObject originalObject; // Reference to the original GameObject
-
-    public void IncreaseQuantity()
+    public Item(string name, Sprite icon, int qty, GameObject sceneObject = null)
     {
-        quantity++;
-    }
-
-    public InventoryItem(Item item, int quantity, GameObject originalObject)
-    {
-        this.item = item;
-        this.quantity = quantity;
-        this.originalObject = originalObject;
+        this.itemName = name;
+        this.icon = icon;
+        this.quantity = qty;
+        this.sceneObject = sceneObject;
     }
 }

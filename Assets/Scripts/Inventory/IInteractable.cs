@@ -3,9 +3,8 @@ using UnityEngine.Rendering;
 
 public class IInteractable : MonoBehaviour
 {
-    public Item item;
     public Outline3D outline;
-
+    //buradaki outline ne kadar mantikkli acabana
     void Start()
     {
         if (outline == null)
@@ -28,15 +27,6 @@ public class IInteractable : MonoBehaviour
     public virtual void PickUp()
     {
         Debug.Log("Picked up " + gameObject.name);
-        // Add to inventory and deactivate the object
-        Inventory inventory = FindObjectOfType<Inventory>();
-        if (inventory != null)
-        {
-            if (inventory.AddItem(item, 1, gameObject))
-            {
-                gameObject.SetActive(false); // Deactivate instead of destroying
-            }
-        }
     }
 
     public virtual void Interact()

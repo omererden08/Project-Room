@@ -2,7 +2,12 @@ using UnityEngine;
 using DG.Tweening;
 using System.Collections;
 using UnityEngine.SceneManagement;
-
+public enum PuzzleDirection
+{
+    x,
+    y,
+    z
+}
 public class PuzzleManager : IInteractable
 {
     [Header("Puzzle Camera Settings")]
@@ -16,7 +21,7 @@ public class PuzzleManager : IInteractable
     [SerializeField] private float autoExitDelay = 0.2f;
     [SerializeField] private KeyCode exitPuzzleKey = KeyCode.Escape;
 
-
+    public PuzzleDirection direction;
     public static PuzzleManager ActivePuzzleManager => activePuzzleManager;
 
     // References
@@ -26,6 +31,7 @@ public class PuzzleManager : IInteractable
     private Quaternion originalCameraRotation;
     public bool inPuzzleMode = false;
     private PlayerController playerController;
+    public Transform puzzleRootTransform;
 
     // Static lock to ensure only one PuzzleManager is active
     private static PuzzleManager activePuzzleManager = null;

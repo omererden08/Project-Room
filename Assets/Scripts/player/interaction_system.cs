@@ -16,9 +16,6 @@ public class InteractionSystem : MonoBehaviour
     private IInteractable _currentInteractable;
     private IInteractable _latestInteractable;
 
-    // Inventory variables
-    [SerializeField] private Inventory inventory;
-    [SerializeField] private List<IInteractable> pickedUpItems = new List<IInteractable>();
     int selectedIndex = 0;
     [SerializeField] private float scrollSpeed = 10f;
 
@@ -55,14 +52,7 @@ public class InteractionSystem : MonoBehaviour
                 Debug.LogError("InteractionSystem: No camera assigned and cannot find main camera!");
             }
         }
-        if (inventory == null)
-        {
-            inventory = FindObjectOfType<Inventory>();
-            if (inventory == null)
-            {
-                Debug.LogError("InteractionSystem: No Inventory found in the scene!");
-            }
-        }
+
 
     }
 
@@ -71,8 +61,6 @@ public class InteractionSystem : MonoBehaviour
         if (!IsPaused)
         {
             CheckForInteractable();
-            SelectItem(scrollSpeed);
-            PickUpItem();
         }
     }
 
@@ -85,8 +73,6 @@ public class InteractionSystem : MonoBehaviour
         if (Physics.Raycast(ray, out hit, interactionDistance))
         {
             interactable = hit.collider.GetComponent<IInteractable>();
-            Debug.Log(hit.collider.gameObject.name);
-
         }
 
         if (interactable != null)
@@ -143,35 +129,12 @@ public class InteractionSystem : MonoBehaviour
         }
     }
 
-    void PickUpItem()
+    void OnPickUp()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity))
-            {
-                GameObject clickedObject = hit.collider.gameObject;
-
-                if (clickedObject.CompareTag("InventoryItem"))
-                {
-                    IInteractable interactable = clickedObject.GetComponent<IInteractable>();
-                    if (interactable != null)
-                    {
-                        inventory.AddItem(interactable.item);
-                        pickedUpItems.Add(interactable);
-                        clickedObject.SetActive(false);
-                        Debug.Log("Item picked up: " + interactable.item.itemName);
-                    }
-                    else
-                    {
-                        Debug.LogWarning("T�klanan obje 'InventoryItem' tag'li ama InteractableItem scripti yok!");
-                    }
-                }
-            }
-        }
+        CurrentInteractable.PickUp();   
     }
-
-
+    //burasi burada olmamali 
+    /*
     void SelectItem(float scroll)  //select item
     {
         if (IsPaused) return;
@@ -190,5 +153,5 @@ public class InteractionSystem : MonoBehaviour
 
         Debug.Log("Selected Item: " + pickedUpItems[selectedIndex].name);
     }
-
+    */
 }
