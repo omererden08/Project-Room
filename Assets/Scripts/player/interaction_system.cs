@@ -85,7 +85,6 @@ public class InteractionSystem : MonoBehaviour
         if (Physics.Raycast(ray, out hit, interactionDistance))
         {
             interactable = hit.collider.GetComponent<IInteractable>();
-            Debug.Log(hit.collider.gameObject.name);
 
         }
 
