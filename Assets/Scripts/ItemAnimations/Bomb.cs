@@ -13,18 +13,13 @@ public class Bomb : MonoBehaviour
     {
         initialPos = transform.position;
         lastPos = new Vector3(initialPos.x, 0.11f, initialPos.z);
-        transform.position = lastPos;
+        EvntManager.StartListening("BombUp", BombUp);
     }
-
-    private void Update()
+    
+    private void BombUp()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            StartCoroutine(Move(moveDuration));
-        }
+        StartCoroutine(Move(moveDuration));
     }
-
-
     private IEnumerator Move(float duration)
     {
         isMoving = true;
@@ -33,7 +28,7 @@ public class Bomb : MonoBehaviour
         Vector3 end = lastPos;
 
         float elapsedTime = 0f;
-
+        EvntManager.TriggerEvent("CameraShakeBig");
         while (elapsedTime < duration)
         {
             float t = elapsedTime / duration;

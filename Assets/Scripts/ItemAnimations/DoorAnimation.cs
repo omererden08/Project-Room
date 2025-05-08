@@ -18,7 +18,13 @@ public class DoorAnimation : IInteractable
     public void LockDoor()
     {
         animator.SetTrigger("Door_Lock");
+        EvntManager.TriggerEvent("BombUpStart");
         isLocked = true;
+    }
+
+    public void ShakeStart()
+    {
+        EvntManager.TriggerEvent("CameraShakeLittle");
     }
     void PlayAnimationSequence(int animationID)
     {
