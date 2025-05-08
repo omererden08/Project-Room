@@ -18,6 +18,7 @@ public class MoveAnimation : MonoBehaviour
 
     void Start()
     {
+        EvntManager.StartListening("BombUpStart", BombUpStart);
         initialPos = transform.position;
 
         if (targetPos == null && transform.childCount > 0)
@@ -31,24 +32,10 @@ public class MoveAnimation : MonoBehaviour
         }
     }
 
-    void Update()
-    {
-        if (Input.GetMouseButtonDown(0) && !isMoving)
-        {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, interactLayer))
-            {
-                if (hit.collider.gameObject == gameObject)
-                {
-                    ToggleDrawer(moveDuration);
-                }
-            }
-        }
 
-        if (Input.GetKeyDown(KeyCode.P) && CompareTag("Platform") && !isMoving)
-        {
-            ToggleDrawer(platformDuration);
-        }
+    public void BombUpStart()
+    {
+        ToggleDrawer(platformDuration);
     }
 
     void ToggleDrawer(float duration)
@@ -61,7 +48,6 @@ public class MoveAnimation : MonoBehaviour
     private IEnumerator Move(bool open, float duration)
     {
         isMoving = true;
-
         Vector3 start = transform.position;
         Vector3 end = open ? targetPos.position : initialPos;
 
@@ -77,7 +63,8 @@ public class MoveAnimation : MonoBehaviour
 
         transform.position = end;
         isMoving = false;
+        EvntManager.TriggerEvent("BombUp");
     }
 
-    
+
 }

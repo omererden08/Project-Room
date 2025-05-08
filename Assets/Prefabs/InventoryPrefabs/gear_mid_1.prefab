@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 5669513908508159531}
   - component: {fileID: 3876572374485572917}
   - component: {fileID: 2348977712496983622}
-  - component: {fileID: 7030507225093716267}
   - component: {fileID: 5672070968949135499}
   - component: {fileID: 7455605589313225324}
+  - component: {fileID: 3259813551781740879}
+  - component: {fileID: 1273968382164971080}
   m_Layer: 6
   m_Name: gear_mid_1
   m_TagString: InventoryItem
@@ -31,7 +32,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0.7069834, y: 0, z: 0, w: 0.7072302}
   m_LocalPosition: {x: 4.752, y: 1.3706, z: 6.085}
-  m_LocalScale: {x: 4.8733797, y: 4.8733797, z: 4.8733797}
+  m_LocalScale: {x: 4.8733797, y: 4.873379, z: 4.873379}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -89,20 +90,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &7030507225093716267
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2892176831394580844}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4223a5322e1e5044aa171b179d93035f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  item: {fileID: 11400000, guid: 999aaf57edb3c8f4594db85e4fa0a984, type: 2}
-  outline: {fileID: 0}
 --- !u!114 &5672070968949135499
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -142,3 +129,36 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.06481218, y: 0.064812176, z: 0.015854875}
   m_Center: {x: 0.0000000018626451, y: 0.0000000018626449, z: -9.3132246e-10}
+--- !u!114 &3259813551781740879
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2892176831394580844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc1afee17b49df44d92341c6f848af2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outline: {fileID: 5672070968949135499}
+  item:
+    itemName: Gear
+    icon: {fileID: 21300000, guid: 60dd46d11dc67134b97c78bdc036a618, type: 3}
+    quantity: 1
+    prefabReference: {fileID: 0}
+  inPuzzleMode: 0
+--- !u!114 &1273968382164971080
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2892176831394580844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e44dfa9b863a2a4a9fcf0d87aa2fe0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  firstPosition: {fileID: 0}
+  size: 0

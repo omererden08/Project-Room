@@ -1,30 +1,36 @@
 using UnityEngine;
-
-[CreateAssetMenu(fileName = "Item", menuName = "Scriptable Objects/Item")]
-public class Item : ScriptableObject
-{
-    public string itemName;
-    public Sprite itemSprite;
-    public bool isStackable = true;
-    public GameObject itemPrefab;
-}
+using System.Collections.Generic;
 
 [System.Serializable]
-public class InventoryItem
+public class Item
 {
-    public Item item;
-    public int quantity = 0;
-    public GameObject originalObject; // Reference to the original GameObject
+    public string itemName;
+    public Sprite icon;
+    public int quantity;
+    public List<GameObject> sceneObjects; // Her item için birden fazla sceneObject tutar
 
-    public void IncreaseQuantity()
+    public Item(string name, Sprite icon, int qty, GameObject obj)
     {
-        quantity++;
+        itemName = name;
+        this.icon = icon;
+        quantity = qty;
+        sceneObjects = new List<GameObject>();
+        if (obj != null)
+        {
+            obj.SetActive(false); // Nesneyi envantere eklerken gizle
+            sceneObjects.Add(obj);
+        }
+    }
+    public void FalseAll()
+    {
+        foreach (GameObject obj in sceneObjects)
+        {
+            obj.SetActive(false);
+        }
+    }
+    public int GetActiveItemCount()
+    {
+        return sceneObjects.Count;
     }
 
-    public InventoryItem(Item item, int quantity, GameObject originalObject)
-    {
-        this.item = item;
-        this.quantity = quantity;
-        this.originalObject = originalObject;
-    }
 }

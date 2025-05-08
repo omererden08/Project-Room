@@ -2,7 +2,7 @@ using UnityEngine;
 using DG.Tweening;
 using System.Collections;
 using UnityEngine.SceneManagement;
-
+using System.Linq;
 public class PuzzleManager : IInteractable
 {
     [Header("Puzzle Camera Settings")]
@@ -16,7 +16,7 @@ public class PuzzleManager : IInteractable
     [SerializeField] private float autoExitDelay = 0.2f;
     [SerializeField] private KeyCode exitPuzzleKey = KeyCode.Escape;
 
-
+    public PuzzleDirection direction;
     public static PuzzleManager ActivePuzzleManager => activePuzzleManager;
 
     // References
@@ -26,6 +26,7 @@ public class PuzzleManager : IInteractable
     private Quaternion originalCameraRotation;
     public bool inPuzzleMode = false;
     private PlayerController playerController;
+    public Transform puzzleRootTransform;
 
     // Static lock to ensure only one PuzzleManager is active
     private static PuzzleManager activePuzzleManager = null;
@@ -38,6 +39,9 @@ public class PuzzleManager : IInteractable
     private int counter = 0;
 
     public Collider col;
+
+    public string[] AcceptedItems;
+    
 
 
     private void Start()
@@ -73,7 +77,14 @@ public class PuzzleManager : IInteractable
         }
 
     }
-
+    public bool isAccepted(Item item)
+    {
+        if (AcceptedItems.Contains(item.itemName))
+        {
+            return true;
+        }
+        return false;
+    }
     void EndGame()
     {
         isGameEnded = true;
