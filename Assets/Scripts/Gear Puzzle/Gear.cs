@@ -65,7 +65,7 @@ public class Gear : MonoBehaviour
         }
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         if (isDragging)
         {

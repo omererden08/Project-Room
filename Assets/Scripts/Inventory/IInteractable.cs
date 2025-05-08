@@ -1,3 +1,4 @@
+using NUnit.Framework.Constraints;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -31,6 +32,7 @@ public class IInteractable : MonoBehaviour
 
     public virtual void Interact()
     {
-        Debug.Log("Interacted with " + gameObject.name);
+        Debug.Log("Interacted with" + gameObject.name);
     }
+
 }

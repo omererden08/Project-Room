@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class InventorySystem : MonoBehaviour
 {
@@ -8,6 +9,11 @@ public class InventorySystem : MonoBehaviour
     public InventorySlot[] slots;
     public bool isPuzzleMode { get; private set; }
     private const int MAX_SLOTS = 8;
+    public int selectedIndex;
+    private float lastScrollTime;
+    private const float SCROLL_DEBOUNCE_TIME = 0.1f;
+
+    public string selectedItemName;
 
     private void Awake()
     {
@@ -21,7 +27,7 @@ public class InventorySystem : MonoBehaviour
             Destroy(gameObject);
         }
 
-        slots = FindObjectsOfType<InventorySlot>();
+        slots = FindObjectsByType<InventorySlot>(FindObjectsSortMode.None);
         if (slots.Length != MAX_SLOTS)
         {
             Debug.LogWarning($"Envanterde tam {MAX_SLOTS} slot olmalı! Şu an {slots.Length} slot var.");
@@ -36,6 +42,7 @@ public class InventorySystem : MonoBehaviour
             return false;
         }
 
+        // Check for stackable items
         Item existingItem = items.Find(i => i.itemName == item.itemName);
         if (existingItem != null)
         {
@@ -46,7 +53,6 @@ public class InventorySystem : MonoBehaviour
                 {
                     if (obj != null && !existingItem.sceneObjects.Contains(obj))
                     {
-                        if (obj.activeSelf) obj.SetActive(false); // Yalnızca aktifse gizle
                         existingItem.sceneObjects.Add(obj);
                     }
                 }
@@ -55,12 +61,13 @@ public class InventorySystem : MonoBehaviour
             return true;
         }
 
+        // Check if there’s an empty slot
         if (items.Count >= MAX_SLOTS)
         {
             Debug.Log("Envanter dolu! Yeni item eklenemedi: " + item.itemName);
             return false;
         }
-        //BURADA BİR ŞEYLER VAR
+
         items.Add(item);
         UpdateSlots();
         return true;
@@ -82,6 +89,17 @@ public class InventorySystem : MonoBehaviour
             {
                 existingItem.sceneObjects.Clear();
                 items.Remove(existingItem);
+                // Reset selectedIndex if the removed item was selected
+                if (selectedIndex >= items.Count && items.Count > 0)
+                {
+                    selectedIndex = items.Count - 1;
+                }
+                else if (items.Count == 0)
+                {
+                    selectedIndex = 0;
+                    CheckStationSelected(itemName);
+
+                }
             }
             else
             {
@@ -92,14 +110,27 @@ public class InventorySystem : MonoBehaviour
                 // Null nesneleri temizle
                 existingItem.sceneObjects.RemoveAll(obj => obj == null);
             }
-            Debug.Log($"RemoveItem: Item = {itemName}, Quantity = {existingItem.quantity}, SceneObjects Count = {existingItem.sceneObjects.Count}");
+            Debug.Log($"RemoveItem: Item = {itemName}, Quantity = {(existingItem != null ? existingItem.quantity : 0)}, SceneObjects Count = {(existingItem != null ? existingItem.sceneObjects.Count : 0)}");
+
             UpdateSlots();
         }
+    }
+
+    void FixedUpdate()
+    {
+        SelectItem();
     }
 
     public void SetPuzzleMode(bool active)
     {
         isPuzzleMode = active;
+    }
+    public void CheckStationSelected(string nameOfItem)
+    {
+        if (selectedItemName == nameOfItem)
+        {
+            selectedItemName = "";
+        }
     }
 
     private void UpdateSlots()
@@ -110,11 +141,60 @@ public class InventorySystem : MonoBehaviour
             {
                 slots[i].SetItem(items[i]);
                 Debug.Log($"UpdateSlots: Slot {i}: {items[i].itemName}, Quantity: {items[i].quantity}, SceneObjects Count: {items[i].sceneObjects.Count}");
+                // Highlight selected slot
+                if (i == selectedIndex)
+                {
+                    slots[i].GetComponent<Image>().color = new Color(1f, 1f, 0.5f, 1f); // Yellow highlight
+                }
+                else
+                {
+                    slots[i].GetComponent<Image>().color = Color.white;
+                }
             }
             else
             {
                 slots[i].ClearSlot();
             }
         }
+    }
+
+    void SelectItem()
+    {
+        if (items == null || items.Count == 0)
+        {
+            selectedIndex = 0;
+            return;
+        }
+
+        float scrollDelta = Input.mouseScrollDelta.y;
+        if (Mathf.Abs(scrollDelta) > 0 && Time.time - lastScrollTime > SCROLL_DEBOUNCE_TIME)
+        {
+            int scrollDirection = (int)Mathf.Sign(scrollDelta);
+            selectedIndex = Mathf.Clamp(selectedIndex - scrollDirection, 0, items.Count - 1); // Invert direction for natural scrolling
+            lastScrollTime = Time.time;
+            Debug.Log("Selected Item: " + (items.Count > 0 ? items[selectedIndex].itemName : "None"));
+            selectedItemName = items[selectedIndex].itemName;
+            UpdateSlots(); // Update UI to reflect selection
+        }
+    }
+
+    public bool CheckItem(string nameOfItem)
+    {
+        if (items.Find(i => i.itemName == nameOfItem) != null)
+        {
+            return true;
+        }
+        else
+            return false;
+    }
+    public bool ChosenItem(string nameOfItem)
+    {
+        if (selectedItemName == nameOfItem)
+        {
+            Debug.Log("selected item is: " + nameOfItem);
+            return true;
+        }
+        else
+            return false;
     }
 }

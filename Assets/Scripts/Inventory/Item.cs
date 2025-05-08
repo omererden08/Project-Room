@@ -21,6 +21,13 @@ public class Item
             sceneObjects.Add(obj);
         }
     }
+    public void FalseAll()
+    {
+        foreach (GameObject obj in sceneObjects)
+        {
+            obj.SetActive(false);
+        }
+    }
     public int GetActiveItemCount()
     {
         return sceneObjects.Count;

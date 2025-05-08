@@ -4,7 +4,7 @@ public class CollectableItem : IInteractable
 {
     public Item item;
     public bool inPuzzleMode = false;
-    private bool isPickedUp = false; // Aynı nesnenin tekrar eklenmesini önle
+    private bool isPickedUp = false;
 
     public override void PickUp()
     {
@@ -19,12 +19,12 @@ public class CollectableItem : IInteractable
         bool added = InventorySystem.Instance.AddItem(new Item(item.itemName, item.icon, item.quantity, gameObject));
         if (added)
         {
-            gameObject.SetActive(false); // Nesneyi sahnede gizle
+            gameObject.SetActive(false);
         }
         else
         {
             Debug.Log("Envanter dolu, nesne eklenemedi: " + item.itemName);
-            isPickedUp = false; // Ekleme başarısızsa sıfırla
+            isPickedUp = false;
         }
     }
 

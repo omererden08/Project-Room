@@ -2,7 +2,7 @@ using UnityEngine;
 using DG.Tweening;
 using System.Collections;
 using UnityEngine.SceneManagement;
-
+using System.Linq;
 public class PuzzleManager : IInteractable
 {
     [Header("Puzzle Camera Settings")]
@@ -40,6 +40,9 @@ public class PuzzleManager : IInteractable
 
     public Collider col;
 
+    public string[] AcceptedItems;
+    
+
 
     private void Start()
     {
@@ -74,7 +77,14 @@ public class PuzzleManager : IInteractable
         }
 
     }
-
+    public bool isAccepted(Item item)
+    {
+        if (AcceptedItems.Contains(item.itemName))
+        {
+            return true;
+        }
+        return false;
+    }
     void EndGame()
     {
         isGameEnded = true;

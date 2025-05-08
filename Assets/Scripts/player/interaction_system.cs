@@ -133,25 +133,5 @@ public class InteractionSystem : MonoBehaviour
     {
         CurrentInteractable.PickUp();   
     }
-    //burasi burada olmamali 
-    /*
-    void SelectItem(float scroll)  //select item
-    {
-        if (IsPaused) return;
-        if (pickedUpItems == null || pickedUpItems.Count == 0) return;
-
-        if (scroll > 0f)
-        {
-            selectedIndex--;
-        }
-        else if (scroll < 0f)
-        {
-            selectedIndex++;
-        }
-
-        selectedIndex = Mathf.Clamp(selectedIndex, 0, pickedUpItems.Count - 1);
-
-        Debug.Log("Selected Item: " + pickedUpItems[selectedIndex].name);
-    }
-    */
+    
 }
