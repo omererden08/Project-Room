@@ -65,13 +65,14 @@ public class DigitsRotate : MonoBehaviour
         }
 
         digit.localRotation = Quaternion.Euler(targetX, 270f, 270f);
+
         CheckPassword();
         isRotating[digit] = false;
     }
 
     void CheckPassword()
     {
-        float[] correctAngles = { 270f, 270f, 18f, 306f };
+        float[] correctAngles = { 306f, 18f, 342f, 270f };
         float tolerance = 1f; // ±1 derece tolerans
 
         for (int i = 0; i < digits.Count; i++)
