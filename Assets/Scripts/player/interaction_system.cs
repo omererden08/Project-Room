@@ -73,10 +73,10 @@ public class InteractionSystem : MonoBehaviour
         if (Physics.Raycast(ray, out hit, interactionDistance))
         {
             interactable = hit.collider.GetComponent<IInteractable>();
-<<<<<<< HEAD
+//<<<<<<< HEAD
 
-=======
->>>>>>> envanter-yedekli
+//=======
+//>>>>>>> envanter-yedekli
         }
 
         if (interactable != null)
