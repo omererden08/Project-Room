@@ -357,8 +357,7 @@ Transform:
   m_LocalPosition: {x: 1.0690832, y: -1.6350387, z: -0.70183605}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 7087206195762555317}
+  m_Children: []
   m_Father: {fileID: 2538072915128448767}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &2368362679323269737
@@ -416,7 +415,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c3a05e23d7048d4da9c0273e4c161a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item: {fileID: 0}
   outline: {fileID: 0}
   cameraFocusPoint: {fileID: 7838361600625070632}
   cameraDistance: {x: 0, y: -1.5, z: 0}
@@ -425,9 +423,13 @@ MonoBehaviour:
   solved: 0
   autoExitDelay: 0.2
   exitPuzzleKey: 27
+  direction: 0
   inPuzzleMode: 0
+  puzzleRootTransform: {fileID: 0}
   LightMaterial: {fileID: 2100000, guid: 9edc3e8eb2a3a5846bc35fad80a0a486, type: 2}
   CanSolvable: 0
+  col: {fileID: 0}
+  AcceptedItems: []
 --- !u!114 &1319464915728578196
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -712,14 +714,14 @@ Transform:
   m_GameObject: {fileID: 6953647514541660914}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -6.05, y: -1.002, z: -0.8051}
+  m_LocalPosition: {x: -4.980917, y: -2.6370387, z: -1.5069361}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5737264058726840838}
   - {fileID: 8313854786857031123}
   - {fileID: 6817240318049956993}
-  m_Father: {fileID: 726687669609094054}
+  m_Father: {fileID: 2538072915128448767}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2752029697983872339
 MonoBehaviour:
@@ -982,6 +984,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 7087206195762555317}
   - {fileID: 726687669609094054}
   - {fileID: 7027373975360437601}
   m_Father: {fileID: 0}

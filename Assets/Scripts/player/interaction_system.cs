@@ -56,7 +56,7 @@ public class InteractionSystem : MonoBehaviour
 
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         if (!IsPaused)
         {
@@ -73,10 +73,6 @@ public class InteractionSystem : MonoBehaviour
         if (Physics.Raycast(ray, out hit, interactionDistance))
         {
             interactable = hit.collider.GetComponent<IInteractable>();
-<<<<<<< HEAD
-
-=======
->>>>>>> envanter-yedekli
         }
 
         if (interactable != null)
@@ -121,21 +117,25 @@ public class InteractionSystem : MonoBehaviour
 
     private void InteractableChanged()
     {
-        if (CurrentInteractable != null && _latestInteractable == null)
+        if (CurrentInteractable != _latestInteractable)
         {
-            CurrentInteractable.OutlineShow();
-            // Optional: Trigger UI changes or other feedback
-        }
-        else if (CurrentInteractable == null && _latestInteractable != null)
-        {
-            _latestInteractable.OutlineHide();
-            // Optional: Reset UI or other feedback
+            if (CurrentInteractable != null)
+            {
+                CurrentInteractable.OutlineShow();
+                // Optional: Trigger UI changes or other feedback
+            }
+            if (_latestInteractable != null)
+            {
+                _latestInteractable.OutlineHide();
+                // Optional: Reset UI or other feedback
+            }
+            _latestInteractable = CurrentInteractable;
         }
     }
 
     void OnPickUp()
     {
-        CurrentInteractable.PickUp();   
+        CurrentInteractable.PickUp();
     }
-    
+
 }

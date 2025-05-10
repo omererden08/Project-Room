@@ -4,7 +4,7 @@ using UnityEngine.Rendering;
 
 public class IInteractable : MonoBehaviour
 {
-    public Outline3D outline;
+    public  Outline3D outline;
     //buradaki outline ne kadar mantikkli acabana
     void Start()
     {

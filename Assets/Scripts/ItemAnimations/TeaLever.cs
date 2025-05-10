@@ -1,8 +1,9 @@
-﻿using System.Collections;
+﻿ using System.Collections;
 using UnityEngine;
 
-public class TeaLever : MonoBehaviour
+public class TeaLever : IInteractable
 {
+
     [SerializeField] private GameObject teaIndicator;
     [SerializeField] private GameObject rightDoor;
     [SerializeField] private GameObject leftDoor;
@@ -19,42 +20,32 @@ public class TeaLever : MonoBehaviour
     private LayerMask interactLayer;
     private bool isRotating = false;
     private bool isMoving = false;
-    public bool isPulling = false; 
+    public bool isPulling = false;
     public bool canLeverPull = true;
+    public bool inSlot = false;
 
     private void Start()
     {
+        outline = GetComponent<Outline3D>();
+        outline.enabled = false;
         leverAnim = GetComponent<Animator>();
         indicatorAnim = teaIndicator.GetComponent<Animator>();
         rightDoorAnim = rightDoor.GetComponent<Animator>();
         leftDoorAnim = leftDoor.GetComponent<Animator>();
         interactLayer = 1 << gameObject.layer; // Sadece kendi layer'ı için, gerekirse kaldır
+        EvntManager.StartListening<bool>("SetCanLeverPull",SetCanLeverPull);
+        inSlot = false;
     }
 
-    private void Update()
+    public override void Interact()
     {
-        //teaCup.transform.position = cupTarget.position;
-
-        if (Input.GetMouseButtonDown(0))
+         if (!isRotating && canLeverPull)
         {
-            TryRotate();
+            StartCoroutine(WorkingMachine());
         }
-
-    }
-
-    void TryRotate()
-    {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out RaycastHit hit, 3f, interactLayer))
+        else if (!isRotating && !canLeverPull)
         {
-            if (hit.transform == transform && !isRotating && canLeverPull)
-            {
-                StartCoroutine(WorkingMachine());
-            }
-            else if (hit.transform == transform && !isRotating && !canLeverPull)
-            {
-                StartCoroutine(TryPulling());
-            }
+            StartCoroutine(TryPulling());
         }
     }
 
@@ -64,7 +55,10 @@ public class TeaLever : MonoBehaviour
         if (!isMoving)
             StartCoroutine(MoveCupToTarget());
     }
-
+    public void SetCanLeverPull(bool value)
+    {
+        canLeverPull = value;
+    }
 
     private IEnumerator PullingLever(bool down)
     {
@@ -98,7 +92,7 @@ public class TeaLever : MonoBehaviour
         {
             float t = elapsed / 0.3f;
             transform.localRotation = Quaternion.Slerp(startRot, endRot, t);
-           
+
             elapsed += Time.deltaTime;
             yield return null;
         }
@@ -167,7 +161,10 @@ public class TeaLever : MonoBehaviour
             elapsed += Time.deltaTime;
             yield return null;
         }
-
+        //bardak burada düşüyor ve kontrol edilecek
+        canLeverPull = false;
+        inSlot = true;
+        Debug.Log("abugat düştü");
         teaCup.transform.position = targetPos;
         isMoving = false;
     }

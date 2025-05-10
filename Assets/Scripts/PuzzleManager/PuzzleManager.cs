@@ -49,6 +49,7 @@ public class PuzzleManager : IInteractable
         col = GetComponent<Collider>();
         col.enabled = true;
         outline = GetComponent<Outline3D>();
+        outline.enabled = false;
         CanSolvable = true;
         LightMaterial.color = Color.red;
         LightMaterial.EnableKeyword("_EMISSION");

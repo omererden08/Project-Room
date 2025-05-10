@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class ClockAnimation : MonoBehaviour
+public class ClockAnimation : IInteractable
 {
     [Header("Token")]
     [SerializeField] private GameObject token;
@@ -20,34 +20,27 @@ public class ClockAnimation : MonoBehaviour
 
     private LayerMask interactLayer;
     private bool isRotating = false;
-
+    private TeaLever tL;
 
     private void Start()
     {
-        interactLayer = 1 << gameObject.layer; // Layer index -> bitmask
-        token.SetActive(false); // Baþlangýçta token gizli
+        outline = GetComponent<Outline3D>();
+        outline.enabled = false;
+        tL = FindAnyObjectByType<TeaLever>();
+        interactLayer = 1 << gameObject.layer;
+        token.SetActive(false);
     }
 
-
-    private void Update()
+    public override void Interact()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (!tL.inSlot)
         {
-            TryRotate();
+            StartCoroutine(RotateValveAndClock());
+
         }
     }
 
-    void TryRotate()
-    {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out RaycastHit hit, 3f, interactLayer)) // Layer mask gerekmezse çýkar
-        {
-            if (hit.transform == transform && !isRotating)
-            {
-                StartCoroutine(RotateValveAndClock());
-            }
-        }
-    }
+
 
     private IEnumerator RotateValveAndClock()
     {
@@ -101,7 +94,7 @@ public class ClockAnimation : MonoBehaviour
         float bigZ = clockBigHand.eulerAngles.z % 360f;
         float smallZ = clockSmallHand.eulerAngles.z % 360f;
 
-        // Örnek hedef deðerler (bunlarý sen belirle)
+        // ï¿½rnek hedef deï¿½erler (bunlarï¿½ sen belirle)
         float expectedBigZ = 180f;
         float expectedSmallZ = 135f;
         float tolerance = 1f;
@@ -112,11 +105,13 @@ public class ClockAnimation : MonoBehaviour
         if (isBigCorrect && isSmallCorrect)
         {
             Debug.Log("Password Correct!");
-            token.SetActive(true); // Token'ý göster
+            EvntManager.TriggerEvent("SetToken");
+
         }
         else
         {
             Debug.Log("Password Incorrect.");
+            EvntManager.TriggerEvent("SetTea");
         }
     }
 
