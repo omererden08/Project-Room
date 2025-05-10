@@ -618,6 +618,7 @@ GameObject:
   - component: {fileID: 5724545677503728096}
   - component: {fileID: 4040043189973924079}
   - component: {fileID: 994597286593779750}
+  - component: {fileID: 442186091054408922}
   m_Layer: 6
   m_Name: Tea_Valve
   m_TagString: Untagged
@@ -706,6 +707,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82999263909d7a745876e734a737df36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  outline: {fileID: 442186091054408922}
   token: {fileID: 5881036347809299178}
   clockBigHand: {fileID: 2144744843750997310}
   clockSmallHand: {fileID: 6473857727462689374}
@@ -738,6 +740,24 @@ CapsuleCollider:
   m_Height: 0.010793236
   m_Direction: 1
   m_Center: {x: 0.00013377651, y: -0.0000014256914, z: 0.0028422566}
+--- !u!114 &442186091054408922
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2581424851860927598}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5750e36618fcac4594d296814a915c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 2
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1 &2815180474274375713
 GameObject:
   m_ObjectHideFlags: 0
@@ -1837,6 +1857,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: fcfae3151a982f64d9d832c0b4c6f1a7, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5364639961061378886}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: fcfae3151a982f64d9d832c0b4c6f1a7, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1746218179087626141}
   m_SourcePrefab: {fileID: 100100000, guid: fcfae3151a982f64d9d832c0b4c6f1a7, type: 3}
 --- !u!4 &562761857647761102 stripped
 Transform:
@@ -1860,6 +1883,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e56cd0d9669eac2459788c689e8ffdfb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  outline: {fileID: 1746218179087626141}
   teaIndicator: {fileID: 2269882748670835181}
   rightDoor: {fileID: 716191615396091377}
   leftDoor: {fileID: 7168297890929672416}
@@ -1870,6 +1894,7 @@ MonoBehaviour:
   fallDuration: 0.4
   isPulling: 0
   canLeverPull: 1
+  inSlot: 0
 --- !u!65 &5364639961061378886
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1891,6 +1916,24 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.019276006, y: 0.0071412786, z: 0.007128244}
   m_Center: {x: -0.038896244, y: 0.00032682554, z: 0.000056060366}
+--- !u!114 &1746218179087626141
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 901991240366263412}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5750e36618fcac4594d296814a915c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 2
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1001 &6727474834241505211
 PrefabInstance:
   m_ObjectHideFlags: 0

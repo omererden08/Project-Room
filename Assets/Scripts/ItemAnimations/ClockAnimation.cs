@@ -33,7 +33,7 @@ public class ClockAnimation : IInteractable
 
     public override void Interact()
     {
-        if (!tL.inSlot)
+        if (!tL.inSlot && !isRotating)
         {
             StartCoroutine(RotateValveAndClock());
 
@@ -63,26 +63,23 @@ public class ClockAnimation : IInteractable
 
             // Valve Rotation
             float currentValveZ = Mathf.Lerp(startValveZ, endValveZ, t);
-            transform.rotation = Quaternion.Euler(0f, valveYRotation, currentValveZ);
+            transform.rotation = Quaternion.Euler(0f, valveYRotation + 45f, currentValveZ);
 
             // Clock Hands Rotation
             float bigZ = Mathf.Lerp(startBigZ, endBigZ, t);
             float smallZ = Mathf.Lerp(startSmallZ, endSmallZ, t);
 
-            clockBigHand.rotation = Quaternion.Euler(0f, bigHandYRotation, bigZ);
-            clockSmallHand.rotation = Quaternion.Euler(0f, smallHandYRotation, smallZ);
-
-
-
+            clockBigHand.rotation = Quaternion.Euler(0f, bigHandYRotation + 45f, bigZ);
+            clockSmallHand.rotation = Quaternion.Euler(0f, smallHandYRotation + 45f, smallZ);
 
             elapsedTime += Time.deltaTime;
             yield return null;
         }
 
         // Final precise rotations
-        transform.rotation = Quaternion.Euler(0f, valveYRotation, endValveZ % 360f);
-        clockBigHand.rotation = Quaternion.Euler(0f, bigHandYRotation, endBigZ % 360f);
-        clockSmallHand.rotation = Quaternion.Euler(0f, smallHandYRotation, endSmallZ % 360f);
+        transform.rotation = Quaternion.Euler(0f, valveYRotation + 45f, endValveZ % 360f);
+        clockBigHand.rotation = Quaternion.Euler(0f, bigHandYRotation + 45f, endBigZ % 360f);
+        clockSmallHand.rotation = Quaternion.Euler(0f, smallHandYRotation + 45f, endSmallZ % 360f);
 
 
         CheckPassword();

@@ -6,6 +6,7 @@ public class IInteractable : MonoBehaviour
 {
     public  Outline3D outline;
     //buradaki outline ne kadar mantikkli acabana
+
     void Start()
     {
         if (outline == null)

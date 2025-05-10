@@ -42,6 +42,8 @@ public class InteractionSystem : MonoBehaviour
         get => _isPaused;
         set => _isPaused = value;
     }
+
+
     private void Start()
     {
         if (playerCamera == null)
@@ -70,7 +72,7 @@ public class InteractionSystem : MonoBehaviour
         RaycastHit hit;
 
         IInteractable interactable = null;
-        if (Physics.Raycast(ray, out hit, interactionDistance))
+        if (Physics.Raycast(ray, out hit, interactionDistance, interactableLayer))
         {
             interactable = hit.collider.GetComponent<IInteractable>();
         }
@@ -89,11 +91,9 @@ public class InteractionSystem : MonoBehaviour
         // Skip interaction if controller is paused
         if (IsPaused) return;
 
-        Debug.Log("Interacting...");
         if (CurrentInteractable != null)
         {
             CurrentInteractable.Interact();
-            Debug.Log("Interacting with: " + CurrentInteractable);
         }
         else
         {
