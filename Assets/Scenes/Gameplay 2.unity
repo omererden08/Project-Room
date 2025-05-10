@@ -1949,27 +1949,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f232be3d7b8c72448e887587b12bed0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSlots: 8
-  inventoryUI: {fileID: 320399444}
-  slots:
-  - {fileID: 1953659673}
-  - {fileID: 1060043369}
-  - {fileID: 1059410945}
-  - {fileID: 1895107517}
-  - {fileID: 379298198}
-  - {fileID: 803601867}
-  - {fileID: 1905774869}
-  - {fileID: 1204883495}
-  emptySlotSprite: {fileID: 1974979157, guid: a21fbd824551bce4a95c54c2f83f2cbf, type: 3}
-  rectTransform: {fileID: 320399443}
-  moveDuration: 0.3
-  raycaster: {fileID: 820596025}
-  eventSystem: {fileID: 952041122}
-  inventory: []
-  ObjectsCreatedFromInventory: []
-  dragDepthMultiplier: 0.5
-  mouseDragSmoothness: 5
-  inv: []
 --- !u!1 &379298196
 GameObject:
   m_ObjectHideFlags: 0
@@ -2059,12 +2038,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ba8b9b1efb576c44bd3d9242b84b445, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventoryItem:
-    item: {fileID: 0}
-    quantity: 0
-    originalObject: {fileID: 0}
-  image: {fileID: 0}
-  quantityText: {fileID: 0}
 --- !u!95 &416908046
 Animator:
   serializedVersion: 7
@@ -2519,6 +2492,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82999263909d7a745876e734a737df36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  token: {fileID: 967678605}
   clockBigHand: {fileID: 3893316621069363109}
   clockSmallHand: {fileID: 2658444206702266308}
   rotateDuration: 1
@@ -2605,6 +2579,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: f32336796b2559943be9dd88ebe50575, type: 3}
       propertyPath: m_Name
       value: Token01 (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: f32336796b2559943be9dd88ebe50575, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2704,7 +2682,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c3a05e23d7048d4da9c0273e4c161a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item: {fileID: 0}
   outline: {fileID: 0}
   cameraFocusPoint: {fileID: 1435636057}
   cameraDistance: {x: 0, y: -1.5, z: 0}
@@ -2713,10 +2690,13 @@ MonoBehaviour:
   solved: 0
   autoExitDelay: 0.2
   exitPuzzleKey: 27
+  direction: 0
   inPuzzleMode: 0
+  puzzleRootTransform: {fileID: 0}
   LightMaterial: {fileID: 2100000, guid: 9edc3e8eb2a3a5846bc35fad80a0a486, type: 2}
   CanSolvable: 0
   col: {fileID: 0}
+  AcceptedItems: []
 --- !u!65 &658746634
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3231,12 +3211,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ba8b9b1efb576c44bd3d9242b84b445, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventoryItem:
-    item: {fileID: 0}
-    quantity: 0
-    originalObject: {fileID: 0}
-  image: {fileID: 0}
-  quantityText: {fileID: 0}
 --- !u!1 &808158140
 GameObject:
   m_ObjectHideFlags: 0
@@ -3718,6 +3692,11 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.049101185, y: 0.029412292, z: 0.0059998874}
   m_Center: {x: 0, y: -0.00027403145, z: -0.000432396}
+--- !u!1 &967678605 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: f32336796b2559943be9dd88ebe50575, type: 3}
+  m_PrefabInstance: {fileID: 651638596}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &998166804 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -3555345873180807465, guid: e58ff7ff37d46624089a2069775074b3, type: 3}
@@ -3825,12 +3804,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ba8b9b1efb576c44bd3d9242b84b445, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventoryItem:
-    item: {fileID: 0}
-    quantity: 0
-    originalObject: {fileID: 0}
-  image: {fileID: 0}
-  quantityText: {fileID: 0}
 --- !u!1 &1060043367
 GameObject:
   m_ObjectHideFlags: 0
@@ -3920,12 +3893,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ba8b9b1efb576c44bd3d9242b84b445, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventoryItem:
-    item: {fileID: 0}
-    quantity: 0
-    originalObject: {fileID: 0}
-  image: {fileID: 0}
-  quantityText: {fileID: 0}
 --- !u!1 &1060104507 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 212120326851509006, guid: e58ff7ff37d46624089a2069775074b3, type: 3}
@@ -4572,12 +4539,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ba8b9b1efb576c44bd3d9242b84b445, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventoryItem:
-    item: {fileID: 0}
-    quantity: 0
-    originalObject: {fileID: 0}
-  image: {fileID: 0}
-  quantityText: {fileID: 0}
 --- !u!1 &1216865223 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 862627385384246330, guid: e58ff7ff37d46624089a2069775074b3, type: 3}
@@ -5053,7 +5014,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4223a5322e1e5044aa171b179d93035f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item: {fileID: 11400000, guid: 999aaf57edb3c8f4594db85e4fa0a984, type: 2}
   outline: {fileID: 0}
 --- !u!1 &1373852807
 GameObject:
@@ -5302,7 +5262,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4223a5322e1e5044aa171b179d93035f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item: {fileID: 11400000, guid: 999aaf57edb3c8f4594db85e4fa0a984, type: 2}
   outline: {fileID: 0}
 --- !u!1 &1404461252
 GameObject:
@@ -7243,7 +7202,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4223a5322e1e5044aa171b179d93035f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item: {fileID: 11400000, guid: 999aaf57edb3c8f4594db85e4fa0a984, type: 2}
   outline: {fileID: 0}
 --- !u!1 &1820791715
 GameObject:
@@ -7409,12 +7367,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ba8b9b1efb576c44bd3d9242b84b445, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventoryItem:
-    item: {fileID: 0}
-    quantity: 0
-    originalObject: {fileID: 0}
-  image: {fileID: 0}
-  quantityText: {fileID: 0}
 --- !u!1 &1896341692 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4573940403621388067, guid: e58ff7ff37d46624089a2069775074b3, type: 3}
@@ -7471,7 +7423,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4223a5322e1e5044aa171b179d93035f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item: {fileID: 0}
   outline: {fileID: 0}
 --- !u!1 &1905774867
 GameObject:
@@ -7562,12 +7513,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ba8b9b1efb576c44bd3d9242b84b445, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventoryItem:
-    item: {fileID: 0}
-    quantity: 0
-    originalObject: {fileID: 0}
-  image: {fileID: 0}
-  quantityText: {fileID: 0}
 --- !u!1 &1914186291
 GameObject:
   m_ObjectHideFlags: 0
@@ -7981,12 +7926,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ba8b9b1efb576c44bd3d9242b84b445, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventoryItem:
-    item: {fileID: 0}
-    quantity: 0
-    originalObject: {fileID: 0}
-  image: {fileID: 0}
-  quantityText: {fileID: 0}
 --- !u!1 &1970770086
 GameObject:
   m_ObjectHideFlags: 0
@@ -8846,7 +8785,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4223a5322e1e5044aa171b179d93035f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item: {fileID: 11400000, guid: ed4db0ba8e91e7f448823e774146407e, type: 2}
   outline: {fileID: 0}
 --- !u!114 &2128908788
 MonoBehaviour:
@@ -11241,7 +11179,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4223a5322e1e5044aa171b179d93035f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item: {fileID: 11400000, guid: 999aaf57edb3c8f4594db85e4fa0a984, type: 2}
   outline: {fileID: 0}
 --- !u!65 &8438989690055602920
 BoxCollider:
