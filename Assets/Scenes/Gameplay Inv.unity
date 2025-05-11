@@ -4967,6 +4967,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 936727850}
   m_SourcePrefab: {fileID: 100100000, guid: e86b12c52009c3946a13c0c932b619d4, type: 3}
+--- !u!4 &1308048168 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6817122794621773571, guid: 759105d1f6d9e284c9afb20764861104, type: 3}
+  m_PrefabInstance: {fileID: 2091929560}
+  m_PrefabAsset: {fileID: 0}
 --- !u!65 &1327052393
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -8803,6 +8808,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 7060690896638212571, guid: 759105d1f6d9e284c9afb20764861104, type: 3}
+      propertyPath: spawnPoint
+      value: 
+      objectReference: {fileID: 1308048168}
     - target: {fileID: 7877075299206735550, guid: 759105d1f6d9e284c9afb20764861104, type: 3}
       propertyPath: m_Name
       value: TeaMachine

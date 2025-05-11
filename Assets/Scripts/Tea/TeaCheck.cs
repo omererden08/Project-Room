@@ -3,17 +3,21 @@ using UnityEngine;
 
 public class TeaCheck : IInteractable
 {
-    public Item item;
     public GameObject token;
     public bool isToken;
     public bool isDrinked;
     public bool inSlot;
     public Transform firstPosition;
     private TeaLever tL;
+    private TeaSlot teaSlot;
     void Start()
     {
+        Debug.Log("here>>>>>>>>>>>>>>>>>>>>>>>>>>>");
         EvntManager.StartListening("SetToken", SetToken);
         EvntManager.StartListening("SetTea", SetTea);
+        teaSlot = FindAnyObjectByType<TeaSlot>();
+        outline = GetComponent<Outline3D>();
+        outline.enabled = false;
         tL = FindAnyObjectByType<TeaLever>();
         SetTea();
         firstPosition = transform;
@@ -23,6 +27,7 @@ public class TeaCheck : IInteractable
     void SetToken()
     {
         transform.position = firstPosition.position;
+        
         isToken = true;
         token.SetActive(true);
 

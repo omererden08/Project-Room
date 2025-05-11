@@ -13,6 +13,8 @@ public class StartScreen : MonoBehaviour
 
     void Start()
     {
+        if(startScreenCanvasGroup == null) 
+            Debug.Log("startScreenCanvasGroup is null");
         startScreenCanvasGroup.alpha = 1f;
         pressAnyKeyText.text = "Press any key to start the game.";
     }

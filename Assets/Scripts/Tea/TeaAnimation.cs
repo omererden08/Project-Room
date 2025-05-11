@@ -7,16 +7,19 @@ public class TeaAnimation : MonoBehaviour
 {
     public GameObject top;
     public float drinkDuration;
+    public bool canDrinkable;
     public Transform endPoint;
     public GameObject Cup;
     public GameObject Cam;
+    public TeaSlot teaSlot;
     public Item item;
     void Start()
     {
-        
+        teaSlot = FindAnyObjectByType<TeaSlot>();
         EvntManager.StartListening("DrinkTea", Drink);
         Cam = Camera.main.gameObject;
-        StartCoroutine(ChockMovement(3f));
+        canDrinkable = true;
+        StartCoroutine(ChockMovement(0.2f));
     }
 
     public void Wobble()
@@ -26,13 +29,25 @@ public class TeaAnimation : MonoBehaviour
 
     public void Drink()
     {
-        top.transform.DOScale(new Vector3(6f, 6f, 6f), drinkDuration);
+        if(!canDrinkable)
+        {
+            return;
+        }
+        top.transform.DOScale(new Vector3(0.6f, 0.6f, 0.6f), drinkDuration);
 
         top.transform.DOMove(endPoint.position, drinkDuration).onComplete += () =>
         {
             InventorySystem.Instance.AddItem(item);
+            teaSlot.isFilled = false;
+            teaSlot.CheckState();
             Cup.SetActive(false);
+            top.SetActive(false);
         };;
+    }
+    public void TokenMod()
+    {
+        top.SetActive(false);
+        canDrinkable = false;
     }
     public IEnumerator ChockMovement(float seconds)
     {

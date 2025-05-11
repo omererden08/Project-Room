@@ -1,6 +1,7 @@
-﻿ using System.Collections;
+﻿using System.Collections;
+using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
-
+using DG.Tweening;
 public class TeaLever : IInteractable
 {
 
@@ -9,6 +10,7 @@ public class TeaLever : IInteractable
     [SerializeField] private GameObject leftDoor;
     [SerializeField] private GameObject teaCup;
     [SerializeField] private Transform cupTarget;
+    [SerializeField] private GameObject token;
     [SerializeField] private float animationDuration;
     [SerializeField] private float moveDuration;
     [SerializeField] private float fallDuration;
@@ -16,13 +18,14 @@ public class TeaLever : IInteractable
     private Animator indicatorAnim;
     private Animator rightDoorAnim;
     private Animator leftDoorAnim;
-
+    public ClockAnimation clockAnimation;
     private LayerMask interactLayer;
     private bool isRotating = false;
     private bool isMoving = false;
     public bool isPulling = false;
     public bool canLeverPull = true;
     public bool inSlot = false;
+    public bool TeaClock;
 
     private void Start()
     {
@@ -32,16 +35,22 @@ public class TeaLever : IInteractable
         indicatorAnim = teaIndicator.GetComponent<Animator>();
         rightDoorAnim = rightDoor.GetComponent<Animator>();
         leftDoorAnim = leftDoor.GetComponent<Animator>();
+        clockAnimation = FindAnyObjectByType<ClockAnimation>();
+        TeaClock = false;
         interactLayer = 1 << gameObject.layer; // Sadece kendi layer'ı için, gerekirse kaldır
-        EvntManager.StartListening<bool>("SetCanLeverPull",SetCanLeverPull);
+        EvntManager.StartListening<bool>("SetCanLeverPull", SetCanLeverPull);
         inSlot = false;
     }
 
     public override void Interact()
     {
-         if (!isRotating && canLeverPull)
+        if (!isRotating && canLeverPull)
         {
             StartCoroutine(WorkingMachine());
+            if (TeaClock)
+            {
+                token.SetActive(true);
+            }
         }
         else if (!isRotating && !canLeverPull)
         {
@@ -53,7 +62,7 @@ public class TeaLever : IInteractable
     void StartCupMove()
     {
         if (!isMoving)
-            StartCoroutine(MoveCupToTarget());
+            MoveCupToTarget();
     }
     public void SetCanLeverPull(bool value)
     {
@@ -144,14 +153,29 @@ public class TeaLever : IInteractable
         isRotating = false;
     }
 
-
-    private IEnumerator MoveCupToTarget()
+    private void MoveCupToTarget()
     {
         isMoving = true;
 
         Vector3 startPos = teaCup.transform.position;
         Vector3 targetPos = cupTarget.position;
 
+        teaCup.transform.DOLocalMove(cupTarget.position, fallDuration)
+            .OnComplete(() =>
+            {
+                canLeverPull = false;
+                inSlot = true;
+                Debug.Log("abugat düştü");
+                isMoving = false;
+            });
+    }
+    /*
+    private IEnumerator MoveCupToTarget()
+    {
+        isMoving = true;
+
+        Vector3 startPos = teaCup.transform.position;
+        Vector3 targetPos = cupTarget.position;
         float elapsed = 0f;
 
         while (elapsed < fallDuration)
@@ -168,6 +192,7 @@ public class TeaLever : IInteractable
         teaCup.transform.position = targetPos;
         isMoving = false;
     }
+    */
 
 
 

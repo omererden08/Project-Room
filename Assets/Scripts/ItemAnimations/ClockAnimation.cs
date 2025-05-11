@@ -33,11 +33,11 @@ public class ClockAnimation : IInteractable
 
     public override void Interact()
     {
-        if (!tL.inSlot && !isRotating)
+        if (!isRotating)
         {
             StartCoroutine(RotateValveAndClock());
-
         }
+
     }
 
 
@@ -91,7 +91,6 @@ public class ClockAnimation : IInteractable
         float bigZ = clockBigHand.eulerAngles.z % 360f;
         float smallZ = clockSmallHand.eulerAngles.z % 360f;
 
-        // �rnek hedef de�erler (bunlar� sen belirle)
         float expectedBigZ = 180f;
         float expectedSmallZ = 135f;
         float tolerance = 1f;
@@ -103,12 +102,14 @@ public class ClockAnimation : IInteractable
         {
             Debug.Log("Password Correct!");
             EvntManager.TriggerEvent("SetToken");
+            tL.TeaClock = true;
 
         }
         else
         {
             Debug.Log("Password Incorrect.");
             EvntManager.TriggerEvent("SetTea");
+            tL.TeaClock = false;
         }
     }
 
