@@ -2,6 +2,7 @@
 using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
 using DG.Tweening;
+
 public class TeaLever : IInteractable
 {
 
@@ -10,7 +11,6 @@ public class TeaLever : IInteractable
     [SerializeField] private GameObject leftDoor;
     [SerializeField] private GameObject teaCup;
     [SerializeField] private Transform cupTarget;
-    [SerializeField] private GameObject token;
     [SerializeField] private float animationDuration;
     [SerializeField] private float moveDuration;
     [SerializeField] private float fallDuration;
@@ -18,35 +18,42 @@ public class TeaLever : IInteractable
     private Animator indicatorAnim;
     private Animator rightDoorAnim;
     private Animator leftDoorAnim;
-    public ClockAnimation clockAnimation;
+    public bool TeaClock;
+
     private LayerMask interactLayer;
     private bool isRotating = false;
     private bool isMoving = false;
     public bool isPulling = false;
     public bool canLeverPull = true;
     public bool inSlot = false;
-    public bool TeaClock;
-
+    public GameObject token;
+    public Vector3 sPos;
+    public TeaCheck teaCheck;
+    public TeaAnimation teaAnimation;
     private void Start()
     {
         outline = GetComponent<Outline3D>();
         outline.enabled = false;
+        sPos = teaCup.transform.position;
         leverAnim = GetComponent<Animator>();
         indicatorAnim = teaIndicator.GetComponent<Animator>();
         rightDoorAnim = rightDoor.GetComponent<Animator>();
         leftDoorAnim = leftDoor.GetComponent<Animator>();
-        clockAnimation = FindAnyObjectByType<ClockAnimation>();
-        TeaClock = false;
+        teaCheck = FindAnyObjectByType<TeaCheck>();
+        teaAnimation = FindAnyObjectByType<TeaAnimation>();
         interactLayer = 1 << gameObject.layer; // Sadece kendi layer'ı için, gerekirse kaldır
         EvntManager.StartListening<bool>("SetCanLeverPull", SetCanLeverPull);
+        EvntManager.StartListening("MoveCupToStart", MoveCupToStart);
         inSlot = false;
     }
 
     public override void Interact()
     {
+        Debug.Log($"Interact çağrıldı. isRotating: {isRotating}, canLeverPull: {canLeverPull}, TeaClock: {TeaClock}");
         if (!isRotating && canLeverPull)
         {
             StartCoroutine(WorkingMachine());
+
             if (TeaClock)
             {
                 token.SetActive(true);
@@ -58,11 +65,10 @@ public class TeaLever : IInteractable
         }
     }
 
-
-    void StartCupMove()
+    public void StartCupMove()
     {
         if (!isMoving)
-            MoveCupToTarget();
+            StartCoroutine(MoveCupToTarget());
     }
     public void SetCanLeverPull(bool value)
     {
@@ -153,47 +159,38 @@ public class TeaLever : IInteractable
         isRotating = false;
     }
 
-    private void MoveCupToTarget()
-    {
-        isMoving = true;
 
-        Vector3 startPos = teaCup.transform.position;
-        Vector3 targetPos = cupTarget.position;
-
-        teaCup.transform.DOLocalMove(cupTarget.position, fallDuration)
-            .OnComplete(() =>
-            {
-                canLeverPull = false;
-                inSlot = true;
-                Debug.Log("abugat düştü");
-                isMoving = false;
-            });
-    }
-    /*
     private IEnumerator MoveCupToTarget()
     {
         isMoving = true;
-
+        //yerrelde tut
+        Debug.Log("abugat hareket ediyor");
         Vector3 startPos = teaCup.transform.position;
         Vector3 targetPos = cupTarget.position;
-        float elapsed = 0f;
 
-        while (elapsed < fallDuration)
+        teaCup.transform.DOMove(targetPos, fallDuration).SetEase(Ease.InOutSine).OnComplete(() =>
         {
-            float t = elapsed / fallDuration;
-            teaCup.transform.position = Vector3.Lerp(startPos, targetPos, t);
-            elapsed += Time.deltaTime;
-            yield return null;
-        }
-        //bardak burada düşüyor ve kontrol edilecek
-        canLeverPull = false;
-        inSlot = true;
-        Debug.Log("abugat düştü");
-        teaCup.transform.position = targetPos;
+            //bardak burada düşüyor ve kontrol edilecek
+            canLeverPull = false;
+            inSlot = true;
+            Debug.Log("abugat düştü");
+            isMoving = false;
+        });
+
+        yield return null;
         isMoving = false;
     }
-    */
-
-
-
+    private void MoveCupToStart()
+    {
+        isMoving = true;
+        teaCup.transform.position = sPos;
+        teaCup.SetActive(true);
+        inSlot = false;
+        canLeverPull = true; // Lever tekrar çekilebilir hale gelir
+        Debug.Log("TeaCup başlangıç konumuna döndü. canLeverPull: " + canLeverPull);
+        teaAnimation.canDrinkable = true;
+        teaCheck.isDrinked = false;
+        teaAnimation.Fill();
+        EvntManager.TriggerEvent("SetTea"); // SetTea olayını tetikle
+    }
 }

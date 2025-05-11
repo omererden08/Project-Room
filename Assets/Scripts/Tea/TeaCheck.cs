@@ -9,9 +9,11 @@ public class TeaCheck : IInteractable
     public bool inSlot;
     public Transform firstPosition;
     private TeaLever tL;
+    public TeaAnimation teaAnimation;
     private TeaSlot teaSlot;
     void Start()
     {
+        teaAnimation = FindAnyObjectByType<TeaAnimation>();
         Debug.Log("here>>>>>>>>>>>>>>>>>>>>>>>>>>>");
         EvntManager.StartListening("SetToken", SetToken);
         EvntManager.StartListening("SetTea", SetTea);
@@ -27,7 +29,7 @@ public class TeaCheck : IInteractable
     void SetToken()
     {
         transform.position = firstPosition.position;
-        
+
         isToken = true;
         token.SetActive(true);
 
@@ -36,23 +38,30 @@ public class TeaCheck : IInteractable
     {
         transform.position = firstPosition.position;
         isToken = false;
-        tL.canLeverPull = true;    
+        tL.canLeverPull = true; // Lever tekrar kullanılabilir
         token.SetActive(false);
+        Debug.Log("SetTea çağrıldı. canLeverPull: " + tL.canLeverPull);
     }
 
     public override void PickUp()
     {
-        if (!isToken) 
+        Debug.Log($"PickUp çağrıldı. isToken: {isToken}, isDrinked: {isDrinked}");
+        if (!isToken)
         {
-            if(!isDrinked)
+            if (!isDrinked)
             {
                 EvntManager.TriggerEvent("DrinkTea");
                 isDrinked = true;
             }
+            else 
+            {
+                teaAnimation.Fill();
+                SetTea();
+            }
         }
         else
         {
-                SetToken();
+            SetToken();
         }
         base.PickUp();
     }

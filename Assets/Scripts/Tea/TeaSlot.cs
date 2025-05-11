@@ -3,7 +3,7 @@ using UnityEngine;
 public class TeaSlot : MonoBehaviour
 {
     public GameObject tea;
-    public Transform spawnPoint;
+    public Vector3 spawnPoint;
 
     public bool isFilled = true;
     private Outline3D o3D;
@@ -40,9 +40,11 @@ public class TeaSlot : MonoBehaviour
     }
     void FillSlot()
     {
-        Instantiate(tea, spawnPoint.position, spawnPoint.rotation);
-        inventorySystem.RemoveItem("TeaCup",1);
+        EvntManager.TriggerEvent("MoveCupToStart");
+        inventorySystem.RemoveItem("TeaCup", 1);
         isFilled = true;
         CheckState();
+        EvntManager.TriggerEvent("SetTea"); // SetTea olayını tetikle
+        Debug.Log("TeaSlot dolduruldu. isFilled: " + isFilled);
     }
 }

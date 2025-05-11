@@ -3,9 +3,11 @@ using UnityEngine;
 using DG.Tweening;
 using System.Collections;
 using Unity.Mathematics;
+using UnityEngine.UI;
 public class TeaAnimation : MonoBehaviour
 {
     public GameObject top;
+    public Vector3 topPos;
     public float drinkDuration;
     public bool canDrinkable;
     public Transform endPoint;
@@ -13,12 +15,21 @@ public class TeaAnimation : MonoBehaviour
     public GameObject Cam;
     public TeaSlot teaSlot;
     public Item item;
+    public Vector3 startPoint;
+    public Vector3 startSize;
+    public TeaCheck teaCheck;
+    public TeaAnimation teaAnimation;
     void Start()
     {
+        teaCheck = FindAnyObjectByType<TeaCheck>();
         teaSlot = FindAnyObjectByType<TeaSlot>();
+        teaAnimation = FindAnyObjectByType<TeaAnimation>();
         EvntManager.StartListening("DrinkTea", Drink);
+        topPos = top.transform.position;
         Cam = Camera.main.gameObject;
         canDrinkable = true;
+        startPoint = transform.position;
+        teaSlot.spawnPoint = startPoint;
         StartCoroutine(ChockMovement(0.2f));
     }
 
@@ -33,7 +44,7 @@ public class TeaAnimation : MonoBehaviour
         {
             return;
         }
-        top.transform.DOScale(new Vector3(0.6f, 0.6f, 0.6f), drinkDuration);
+        top.transform.DOScale(new Vector3(0.04f, 0.04f, 0.04f), drinkDuration);
 
         top.transform.DOMove(endPoint.position, drinkDuration).onComplete += () =>
         {
@@ -43,6 +54,14 @@ public class TeaAnimation : MonoBehaviour
             Cup.SetActive(false);
             top.SetActive(false);
         };;
+    }
+    public void Fill()
+    {
+        top.transform.DOScale(startSize, drinkDuration);
+        top.transform.position = topPos;
+        top.SetActive(true);
+        canDrinkable = true;
+        Debug.Log("TeaAnimation dolduruldu. canDrinkable: " + canDrinkable);
     }
     public void TokenMod()
     {

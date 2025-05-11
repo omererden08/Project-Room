@@ -26,12 +26,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 381149102590928304}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: 5.7097, y: 2.23, z: -1.0698}
-  m_LocalScale: {x: 0.8851, y: 0.8851, z: 0.8851}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.00032853812, y: -0.00018478795, z: 0.17628284}
+  m_LocalScale: {x: 0.06737697, y: 0.06737697, z: 1.249957}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1366695048603839248}
+  m_Father: {fileID: 1698451595671875744}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &5986862281271697826
 MeshFilter:
@@ -204,9 +204,11 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071067}
   m_LocalPosition: {x: 5.714016, y: 2.1051733, z: -1.0722275}
-  m_LocalScale: {x: 13.136536, y: 13.136536, z: 0.70810455}
+  m_LocalScale: {x: 13.136536, y: 13.136536, z: 0.70810443}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 6552693986844560202}
+  - {fileID: 300602836691134458}
   m_Father: {fileID: 1366695048603839248}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &531271555089632700
@@ -343,12 +345,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6798950709509337326}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: 5.7097, y: 2.1514, z: -1.0698}
-  m_LocalScale: {x: 0.55, y: 0.55, z: 0.55}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.00032853812, y: -0.0001847871, z: 0.065282375}
+  m_LocalScale: {x: 0.04186796, y: 0.04186796, z: 0.7767216}
   m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 1366695048603839248}
+  m_Father: {fileID: 1698451595671875744}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7101216540305559663
 GameObject:
@@ -380,8 +382,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 300602836691134458}
-  - {fileID: 6552693986844560202}
   - {fileID: 1698451595671875744}
   - {fileID: 2255004489328285726}
   m_Father: {fileID: 0}
@@ -400,9 +400,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   top: {fileID: 381149102590928304}
   drinkDuration: 1
+  canDrinkable: 0
   endPoint: {fileID: 6552693986844560202}
   Cup: {fileID: 3169612181248590295}
   Cam: {fileID: 0}
+  teaSlot: {fileID: 0}
   item:
     itemName: TeaCup
     icon: {fileID: 21300000, guid: ff4ef49add4b8e44585288a0c7ac6178, type: 3}
