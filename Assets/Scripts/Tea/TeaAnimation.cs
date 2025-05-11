@@ -17,7 +17,6 @@ public class TeaAnimation : MonoBehaviour
         EvntManager.StartListening("DrinkTea", Drink);
         Cam = Camera.main.gameObject;
         StartCoroutine(ChockMovement(3f));
-        Debug.Log("Start");
     }
 
     public void Wobble()
