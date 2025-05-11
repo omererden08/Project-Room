@@ -97,7 +97,6 @@ public class InteractionSystem : MonoBehaviour
         }
         else
         {
-            Debug.Log("Nothing to interact with");
         }
     }
     public void InteractWithCurrent()
