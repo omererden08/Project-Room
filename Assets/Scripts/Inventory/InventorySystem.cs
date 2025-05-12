@@ -89,11 +89,19 @@ public class InventorySystem : MonoBehaviour
         if (existingItem != null)
         {
             existingItem.quantity -= quantity;
-            if (existingItem.quantity <= 0)
+
+            // Check if the item quantity is less than or equal to 0
+            if (existingItem.quantity < 0)
             {
-                existingItem.sceneObjects.Clear();
+
+                // Clear scene objects and remove the item from the list
+                if (existingItem.sceneObjects != null)
+                {
+                    existingItem.sceneObjects.Clear();
+                }
                 items.Remove(existingItem);
-                // Reset selectedIndex if the removed item was selected
+
+                // Reset selected index if necessary
                 if (selectedIndex >= items.Count && items.Count > 0)
                 {
                     selectedIndex = items.Count - 1;
@@ -101,21 +109,29 @@ public class InventorySystem : MonoBehaviour
                 else if (items.Count == 0)
                 {
                     selectedIndex = 0;
-                    CheckStationSelected(itemName);
-
                 }
             }
             else
             {
-                for (int i = 0; i < quantity && existingItem.sceneObjects.Count > 0; i++)
+                // Remove scene objects if quantity is greater than 0
+                if (existingItem.sceneObjects != null && existingItem.sceneObjects.Count > 0)
                 {
-                    existingItem.sceneObjects.RemoveAt(existingItem.sceneObjects.Count - 1);
+                    for (int i = 0; i < quantity && i < existingItem.sceneObjects.Count; i++)
+                    {
+                        existingItem.sceneObjects.RemoveAt(existingItem.sceneObjects.Count - 1);
+                    }
+                    existingItem.sceneObjects.RemoveAll(obj => obj == null);
                 }
-                // Null nesneleri temizle
-                existingItem.sceneObjects.RemoveAll(obj => obj == null);
             }
-            Debug.Log($"RemoveItem: Item = {itemName}, Quantity = {(existingItem != null ? existingItem.quantity : 0)}, SceneObjects Count = {(existingItem != null ? existingItem.sceneObjects.Count : 0)}");
-            UpdateSlots();
+
+            // Log the removal
+            Debug.Log($"RemoveItem: Item = {itemName}, Quantity = {existingItem.quantity}, SceneObjects Count = {(existingItem.sceneObjects != null ? existingItem.sceneObjects.Count : 0)}");
+
+            // Update slots only if necessary
+            if (existingItem.quantity <= 0 || existingItem.sceneObjects.Count == 0)
+            {
+                UpdateSlots();
+            }
         }
     }
 
@@ -153,6 +169,12 @@ public class InventorySystem : MonoBehaviour
                 {
                     slots[i].GetComponent<Image>().color = Color.white;
                 }
+
+                // Check if scene object count is 0, and if so, clear the slot
+                if (items[i].sceneObjects.Count == 0)
+                {
+                    slots[i].ClearSlot();
+                }
             }
             else
             {
@@ -160,7 +182,6 @@ public class InventorySystem : MonoBehaviour
             }
         }
     }
-
     void SelectItem()
     {
         if (items == null || items.Count == 0)
