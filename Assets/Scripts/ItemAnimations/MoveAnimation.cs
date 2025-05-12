@@ -27,9 +27,14 @@ public class MoveAnimation : IInteractable
 
     void Start()
     {
+        outline = GetComponent<Outline3D>();
         EvntManager.StartListening("BombUpStart", BombUpStart);
         initialPos = transform.position;
-        keyAnimator = keyObject.GetComponent<Animator>();
+        if (drawerType == DrawerType.Locked)
+        {
+            keyAnimator = keyObject.GetComponent<Animator>();
+        }
+        
 
         if (targetPos == null && transform.childCount > 0)
         {
@@ -50,20 +55,20 @@ public class MoveAnimation : IInteractable
         {
             if (isLocked)
             {
-                Debug.Log("Çekmece kilitli, anahtar gerekiyor!");
-                return; // Kilitliyse ve açýlmamýþsa hiçbir þey yapma
+                Debug.Log("ï¿½ekmece kilitli, anahtar gerekiyor!");
+                return; // Kilitliyse ve aï¿½ï¿½lmamï¿½ï¿½sa hiï¿½bir ï¿½ey yapma
             }
             else
             {
                 isMoving = true;
                 StartCoroutine(OpenLockedSequence());
-                drawerType = DrawerType.Normal; // Kilit açýldýktan sonra normal çekmeceye geç
+                drawerType = DrawerType.Normal; // Kilit aï¿½ï¿½ldï¿½ktan sonra normal ï¿½ekmeceye geï¿½
             }
         }
         else
         {
             isMoving = true;
-            ToggleDrawer(moveDuration); // normal çekmece
+            ToggleDrawer(moveDuration); // normal ï¿½ekmece
 
         }
     }

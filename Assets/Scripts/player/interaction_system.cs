@@ -72,7 +72,7 @@ public class InteractionSystem : MonoBehaviour
         RaycastHit hit;
 
         IInteractable interactable = null;
-        if (Physics.Raycast(ray, out hit, interactionDistance, interactableLayer))
+        if (Physics.Raycast(ray, out hit, interactionDistance))
         {
             interactable = hit.collider.GetComponent<IInteractable>();
         }
@@ -132,9 +132,12 @@ public class InteractionSystem : MonoBehaviour
         }
     }
 
-   /* void OnPickUp()
+    void OnPickUp()
     {
+        if(CurrentInteractable == null)
+            return;
+
         CurrentInteractable.PickUp();
     }
-   */
+   
 }

@@ -15,7 +15,8 @@ GameObject:
   - component: {fileID: 7455605589313225324}
   - component: {fileID: 3259813551781740879}
   - component: {fileID: 1273968382164971080}
-  m_Layer: 6
+  - component: {fileID: 5939580613101539251}
+  m_Layer: 3
   m_Name: gear_mid_1
   m_TagString: InventoryItem
   m_Icon: {fileID: 0}
@@ -146,9 +147,23 @@ MonoBehaviour:
     itemName: Gear
     icon: {fileID: 21300000, guid: 60dd46d11dc67134b97c78bdc036a618, type: 3}
     quantity: 1
-    prefabReference: {fileID: 0}
+    sceneObjects: []
   inPuzzleMode: 0
 --- !u!114 &1273968382164971080
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2892176831394580844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e44dfa9b863a2a4a9fcf0d87aa2fe0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  firstPosition: {fileID: 0}
+  size: 0
+--- !u!114 &5939580613101539251
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

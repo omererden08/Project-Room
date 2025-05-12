@@ -174,7 +174,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -5490356941660233150, guid: 4916e8a4003e75f42b9ef020b5010bfc, type: 3}
+  - {fileID: 2100000, guid: baa9ee11a0ed60b499ce3a19a35992a8, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -215,7 +215,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &8146051173586671991
 Transform:
   m_ObjectHideFlags: 0
@@ -758,6 +758,37 @@ MonoBehaviour:
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
+--- !u!1 &2802113362424576053
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2342913648248704410}
+  m_Layer: 0
+  m_Name: Tea
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2342913648248704410
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2802113362424576053}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6298961995540910942}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3693531475178035080
 GameObject:
   m_ObjectHideFlags: 0
@@ -1114,7 +1145,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -5490356941660233150, guid: 4916e8a4003e75f42b9ef020b5010bfc, type: 3}
+  - {fileID: 2100000, guid: 3df7c731375e82a499352b1251a847ee, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1200,7 +1231,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -5490356941660233150, guid: 4916e8a4003e75f42b9ef020b5010bfc, type: 3}
+  - {fileID: 2100000, guid: 2770624f51bae334ba6d275ca670f0a3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1299,8 +1330,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c15a11a1c7513746b4d0b9af6559035, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tea: {fileID: 7101216540305559663, guid: c7dbd75e420f60c41a54f197a383670f, type: 3}
-  spawnPoint: {fileID: 6817122794621773571}
+  tea: {fileID: 7953823222219487641}
+  spawnPoint: {x: 0, y: 0, z: 0}
   isFilled: 1
 --- !u!114 &1413332617199286863
 MonoBehaviour:
@@ -1728,6 +1759,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6827258801151771675}
+  - component: {fileID: 5369744916519229863}
   m_Layer: 0
   m_Name: TeaMachine
   m_TagString: Untagged
@@ -1770,6 +1802,28 @@ Transform:
   - {fileID: 4146563543776589966}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &5369744916519229863
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8175703589391202423}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1189973ae2687554e80b923f3a50e474, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &8545480892334573331
 GameObject:
   m_ObjectHideFlags: 0
@@ -1910,7 +1964,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: fcfae3151a982f64d9d832c0b4c6f1a7, type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1952,17 +2006,21 @@ MonoBehaviour:
   teaIndicator: {fileID: 2269882748670835181}
   rightDoor: {fileID: 716191615396091377}
   leftDoor: {fileID: 7168297890929672416}
-  teaCup: {fileID: 2815180474274375713}
+  teaCup: {fileID: 7953823222219487641}
   cupTarget: {fileID: 6817122794621773571}
-  token: {fileID: 0}
   animationDuration: 0.5
   moveDuration: 1
   fallDuration: 0.4
-  clockAnimation: {fileID: 0}
+  lightAnim: {fileID: 5369744916519229863}
+  TeaClock: 0
+  isMoving: 0
   isPulling: 0
   canLeverPull: 1
   inSlot: 0
-  TeaClock: 0
+  token: {fileID: 5881036347809299178}
+  sPos: {x: 0, y: 0, z: 0}
+  teaCheck: {fileID: 0}
+  teaAnimation: {fileID: 0}
 --- !u!65 &5364639961061378886
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2050,20 +2108,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3127491932718581732, guid: c7dbd75e420f60c41a54f197a383670f, type: 3}
+      propertyPath: teaAnimation
+      value: 
+      objectReference: {fileID: 7996708759833460650}
+    - target: {fileID: 3169612181248590295, guid: c7dbd75e420f60c41a54f197a383670f, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 7101216540305559663, guid: c7dbd75e420f60c41a54f197a383670f, type: 3}
       propertyPath: m_Name
       value: Tea
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 1366695048603839248, guid: c7dbd75e420f60c41a54f197a383670f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2342913648248704410}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c7dbd75e420f60c41a54f197a383670f, type: 3}
---- !u!1 &2815180474274375713 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7101216540305559663, guid: c7dbd75e420f60c41a54f197a383670f, type: 3}
-  m_PrefabInstance: {fileID: 5016184698833467470}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &5881036347809299178 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1441347654694109860, guid: c7dbd75e420f60c41a54f197a383670f, type: 3}
@@ -2074,3 +2138,19 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1366695048603839248, guid: c7dbd75e420f60c41a54f197a383670f, type: 3}
   m_PrefabInstance: {fileID: 5016184698833467470}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &7953823222219487641 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3169612181248590295, guid: c7dbd75e420f60c41a54f197a383670f, type: 3}
+  m_PrefabInstance: {fileID: 5016184698833467470}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7996708759833460650 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3127491932718581732, guid: c7dbd75e420f60c41a54f197a383670f, type: 3}
+  m_PrefabInstance: {fileID: 5016184698833467470}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f580c2b97c9dab647a0ac7177b396bd2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -8,7 +8,6 @@ public class CollectableItem : IInteractable
 
     public override void PickUp()
     {
-        Debug.Log("PickUp");
         base.PickUp();
         if (item == null || inPuzzleMode || isPickedUp)
         {

@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using DG.Tweening;
 
 public class Piston : MonoBehaviour
 {
@@ -15,10 +16,14 @@ public class Piston : MonoBehaviour
     public GameObject embeddedItem;
 
     public Item ChargedSteamCore;
+    public Material mat;
+    public Color colorRed;
+    public Color colorGreen;
     //eklenince ışık yeşil
 
     void Start()
     {
+
         if (ChargedSteamCore == null)
         {
             Debug.Log("ChargedSteamcore is null");
@@ -30,6 +35,9 @@ public class Piston : MonoBehaviour
         pistonAnimator.Play("PistonsOpen", 0, 34f / 30f);
         pistonAnimator.speed = 0f;
         embeddedItem.SetActive(false);
+        mat.color = colorRed;
+        mat.SetColor("_EmissionColor", colorRed);
+    
     }
     /*
     void Update()
@@ -63,8 +71,10 @@ public class Piston : MonoBehaviour
             isOpen = true;
             invSystem.RemoveItem("Steamcore", 1);
             embeddedItem.SetActive(true);
-            EvntManager.TriggerEvent("subID", 1);
 
+            EvntManager.TriggerEvent("subID", 1);
+            mat.color = colorGreen;
+            mat.SetColor("_EmissionColor", colorGreen);
             return;
         }
         if (isOpen)
@@ -74,6 +84,9 @@ public class Piston : MonoBehaviour
             embeddedItem.SetActive(false);
             invSystem.AddItem(ChargedSteamCore);
             isOpen = false;
+            mat.color = colorRed;
+            mat.SetColor("_EmissionColor", colorRed);
+
         }
 
     }
