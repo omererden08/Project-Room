@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class SafeRotate : MonoBehaviour
+public class SafeRotate : IInteractable
 {
     [SerializeField] private Transform doorPivot;
     [SerializeField] private float duration = 1f;
@@ -12,11 +12,10 @@ public class SafeRotate : MonoBehaviour
     private Quaternion openRot;
     private bool isLocked = true;
     private bool isMoving = false;
-    private LayerMask interactLayer;
+    private bool isOpened = false;
 
-    private Transform safeKnob;
     private Animator safeKnobAnim;
-    private Animator openAnim;
+    [SerializeField] private Animator openAnim;
 
     void Start()
     {
@@ -25,24 +24,17 @@ public class SafeRotate : MonoBehaviour
         closedRot = doorPivot.rotation;
         openRot = closedRot * Quaternion.Euler(0, openAngle, 0);
 
-        // Referanslarý önceden cache’le
-        safeKnob = transform.GetChild(1);
-        safeKnobAnim = safeKnob.GetComponent<Animator>();
-        openAnim = GetComponentInParent<Animator>();
-
-        // Layer mask olarak ayarla
-        interactLayer = 1 << safeKnob.gameObject.layer; // Layer index -> bitmask
+        safeKnobAnim = GetComponent<Animator>();
     }
 
-    private void Update()
+
+
+    public override void Interact()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            if (isLocked)
-                SafeKnobRotate();
-            else
-                StartCoroutine(ToggleDoor());
-        }
+        if (isLocked)
+            SafeKnobRotate();
+        else
+            StartCoroutine(ToggleDoor());
     }
 
     void UnlockedSafe()
@@ -52,11 +44,8 @@ public class SafeRotate : MonoBehaviour
 
     void SafeKnobRotate()
     {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out RaycastHit hit, 3f, interactLayer))
+        if (!isOpened)
         {
-            if (hit.transform != safeKnob) return; // Sadece safeKnob objesine týklanýrsa
-
             if (isLocked)
             {
                 safeKnobAnim.SetTrigger("Wrong");
@@ -65,6 +54,10 @@ public class SafeRotate : MonoBehaviour
             {
                 safeKnobAnim.SetTrigger("Correct");
             }
+        }
+        else
+        {
+            safeKnobAnim.SetTrigger("Wrong");
         }
     }
 
@@ -77,6 +70,7 @@ public class SafeRotate : MonoBehaviour
         if (!isMoving && !isLocked)
         {
             OpenDoor();
+            isOpened = true;
         }
     }
 

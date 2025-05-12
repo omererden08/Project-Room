@@ -1,15 +1,13 @@
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 
-public class MoveAnimation : IInteractable
+public class DrawerAnimation : IInteractable
 {
     [Header("Movement")]
     [SerializeField] private Transform targetPos;
     [SerializeField] private GameObject keyObject;
     private Animator keyAnimator;
     private float moveDuration = 0.55f;
-    private float platformDuration = 4f;
-    private float delayTime; // Delay for bomb after platform
 
     [Header("Interaction")]
     [SerializeField] private LayerMask interactLayer;
@@ -28,13 +26,12 @@ public class MoveAnimation : IInteractable
     void Start()
     {
         outline = GetComponent<Outline3D>();
-        EvntManager.StartListening("BombUpStart", BombUpStart);
         initialPos = transform.position;
         if (drawerType == DrawerType.Locked)
         {
             keyAnimator = keyObject.GetComponent<Animator>();
         }
-        
+
 
         if (targetPos == null && transform.childCount > 0)
         {
@@ -89,12 +86,6 @@ public class MoveAnimation : IInteractable
 
     }
 
-    public void BombUpStart()
-    {
-        ToggleDrawer(platformDuration);
-    }
-
-
     void ToggleDrawer(float duration)
     {
         isOpen = !isOpen;
@@ -119,7 +110,6 @@ public class MoveAnimation : IInteractable
 
         transform.position = end;
         isMoving = false;
-        EvntManager.TriggerEvent("BombUp");
     }
 
 

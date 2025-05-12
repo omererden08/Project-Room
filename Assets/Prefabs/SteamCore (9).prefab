@@ -1970,7 +1970,6 @@ GameObject:
   - component: {fileID: 8968847058838368309}
   - component: {fileID: 946302723347581696}
   - component: {fileID: 7700935684118016706}
-  - component: {fileID: 1428251157424207277}
   m_Layer: 0
   m_Name: SCM_Body
   m_TagString: Untagged
@@ -2060,27 +2059,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &1428251157424207277
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4843788622925480582}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.0165373, y: 0.058991943, z: 0.030350344}
-  m_Center: {x: 0.0010860557, y: 0, z: 0}
 --- !u!1 &4930022909260749335
 GameObject:
   m_ObjectHideFlags: 0

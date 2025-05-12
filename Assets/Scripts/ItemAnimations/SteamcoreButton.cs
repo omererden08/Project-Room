@@ -51,6 +51,7 @@ public class SteamcoreButton : IInteractable
 
         if (isPuzzleCompleted)
         {
+            //material green
             steamcoreAnimator.SetTrigger("Open");
 
             if (steamcoreAnimator != null)
