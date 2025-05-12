@@ -4,35 +4,27 @@
 TagManager:
   serializedVersion: 3
   tags:
-  - LeverSwitch
-  - Ball
-  - Platform
-  - Bomb
-  - Door
-  - CameraFocus
-  - crosshair
-  - Draggable
-  - Indicator
-  - InventoryItem
-  - Safe
-  - Locked
-<<<<<<< Updated upstream
-  - Ending
-=======
-  - SteamCore
   - subt
->>>>>>> Stashed changes
+  - Door
+  - Platform
+  - InventoryItem
+  - Bomb
+  - Safe
+  - Indicator
+  - Draggable
+  - SteamCore
+  - LeverSwitch
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Ground
+  - IInteractable
   - Water
   - UI
-  - Interactable
-  - Magnet
-  - Player
-  - Camera
+  - 
+  - 
+  - 
+  - 
   - 
   - 
   - 
@@ -59,18 +51,5 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Interactable
-    uniqueID: 1338232235
-    locked: 0
-  - name: New Layer 2
-    uniqueID: 4190994995
-    locked: 0
   m_RenderingLayers:
   - Default
-  - Light Layer 1
-  - Light Layer 2
-  - Light Layer 3
-  - Light Layer 4
-  - Light Layer 5
-  - Light Layer 6
-  - Light Layer 7
