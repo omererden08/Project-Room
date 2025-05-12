@@ -102,6 +102,7 @@ GameObject:
   - component: {fileID: 5678603866083563716}
   - component: {fileID: 8812548011965958966}
   - component: {fileID: 7393858367408218925}
+  - component: {fileID: 1463272881262586788}
   m_Layer: 0
   m_Name: PistonAnimators
   m_TagString: Untagged
@@ -161,7 +162,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   indicatorObject: {fileID: 7168851710078768421}
+  invSystem: {fileID: 0}
   animDuration: 5
+--- !u!65 &1463272881262586788
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1150931124557783748}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.3649683, y: 2.390627, z: 3.031809}
+  m_Center: {x: -6.573766, y: 1.3046865, z: 2.334002}
 --- !u!1 &1885745816175687065
 GameObject:
   m_ObjectHideFlags: 0

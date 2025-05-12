@@ -45,6 +45,7 @@ public class TeaAnimation : MonoBehaviour
         {
             return;
         }
+        EvntManager.TriggerEvent("SetOffSlotLight");
         top.transform.DOScale(new Vector3(0.04f, 0.04f, 0.04f), drinkDuration);
 
         top.transform.DOMove(endPoint.position, drinkDuration).onComplete += () =>
@@ -67,6 +68,7 @@ public class TeaAnimation : MonoBehaviour
 
         }
         Debug.Log("TeaAnimation dolduruldu. canDrinkable: " + canDrinkable);
+        EvntManager.TriggerEvent("SetOnSlotLight");
     }
     public void TokenMod()
     {

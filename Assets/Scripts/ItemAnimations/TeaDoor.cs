@@ -46,6 +46,7 @@ public class TeaDoor : MonoBehaviour
                     StartCoroutine(DoorMove(true));
                     isOpen = true;
                     teaLever.canLeverPull = false;
+                    EvntManager.TriggerEvent("SetOffAllLights");
                     
                 }
                 else if (isOpen)
@@ -53,6 +54,7 @@ public class TeaDoor : MonoBehaviour
                     StartCoroutine(DoorMove(false));
                     isOpen = false;
                     teaLever.canLeverPull = true;
+                    EvntManager.TriggerEvent("SetAllLights");
                 }
             }
         }

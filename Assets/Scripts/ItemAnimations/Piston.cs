@@ -5,27 +5,40 @@ public class Piston : MonoBehaviour
 {
 
     [SerializeField] private GameObject indicatorObject;
+    public InventorySystem invSystem;
     private Animator indicatorAnimator;
     private Animator pistonAnimator;
     [SerializeField] private float animDuration;
 
     private float animSpeed = 0f;
-    private bool isOpen = false;
+    public bool isOpen = false;
+    public GameObject embeddedItem;
+
+    public Item ChargedSteamCore;
+    //eklenince ışık yeşil
 
     void Start()
     {
+        if (ChargedSteamCore == null)
+        {
+            Debug.Log("ChargedSteamcore is null");
+        }
+        invSystem = FindAnyObjectByType<InventorySystem>();
         pistonAnimator = GetComponent<Animator>();
         indicatorAnimator = indicatorObject.GetComponent<Animator>();
-        // 34. frame = 34 / 30 = 1.133 saniye (30fps animasyon varsay�m�yla)
+        // 34. frame = 34 / 30 = 1.133 saniye (30fps animasyon varsay�m�yla)
         pistonAnimator.Play("PistonsOpen", 0, 34f / 30f);
         pistonAnimator.speed = 0f;
+        embeddedItem.SetActive(false);
     }
-
+    /*
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space) && !isOpen)
         {
             StartCoroutine(StartPistonAnim());
+            //taktığında çalışacak animasyon
+
             indicatorAnimator.SetBool("isOpen", true);
             isOpen = true;
         }
@@ -33,9 +46,36 @@ public class Piston : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E) && isOpen)
         {
             StartCoroutine(StopPistonAnim());
+            //çıkardığında çalışacak animator 
             indicatorAnimator.SetBool("isOpen", false);
             isOpen = false;
         }
+    }
+    */
+    public void OnMouseDown()
+    {
+        Debug.Log("mouse down worked");
+        Debug.Log(invSystem.ChosenItem("Steamcore"));
+        if (invSystem.ChosenItem("Steamcore") && !isOpen)
+        {
+            StartCoroutine(StartPistonAnim());
+            indicatorAnimator.SetBool("isOpen", true);
+            isOpen = true;
+            invSystem.RemoveItem("Steamcore", 1);
+            embeddedItem.SetActive(true);
+            EvntManager.TriggerEvent("subID", 1);
+
+            return;
+        }
+        if (isOpen)
+        {
+            StartCoroutine(StopPistonAnim());
+            indicatorAnimator.SetBool("isOpen", false);
+            embeddedItem.SetActive(false);
+            invSystem.AddItem(ChargedSteamCore);
+            isOpen = false;
+        }
+
     }
 
     IEnumerator StartPistonAnim()
@@ -48,7 +88,7 @@ public class Piston : MonoBehaviour
         {
             elapsedTime += Time.deltaTime;
             float t = Mathf.Clamp01(elapsedTime / animDuration);
-            animSpeed = Mathf.Lerp(startSpeed, targetSpeed, t); // Yava� yava� h�zlanma
+            animSpeed = Mathf.Lerp(startSpeed, targetSpeed, t); // Yava� yava� h�zlanma
             pistonAnimator.speed = animSpeed;
             yield return null;
         }
@@ -67,12 +107,12 @@ public class Piston : MonoBehaviour
         {
             elapsedTime += Time.deltaTime;
             float t = Mathf.Clamp01(elapsedTime / animDuration);
-            animSpeed = Mathf.Lerp(startSpeed, targetSpeed, t); // Yava��a yava�la
+            animSpeed = Mathf.Lerp(startSpeed, targetSpeed, t); // Yava��a yava�la
             pistonAnimator.speed = animSpeed;
             yield return null;
         }
 
-        pistonAnimator.speed = 0f; // �u anki frame'de dursun
+        pistonAnimator.speed = 0f; // �u anki frame'de dursun
         animSpeed = 0f;
     }
 }

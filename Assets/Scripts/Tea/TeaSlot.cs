@@ -7,20 +7,22 @@ public class TeaSlot : MonoBehaviour
 
     public bool isFilled = true;
     private Outline3D o3D;
-    private  InventorySystem inventorySystem;
+    private InventorySystem inventorySystem;
 
     void Start()
     {
         isFilled = true;
+        EvntManager.TriggerEvent("SetOnSlotLight");
+
         inventorySystem = FindAnyObjectByType<InventorySystem>();
         o3D = GetComponent<Outline3D>();
         o3D.enabled = false;
     }
-    
+
 
     void OnMouseDown()
     {
-        if(!isFilled && inventorySystem.ChosenItem("TeaCup"))
+        if (!isFilled && inventorySystem.ChosenItem("TeaCup"))
         {
             FillSlot();
         }
@@ -30,6 +32,8 @@ public class TeaSlot : MonoBehaviour
         EvntManager.TriggerEvent("MoveCupToStart");
         inventorySystem.RemoveItem("TeaCup", 1);
         isFilled = true;
+        EvntManager.TriggerEvent("SetOffSlotLight");
+
         EvntManager.TriggerEvent("SetTea"); // SetTea olayını tetikle
         Debug.Log("TeaSlot dolduruldu. isFilled: " + isFilled);
     }

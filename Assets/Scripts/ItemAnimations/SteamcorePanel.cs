@@ -13,8 +13,11 @@ public class SteamcorePanel : IInteractable
 
     private bool hasPlayed = false;
 
+    public InventorySystem invSystem;
     private void Start()
     {
+        invSystem = FindAnyObjectByType<InventorySystem>();
+
         // Animator dizisini doldur
         nutsAnimators = new Animator[nuts.Length];
         for (int i = 0; i < nuts.Length; i++)
@@ -26,9 +29,14 @@ public class SteamcorePanel : IInteractable
 
     public override void Interact()
     {
-        if (hasPlayed) return; // Eğer animasyon zaten oynatıldıysa, tekrar oynatma
-        hasPlayed = true;
-        PlayNutsAnimations();
+        if (invSystem.ChosenItem("Screwdriver"))
+        {
+            if (hasPlayed) return; // Eğer animasyon zaten oynatıldıysa, tekrar oynatma
+            hasPlayed = true;
+            invSystem.RemoveItem("Screwdriver", 1);
+            PlayNutsAnimations();
+        }
+
     }
 
 
