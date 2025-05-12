@@ -18,11 +18,12 @@ public class TeaLever : IInteractable
     private Animator indicatorAnim;
     private Animator rightDoorAnim;
     private Animator leftDoorAnim;
+    public Animator lightAnim;
     public bool TeaClock;
 
     private LayerMask interactLayer;
     private bool isRotating = false;
-    private bool isMoving = false;
+    [SerializeField] private bool isMoving = false;
     public bool isPulling = false;
     public bool canLeverPull = true;
     public bool inSlot = false;
@@ -78,7 +79,7 @@ public class TeaLever : IInteractable
     private IEnumerator PullingLever(bool down)
     {
         isRotating = true;
-
+        lightAnim.SetTrigger("Play");
         Quaternion startRot = transform.localRotation;
         Quaternion endRot = Quaternion.Euler(down ? -113f : -68f, -63f, 90f);
 
@@ -182,7 +183,6 @@ public class TeaLever : IInteractable
     }
     private void MoveCupToStart()
     {
-        isMoving = true;
         teaCup.transform.position = sPos;
         teaCup.SetActive(true);
         inSlot = false;

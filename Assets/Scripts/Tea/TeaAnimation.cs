@@ -24,6 +24,7 @@ public class TeaAnimation : MonoBehaviour
         teaCheck = FindAnyObjectByType<TeaCheck>();
         teaSlot = FindAnyObjectByType<TeaSlot>();
         teaAnimation = FindAnyObjectByType<TeaAnimation>();
+        startSize = top.transform.localScale;
         EvntManager.StartListening("DrinkTea", Drink);
         topPos = top.transform.position;
         Cam = Camera.main.gameObject;
@@ -40,7 +41,7 @@ public class TeaAnimation : MonoBehaviour
 
     public void Drink()
     {
-        if(!canDrinkable)
+        if (!canDrinkable)
         {
             return;
         }
@@ -50,17 +51,21 @@ public class TeaAnimation : MonoBehaviour
         {
             InventorySystem.Instance.AddItem(item);
             teaSlot.isFilled = false;
-            teaSlot.CheckState();
             Cup.SetActive(false);
             top.SetActive(false);
-        };;
+        }; ;
     }
     public void Fill()
     {
-        top.transform.DOScale(startSize, drinkDuration);
+        top.transform.localScale = startSize;
         top.transform.position = topPos;
         top.SetActive(true);
         canDrinkable = true;
+        if (item.quantity == 0)
+        {
+            item.quantity++;
+
+        }
         Debug.Log("TeaAnimation dolduruldu. canDrinkable: " + canDrinkable);
     }
     public void TokenMod()

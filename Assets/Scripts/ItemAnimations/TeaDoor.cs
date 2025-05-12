@@ -13,14 +13,14 @@ public class TeaDoor : MonoBehaviour
 
     private void Start()
     {
-        // Bu atama gereksiz olabilir; animator kullanýlmýyor
+        // Bu atama gereksiz olabilir; animator kullanï¿½lmï¿½yor
         if (animator == null)
             animator = GetComponent<Animator>();
 
         if (teaLever == null)
             teaLever = FindObjectOfType<TeaLever>();
 
-        // interactLayer baþlangýçta ayarlanmadýysa, elle ayarlanmasý daha saðlýklý olur
+        // interactLayer baï¿½langï¿½ï¿½ta ayarlanmadï¿½ysa, elle ayarlanmasï¿½ daha saï¿½lï¿½klï¿½ olur
         if (interactLayer == 0)
             interactLayer = 1 << gameObject.layer;
     }
@@ -46,6 +46,7 @@ public class TeaDoor : MonoBehaviour
                     StartCoroutine(DoorMove(true));
                     isOpen = true;
                     teaLever.canLeverPull = false;
+                    
                 }
                 else if (isOpen)
                 {

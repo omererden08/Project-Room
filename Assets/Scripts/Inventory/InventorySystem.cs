@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using System.Linq;
 
 public class InventorySystem : MonoBehaviour
 {
@@ -28,6 +29,7 @@ public class InventorySystem : MonoBehaviour
         }
 
         slots = FindObjectsByType<InventorySlot>(FindObjectsSortMode.None);
+        slots = slots.OrderBy(slot => slot.name).ToArray();
         if (slots.Length != MAX_SLOTS)
         {
             Debug.LogWarning($"Envanterde tam {MAX_SLOTS} slot olmalı! Şu an {slots.Length} slot var.");
@@ -69,6 +71,8 @@ public class InventorySystem : MonoBehaviour
         }
 
         items.Add(item);
+        EvntManager.TriggerEvent("OpenInventory");
+
         UpdateSlots();
         return true;
     }
@@ -111,7 +115,6 @@ public class InventorySystem : MonoBehaviour
                 existingItem.sceneObjects.RemoveAll(obj => obj == null);
             }
             Debug.Log($"RemoveItem: Item = {itemName}, Quantity = {(existingItem != null ? existingItem.quantity : 0)}, SceneObjects Count = {(existingItem != null ? existingItem.sceneObjects.Count : 0)}");
-
             UpdateSlots();
         }
     }
