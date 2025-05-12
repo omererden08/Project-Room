@@ -664,11 +664,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 698031111}
   m_CullTransparentMesh: 1
---- !u!225 &916211881 stripped
-CanvasGroup:
-  m_CorrespondingSourceObject: {fileID: 2037622391705032202, guid: 93b49380dcb73d6498b481328bd83314, type: 3}
-  m_PrefabInstance: {fileID: 1827356345}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &963112374
 GameObject:
   m_ObjectHideFlags: 0
@@ -1585,16 +1580,49 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5278137583845418134, guid: 93b49380dcb73d6498b481328bd83314, type: 3}
+      propertyPath: m_Name
+      value: WhiteImage
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673076437496946846, guid: 93b49380dcb73d6498b481328bd83314, type: 3}
+      propertyPath: m_Name
+      value: BlackImage
+      objectReference: {fileID: 0}
     - target: {fileID: 8136745658283144309, guid: 93b49380dcb73d6498b481328bd83314, type: 3}
-      propertyPath: fadeCanvasGroup
+      propertyPath: endingDelay
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8136745658283144309, guid: 93b49380dcb73d6498b481328bd83314, type: 3}
+      propertyPath: blackFadeGroup
       value: 
-      objectReference: {fileID: 916211881}
-    m_RemovedComponents:
-    - {fileID: 8229361684262281338, guid: 93b49380dcb73d6498b481328bd83314, type: 3}
+      objectReference: {fileID: 1827356347}
+    - target: {fileID: 8136745658283144309, guid: 93b49380dcb73d6498b481328bd83314, type: 3}
+      propertyPath: whiteFadeGroup
+      value: 
+      objectReference: {fileID: 1827356346}
+    - target: {fileID: 8136745658283144309, guid: 93b49380dcb73d6498b481328bd83314, type: 3}
+      propertyPath: blackFadeDuration
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8136745658283144309, guid: 93b49380dcb73d6498b481328bd83314, type: 3}
+      propertyPath: whiteFadeDuration
+      value: 3
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 93b49380dcb73d6498b481328bd83314, type: 3}
+--- !u!225 &1827356346 stripped
+CanvasGroup:
+  m_CorrespondingSourceObject: {fileID: 1935635043478574412, guid: 93b49380dcb73d6498b481328bd83314, type: 3}
+  m_PrefabInstance: {fileID: 1827356345}
+  m_PrefabAsset: {fileID: 0}
+--- !u!225 &1827356347 stripped
+CanvasGroup:
+  m_CorrespondingSourceObject: {fileID: 9061949543141965377, guid: 93b49380dcb73d6498b481328bd83314, type: 3}
+  m_PrefabInstance: {fileID: 1827356345}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1883870391
 GameObject:
   m_ObjectHideFlags: 0

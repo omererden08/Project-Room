@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 320307457066529604}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: -0.304}
+  m_LocalPosition: {x: -0, y: 0.5, z: 0.142}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -154,6 +154,7 @@ GameObject:
   - component: {fileID: 3248197319865239741}
   - component: {fileID: 2056647463751917048}
   - component: {fileID: 8311303462618752193}
+  - component: {fileID: 668400404627551637}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -169,7 +170,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9142865333972999641}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.6474125, z: -0, w: -0.76213986}
+  m_LocalRotation: {x: 0, y: 0.64741534, z: -0, w: -0.7621374}
   m_LocalPosition: {x: -4.55, y: 1.5, z: 5.39}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -248,7 +249,7 @@ CharacterController:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Height: 2
+  m_Height: 1.4
   m_Radius: 0.2
   m_SlopeLimit: 45
   m_StepOffset: 0
@@ -387,13 +388,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
-  sprintSpeed: 8
   playerHeight: 1.5
   playerCamera: {fileID: 0}
   mouseSensitivity: 10
-  minZoom: 40
-  maxZoom: 60
-  zoomSpeed: 10
 --- !u!114 &2056647463751917048
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -424,3 +421,17 @@ MonoBehaviour:
   interactableLayer:
     serializedVersion: 2
     m_Bits: 64
+  scrollSpeed: 10
+--- !u!114 &668400404627551637
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9142865333972999641}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c01528ddb3a19f742881312d19188d5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ch: {fileID: 0}

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
 
@@ -6,8 +7,11 @@ public class FadeManager : MonoBehaviour
 {
     public static FadeManager Instance;
 
-    [SerializeField] private CanvasGroup fadeCanvasGroup;
-    [SerializeField] private float fadeDuration = 1f;
+    [SerializeField] private CanvasGroup blackFadeGroup;
+    [SerializeField] private CanvasGroup whiteFadeGroup;
+    [SerializeField] private float blackFadeDuration;
+    [SerializeField] private float whiteFadeDuration; 
+
 
     private void Awake()
     {
@@ -24,32 +28,56 @@ public class FadeManager : MonoBehaviour
     private void Start()
     {
         // Başlangıçta fade in
-        fadeCanvasGroup.alpha = 1;
-        fadeCanvasGroup.DOFade(0, fadeDuration).OnComplete(() =>
+        whiteFadeGroup.alpha = 0;
+        blackFadeGroup.alpha = 1;
+        blackFadeGroup.DOFade(0, blackFadeDuration).OnComplete(() =>
         {
             this.gameObject.SetActive(false);
         });
 
     }
 
-    public void FadeToScene(string sceneName)
+    public void FadeBlack(string sceneName)
     {
-        this.gameObject.SetActive(true);
-        fadeCanvasGroup.DOFade(1, fadeDuration).SetUpdate(true).OnComplete(() =>
+        gameObject.SetActive(true);
+
+        blackFadeGroup.DOFade(1, blackFadeDuration).SetUpdate(true).OnComplete(() =>
         {
+            // Sahneyi yüklüyoruz, sonra bekleyip açacağız
             SceneManager.LoadScene(sceneName);
-            // Yeni sahne yüklendiğinde tekrar fade in yap
-            fadeCanvasGroup.DOFade(0, fadeDuration).SetUpdate(true).OnComplete(() =>
-            {
-                // Fade işlemi tamamlandığında bu nesneyi devre dışı bırak
-                this.gameObject.SetActive(false);
-            });
+
+            StartCoroutine(FadeInAfterDelay(blackFadeGroup, blackFadeDuration));
         });
     }
+    public void FadeWhite(string sceneName)
+    {
+        gameObject.SetActive(true);
+        whiteFadeGroup.alpha = 0;
+
+        whiteFadeGroup.DOFade(0, whiteFadeDuration).SetUpdate(true).OnComplete(() =>
+        {
+            // Sahneyi yüklüyoruz, sonra bekleyip açacağız
+            SceneManager.LoadScene(sceneName);
+
+            StartCoroutine(FadeInAfterDelay(whiteFadeGroup, whiteFadeDuration));
+        });
+    }
+
+    private IEnumerator FadeInAfterDelay(CanvasGroup canvasGroup, float duration)
+    {
+        // 1 saniyelik cooldown (bekleme)
+        yield return new WaitForSeconds(1f);
+
+        canvasGroup.DOFade(0, duration).SetUpdate(true).OnComplete(() =>
+        {
+            gameObject.SetActive(false);
+        });
+    }
+
     public void Quit()
     {
         this.gameObject.SetActive(true);
-        fadeCanvasGroup.DOFade(1, fadeDuration).OnComplete(() =>
+        blackFadeGroup.DOFade(1, blackFadeDuration).OnComplete(() =>
         {
             Application.Quit();
         });
