@@ -49,8 +49,10 @@ public class PlayerInputHandler : MonoBehaviour
     private void Awake()
     {
         playerInput = GetComponent<PlayerInput>();
+        EvntManager.StartListening("pause", HandlePauseToggle);
     }
-    
+
+
     private void Start()
     {
         // Lock cursor at start
@@ -104,16 +106,21 @@ public class PlayerInputHandler : MonoBehaviour
             OnDropPressed?.Invoke();
         }
     }
-    
+
     public void OnPause(InputValue value)
     {
         if (value.isPressed)
         {
-            IsPaused = !IsPaused;
-            OnPauseToggled?.Invoke();
+            HandlePauseToggle();
         }
     }
-    
+
+    private void HandlePauseToggle()
+    {
+        IsPaused = !IsPaused;
+        OnPauseToggled?.Invoke();
+    }
+
     public void OnScroll(InputValue value)
     {
         if (!IsPaused)

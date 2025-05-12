@@ -13,8 +13,8 @@ public class InteractionSystem : MonoBehaviour
     public event Action<IInteractable> OnInteractableChanged;
 
     // Properties
-    private IInteractable _currentInteractable;
-    private IInteractable _latestInteractable;
+    [SerializeField] private IInteractable _currentInteractable;
+    [SerializeField] private IInteractable _latestInteractable;
 
     int selectedIndex = 0;
     [SerializeField] private float scrollSpeed = 10f;
@@ -132,9 +132,9 @@ public class InteractionSystem : MonoBehaviour
         }
     }
 
-    void OnPickUp()
+   /* void OnPickUp()
     {
         CurrentInteractable.PickUp();
     }
-
+   */
 }

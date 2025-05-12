@@ -5,7 +5,6 @@ public class SteamcorePanel : IInteractable
 {
     [Header("Nuts")]
     [SerializeField] private GameObject[] nuts;          // Animator içeren objeler
-    [SerializeField] private GameObject nutsObject;      // Bitiş nesnesi
     private Animator[] nutsAnimators;
     private Animator panelAnimator;
 
@@ -23,7 +22,6 @@ public class SteamcorePanel : IInteractable
             nutsAnimators[i] = nuts[i].GetComponent<Animator>();
         }
         panelAnimator = GetComponent<Animator>();
-        nutsObject.SetActive(false); // Başta gizli
     }
 
     public override void Interact()
@@ -69,7 +67,6 @@ public class SteamcorePanel : IInteractable
             nuts[i].SetActive(false);
         }
 
-        nutsObject.SetActive(true);
         Debug.Log("Tüm somunlar animasyonu tamamladı. Obje aktif!");
 
         // 👇 Panelin kendi animasyonunu tetikle

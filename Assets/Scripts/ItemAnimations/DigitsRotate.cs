@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class DigitsRotate : MonoBehaviour
 {
@@ -24,7 +25,10 @@ public class DigitsRotate : MonoBehaviour
         {
             isRotating[digit] = false;
             currentXAngles[digit] = digit.localEulerAngles.x; // Baþlangýç açýsýný kaydet
+            StartCoroutine(RotateSingleDigit(digit, rotationDuration));
+
         }
+
     }
 
     void Update()
