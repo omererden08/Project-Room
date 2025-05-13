@@ -8,10 +8,12 @@ public class DoorAnimation : IInteractable
     public InventorySystem Inventory;
     public bool isLocked = false;
     public int tokenTaken;
+    private Collider doorCollider;
     void Start()
     {
         Inventory = FindAnyObjectByType<InventorySystem>();
         animator = GetComponent<Animator>();
+        doorCollider = GetComponent<Collider>();
         tokenTaken = 0;
     }
 
@@ -43,15 +45,15 @@ public class DoorAnimation : IInteractable
             if (tokenTaken <= 4)
             {
                 Inventory.RemoveItem("Token", 1);
-                tokenTaken++;
                 animator.SetTrigger("Door_Unlock_" + tokenTaken);
-                return;
+                tokenTaken++;
+
             }
             else
             {
                 animator.SetTrigger("Door_Unlock_All");
+                doorCollider.enabled = false;
                 GameEnding();
-                return;
             }
 
         }
