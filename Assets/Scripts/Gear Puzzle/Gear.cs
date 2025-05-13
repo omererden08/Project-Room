@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using DG.Tweening;
 
 public enum GearSize
@@ -10,6 +10,8 @@ public enum GearSize
 public class Gear : MonoBehaviour
 {
     public Transform firstPosition;
+    [SerializeField] private Transform rotationReference;
+    [SerializeField] private float rotationValue;
     public GearSize size;
 
     private bool isDragging;
@@ -99,19 +101,47 @@ public class Gear : MonoBehaviour
         Debug.Log($"Gear {name} returned to first position");
     }
 
+
+    private float NormalizeAngle(float angle)
+    {
+        angle %= 360f;
+        if (angle > 180f) angle -= 360f;
+        return angle;
+    }
+
+
     public void UpdateSpinning(bool shouldSpin, bool clockwise)
     {
         transform.DOKill();
 
         if (shouldSpin)
         {
-            transform.DORotate(new Vector3(clockwise ? 360 : -360,0 , 0), SpinSpeed , RotateMode.LocalAxisAdd)
-                .SetEase(Ease.Linear)
-                .SetLoops(-1, LoopType.Restart)
-                .SetRelative();
+            // ✅ BAŞLANGIÇ ROTASYONUNU REFERANSA GÖRE BELİRLE
+            if (rotationReference != null)
+            {
+                float referenceX = NormalizeAngle(rotationReference.localEulerAngles.x);
+                float adjustedX = referenceX * rotationValue; // örn: 1.4 ile çarpılacaksa rotationValue = 1.4
+
+                // Mevcut Y ve Z açılarını koruyarak yeni X değerini uygula
+                transform.localEulerAngles = new Vector3(adjustedX, transform.localEulerAngles.y, transform.localEulerAngles.z);
+
+                Debug.Log($"{name} -> Başlangıç X: {adjustedX} (Referans X: {referenceX} * {rotationValue})");
+            }
+
+            // ✅ DAİMA 360 DERECE DÖNMEYE DEVAM ETSİN
+            float direction = clockwise ? 360f : -360f;
+
+            transform.DORotate(
+                new Vector3(direction, 0f, 0f),
+                SpinSpeed,
+                RotateMode.LocalAxisAdd
+            )
+            .SetEase(Ease.Linear)
+            .SetLoops(-1, LoopType.Restart)
+            .SetRelative();
         }
-        Debug.Log($"Gear {name}: Spinning={shouldSpin}, Clockwise={clockwise}");
     }
+
 
     private Vector3 GetMouseWorldPosition()
     {

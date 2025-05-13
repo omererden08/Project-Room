@@ -101,7 +101,6 @@ public class ClockAnimation : IInteractable
         if (isBigCorrect && isSmallCorrect)
         {
             Debug.Log("Password Correct!");
-            EvntManager.TriggerEvent("SetToken");
             tL.TeaClock = true;
 
         }

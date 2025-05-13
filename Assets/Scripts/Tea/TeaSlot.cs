@@ -11,6 +11,7 @@ public class TeaSlot : MonoBehaviour
 
     void Start()
     {
+        EvntManager.StartListening("FillSlot", FillSlot);
         isFilled = true;
         EvntManager.TriggerEvent("SetOnSlotLight");
 
