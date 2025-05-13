@@ -25,7 +25,7 @@ public class SteamcoreButton : IInteractable
     private Vector3 initialPos;
     private bool isMoving = false;
     private bool isOpen = false;
-    public CollectableItem collectableItem;
+    public Collider collectableItem;
     public Material mat;
     private void Start()
     {
