@@ -139,7 +139,7 @@ public class InventorySystem : MonoBehaviour
         }
     }
 
-    void FixedUpdate()
+    void Update()
     {
         SelectItem();
     }
@@ -156,7 +156,15 @@ public class InventorySystem : MonoBehaviour
         }
     }
 
+
     private void UpdateSlots()
+    {
+        UpdateSlotItems();
+        HighlightSelectedSlot();
+        ClearEmptySlots();
+    }
+
+    private void UpdateSlotItems()
     {
         for (int i = 0; i < slots.Length; i++)
         {
@@ -164,22 +172,6 @@ public class InventorySystem : MonoBehaviour
             {
                 slots[i].SetItem(items[i]);
                 Debug.Log($"UpdateSlots: Slot {i}: {items[i].itemName}, Quantity: {items[i].quantity}, SceneObjects Count: {items[i].sceneObjects.Count}");
-                // Highlight selected slot
-                if (i == selectedIndex)
-                {
-                    slots[i].GetComponent<Image>().color = new Color(1f, 1f, 0.5f, 1f); // Yellow highlight
-                }
-                else
-                {
-                    slots[i].GetComponent<Image>().color = Color.white;
-                }
-
-                // Check if scene object count is 0, and if so, clear the slot
-                if (items[i].sceneObjects.Count == 0)
-                {
-                    slots[i].ClearSlot();
-                    items.RemoveAt(i);
-                }
             }
             else
             {
@@ -187,26 +179,60 @@ public class InventorySystem : MonoBehaviour
             }
         }
     }
+
+ private void HighlightSelectedSlot()
+{
+    for (int i = 0; i < slots.Length; i++)
+    {
+        if (i == selectedIndex)
+        {
+            slots[i].GetComponent<Image>().sprite = items[i].icon; // Yellow highlight
+        }
+        else if (i < items.Count)
+        {
+            slots[i].GetComponent<Image>().sprite = items[i].outlinedIcon;
+        }
+        else
+        {
+            slots[i].GetComponent<Image>().sprite = null; // Set sprite to null for empty slots
+        }
+    }
+}
+
+    private void ClearEmptySlots()
+    {
+        List<Item> itemsToRemove = new List<Item>();
+        for (int i = 0; i < items.Count; i++)
+        {
+            if (items[i].sceneObjects.Count == 0)
+            {
+                itemsToRemove.Add(items[i]);
+            }
+        }
+        foreach (var item in itemsToRemove)
+        {
+            items.Remove(item);
+        }
+    }
+
     void SelectItem()
     {
-        if (items == null || items.Count == 0)
-        {
-            selectedIndex = 0;
-            return;
-        }
+        if (items == null || items.Count == 0) return; // Early return
 
         float scrollDelta = Input.mouseScrollDelta.y;
         if (Mathf.Abs(scrollDelta) > 0 && Time.time - lastScrollTime > SCROLL_DEBOUNCE_TIME)
         {
             int scrollDirection = (int)Mathf.Sign(scrollDelta);
+            Debug.Log("Scroll Direction: " + scrollDirection);
+
             selectedIndex = Mathf.Clamp(selectedIndex - scrollDirection, 0, items.Count - 1); // Invert direction for natural scrolling
             lastScrollTime = Time.time;
             Debug.Log("Selected Item: " + (items.Count > 0 ? items[selectedIndex].itemName : "None"));
+
             selectedItemName = items[selectedIndex].itemName;
             UpdateSlots(); // Update UI to reflect selection
         }
     }
-
     public bool CheckItem(string nameOfItem)
     {
         if (items.Find(i => i.itemName == nameOfItem) != null)

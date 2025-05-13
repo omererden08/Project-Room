@@ -16,10 +16,11 @@ public class CollectableItem : IInteractable
         }
 
         isPickedUp = true;
-        bool added = InventorySystem.Instance.AddItem(new Item(item.itemName, item.icon, item.quantity, gameObject));
+        bool added = InventorySystem.Instance.AddItem(new Item(item.itemName, item.icon, item.outlinedIcon, item.quantity, gameObject));
         if (added)
         {
             gameObject.SetActive(false);
+            EvntManager.TriggerEvent("subID", "selamlama");
         }
         else
         {

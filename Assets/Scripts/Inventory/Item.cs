@@ -6,14 +6,15 @@ public class Item
 {
     public string itemName;
     public Sprite icon;
+    public Sprite outlinedIcon;
     public int quantity;
     public List<GameObject> sceneObjects; // Her item için birden fazla sceneObject tutar
 
-    public Item(string name, Sprite icon, int qty, GameObject obj)
+    public Item(string name, Sprite icon,Sprite outlinedIcon, int qty, GameObject obj)
     {
         itemName = name;
         this.icon = icon;
-        quantity = qty;
+        this.outlinedIcon = outlinedIcon;
         sceneObjects = new List<GameObject>();
         if (obj != null)
         {

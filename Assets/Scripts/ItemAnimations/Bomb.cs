@@ -7,15 +7,16 @@ public class Bomb : MonoBehaviour
     private bool isMoving = false;
     private Vector3 initialPos;
     private Vector3 lastPos;
+    private float y = -0.008085489f;
 
 
     private void Start()
     {
         initialPos = transform.position;
-        lastPos = new Vector3(initialPos.x, 0.11f, initialPos.z);
+        lastPos = new Vector3(initialPos.x, y, initialPos.z);
         EvntManager.StartListening("BombUp", BombUp);
     }
-    
+
     private void BombUp()
     {
         StartCoroutine(Move(moveDuration));

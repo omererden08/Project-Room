@@ -12,7 +12,7 @@ subtitleManager.ClearSubtitle(); // Altyazıyı temizler
 [System.Serializable]
 public class Subtitle
 {
-    public int id;
+    public string id;
     public string text;
     public string speaker;
 }
@@ -32,7 +32,7 @@ public class SubtitleManager : MonoBehaviour
 
     void Start()
     {
-        EvntManager.StartListening<int>("subID", DisplaySubtitleById);
+        EvntManager.StartListening<string>("subID", DisplaySubtitleById);
 
         subtitleText = GameObject.FindGameObjectWithTag("subt").GetComponent<TextMeshProUGUI>();
 
@@ -65,7 +65,7 @@ public class SubtitleManager : MonoBehaviour
             Debug.LogError($"JSON parse hatası: {e.Message}");
         }
     }
-    public void DisplaySubtitleById(int id)
+    public void DisplaySubtitleById(string id)
     {
         Subtitle subtitle = subtitles.FirstOrDefault(s => s.id == id);
         if (subtitle != null)
@@ -83,7 +83,7 @@ public class SubtitleManager : MonoBehaviour
             ClearSubtitle();
         }
     }
-    public void DisplaySubtitleById(int id, int duration)
+    public void DisplaySubtitleById(string id, int duration)
     {
         Subtitle subtitle = subtitles.FirstOrDefault(s => s.id == id);
         if (subtitle != null)
