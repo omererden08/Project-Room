@@ -35,6 +35,10 @@ public class InventorySystem : MonoBehaviour
             Debug.LogWarning($"Envanterde tam {MAX_SLOTS} slot olmalı! Şu an {slots.Length} slot var.");
         }
     }
+    void Start()
+    {
+        EvntManager.StartListening("updateSlots", UpdateSlots);
+    }
 
     public bool AddItem(Item item)
     {
@@ -174,6 +178,7 @@ public class InventorySystem : MonoBehaviour
                 if (items[i].sceneObjects.Count == 0)
                 {
                     slots[i].ClearSlot();
+                    items.RemoveAt(i);
                 }
             }
             else

@@ -183,6 +183,8 @@ public class InventorySlot : MonoBehaviour, IDragHandler, IBeginDragHandler, IEn
             if (ct >= 0 && item.sceneObjects.Count > ct)
             {
                 item.sceneObjects[ct].SetActive(false);
+                activeObjects.Remove(item.sceneObjects[ct]);
+                EvntManager.TriggerEvent("UpdateSlots");    
             }
             return;
         }
