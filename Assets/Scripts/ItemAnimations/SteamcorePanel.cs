@@ -42,6 +42,7 @@ public class SteamcorePanel : IInteractable
 
     private void PlayNutsAnimations()
     {
+        Debug.Log("denme bir ili");
         foreach (Animator animator in nutsAnimators)
         {
             animator.SetTrigger(animationTriggerName);

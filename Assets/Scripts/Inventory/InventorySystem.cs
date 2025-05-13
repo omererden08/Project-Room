@@ -15,6 +15,7 @@ public class InventorySystem : MonoBehaviour
     private const float SCROLL_DEBOUNCE_TIME = 0.1f;
 
     public string selectedItemName;
+    public bool isFirst;
 
     private void Awake()
     {
@@ -38,10 +39,13 @@ public class InventorySystem : MonoBehaviour
     void Start()
     {
         EvntManager.StartListening("updateSlots", UpdateSlots);
+        isFirst = false;
+
     }
 
     public bool AddItem(Item item)
     {
+
         if (item == null || string.IsNullOrEmpty(item.itemName))
         {
             Debug.LogWarning("AddItem: Geçersiz item veya itemName");
@@ -52,7 +56,7 @@ public class InventorySystem : MonoBehaviour
         Item existingItem = items.Find(i => i.itemName == item.itemName);
         if (existingItem != null)
         {
-            existingItem.quantity += item.quantity;
+            existingItem.quantity++;
             if (item.sceneObjects != null && item.sceneObjects.Count > 0)
             {
                 foreach (var obj in item.sceneObjects)
@@ -75,6 +79,13 @@ public class InventorySystem : MonoBehaviour
         }
 
         items.Add(item);
+        item.quantity = 1; // Initialize quantity to 1
+        if (items.Count == 1)
+        {
+            selectedIndex = 0;
+            selectedItemName = items[0].itemName;
+            HighlightSelectedSlot();
+        }
         EvntManager.TriggerEvent("OpenInventory");
 
         UpdateSlots();
@@ -94,30 +105,32 @@ public class InventorySystem : MonoBehaviour
         {
             existingItem.quantity -= quantity;
 
-            // Check if the item quantity is less than or equal to 0
-            if (existingItem.quantity < 0)
+            if (existingItem.quantity <= 0)
             {
-
-                // Clear scene objects and remove the item from the list
                 if (existingItem.sceneObjects != null)
                 {
                     existingItem.sceneObjects.Clear();
                 }
                 items.Remove(existingItem);
 
-                // Reset selected index if necessary
-                if (selectedIndex >= items.Count && items.Count > 0)
-                {
-                    selectedIndex = items.Count - 1;
-                }
-                else if (items.Count == 0)
+                // Adjust selectedIndex
+                if (items.Count == 0)
                 {
                     selectedIndex = 0;
+                    selectedItemName = "";
+                }
+                else if (selectedIndex >= items.Count)
+                {
+                    selectedIndex = items.Count - 1;
+                    selectedItemName = items[selectedIndex].itemName;
+                }
+                else
+                {
+                    selectedItemName = items[selectedIndex].itemName;
                 }
             }
             else
             {
-                // Remove scene objects if quantity is greater than 0
                 if (existingItem.sceneObjects != null && existingItem.sceneObjects.Count > 0)
                 {
                     for (int i = 0; i < quantity && i < existingItem.sceneObjects.Count; i++)
@@ -128,14 +141,7 @@ public class InventorySystem : MonoBehaviour
                 }
             }
 
-            // Log the removal
-            Debug.Log($"RemoveItem: Item = {itemName}, Quantity = {existingItem.quantity}, SceneObjects Count = {(existingItem.sceneObjects != null ? existingItem.sceneObjects.Count : 0)}");
-
-            // Update slots only if necessary
-            if (existingItem.quantity <= 0 || existingItem.sceneObjects.Count == 0)
-            {
-                UpdateSlots();
-            }
+            UpdateSlots();
         }
     }
 
@@ -171,7 +177,7 @@ public class InventorySystem : MonoBehaviour
             if (i < items.Count)
             {
                 slots[i].SetItem(items[i]);
-                Debug.Log($"UpdateSlots: Slot {i}: {items[i].itemName}, Quantity: {items[i].quantity}, SceneObjects Count: {items[i].sceneObjects.Count}");
+                //Debug.Log($"UpdateSlots: Slot {i}: {items[i].itemName}, Quantity: {items[i].quantity}, SceneObjects Count: {items[i].sceneObjects.Count}");
             }
             else
             {
@@ -180,24 +186,24 @@ public class InventorySystem : MonoBehaviour
         }
     }
 
- private void HighlightSelectedSlot()
-{
-    for (int i = 0; i < slots.Length; i++)
+    private void HighlightSelectedSlot()
     {
-        if (i == selectedIndex)
+        for (int i = 0; i < slots.Length; i++)
         {
-            slots[i].GetComponent<Image>().sprite = items[i].icon; // Yellow highlight
-        }
-        else if (i < items.Count)
-        {
-            slots[i].GetComponent<Image>().sprite = items[i].outlinedIcon;
-        }
-        else
-        {
-            slots[i].GetComponent<Image>().sprite = null; // Set sprite to null for empty slots
+            if (i >= items.Count)
+            {
+                slots[i].GetComponent<Image>().sprite = null; // Empty slot
+            }
+            else if (i == selectedIndex)
+            {
+                slots[i].GetComponent<Image>().sprite = items[i].outlinedIcon; // Highlighted
+            }
+            else
+            {
+                slots[i].GetComponent<Image>().sprite = items[i].icon; // Normal
+            }
         }
     }
-}
 
     private void ClearEmptySlots()
     {

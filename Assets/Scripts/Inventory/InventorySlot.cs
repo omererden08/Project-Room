@@ -28,6 +28,7 @@ public class InventorySlot : MonoBehaviour, IDragHandler, IBeginDragHandler, IEn
     private GameObject activeObject; // Sürüklenen nesneyi sakla
     private List<GameObject> activeObjects = new List<GameObject>();
     public int ct;
+    private const float Offset = 0.1f;
 
     private void Awake()
     {
@@ -120,6 +121,7 @@ public class InventorySlot : MonoBehaviour, IDragHandler, IBeginDragHandler, IEn
         AdjustObjectBasedOnPuzzleDirection(worldPos, direction);
     }
 
+
     private void AdjustObjectBasedOnPuzzleDirection(Vector3 mouseWorldPos, PuzzleDirection direction)
     {
         if (activeObject == null || puzzleTransform == null) return;
@@ -130,18 +132,18 @@ public class InventorySlot : MonoBehaviour, IDragHandler, IBeginDragHandler, IEn
         switch (direction)
         {
             case PuzzleDirection.x:
-                newPosition.z = puzzlePos.z;
-                activeObject.transform.rotation = Quaternion.LookRotation(Vector3.forward, Vector3.up);
-                newPosition.y += offset;
+                newPosition.x = puzzlePos.x;
+                activeObject.transform.rotation = Quaternion.Euler(0, 90, 0); // Simplify rotation calculation
+                newPosition.y += Offset;
                 break;
             case PuzzleDirection.y:
-                newPosition.x = puzzlePos.x;
-                activeObject.transform.rotation = Quaternion.LookRotation(Vector3.right, Vector3.up);
-                newPosition.x += offset;
+
+                activeObject.transform.rotation = Quaternion.Euler(0, 0, 0); // Simplify rotation calculation
+                newPosition.x += Offset;
                 break;
         }
 
-        float distanceToPuzzle = Vector3.Distance(newPosition, puzzlePos);
+        float distanceToPuzzle = (newPosition - puzzlePos).magnitude; // Use magnitude property for distance calculation
         if (distanceToPuzzle > interactionDistance)
         {
             newPosition = puzzlePos + (newPosition - puzzlePos).normalized * interactionDistance;
@@ -184,7 +186,7 @@ public class InventorySlot : MonoBehaviour, IDragHandler, IBeginDragHandler, IEn
             {
                 item.sceneObjects[ct].SetActive(false);
                 activeObjects.Remove(item.sceneObjects[ct]);
-                EvntManager.TriggerEvent("UpdateSlots");    
+                EvntManager.TriggerEvent("UpdateSlots");
             }
             return;
         }

@@ -45,6 +45,7 @@ public class Gear : MonoBehaviour
     private void OnMouseDown()
     {
         if (!puzzleManager.inPuzzleMode) return;
+        Debug.Log($"Gear {name} clicked");
 
         zCoordinate = Camera.main.WorldToScreenPoint(transform.position).z;
         offset = transform.position - GetMouseWorldPosition();

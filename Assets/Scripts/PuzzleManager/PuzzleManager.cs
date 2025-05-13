@@ -128,7 +128,7 @@ public class PuzzleManager : IInteractable
         UnityEngine.Vector3 targetPosition = cameraFocusPoint.position +
                                         directionToCamera + cameraDistance +
                                         UnityEngine.Vector3.up;
-
+        
         Sequence cameraSequence = DOTween.Sequence();
         mainCamera.transform.SetParent(null);
 
