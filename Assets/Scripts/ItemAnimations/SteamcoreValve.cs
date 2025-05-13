@@ -19,6 +19,7 @@ public class SteamcoreValve : IInteractable
     private bool isRotating = false;
     private Quaternion targetRotation;
 
+    public bool canSpin;
     private void Start()
     {
         targetRotation = transform.rotation;
@@ -27,11 +28,18 @@ public class SteamcoreValve : IInteractable
         indicatorAnimator = indicator.GetComponent<Animator>();
 
         SetIndicatorFrame(currentFrame);
+        canSpin = false;
+        EvntManager.StartListening("CanSpinValves", CanSpinValves);
     }
 
+    public void CanSpinValves()
+    {
+        canSpin = true;
+    }
     public override void Interact()
     {
         if (isRotating) return;
+        if (!canSpin) return;
 
         // Frame hedefini güncelle (her seferinde 5 ilerlet, 20 sonrası sıfırla)
         targetFrame += 5f;

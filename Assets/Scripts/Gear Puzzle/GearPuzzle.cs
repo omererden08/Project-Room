@@ -79,6 +79,8 @@ public class GearPuzzle : MonoBehaviour
         if (correctCount >= requiredCorrectSlots)
         {
             Debug.Log("Puzzle Solved!");
+            EvntManager.TriggerEvent("CanSpinValves");
+
             puzzleManager.PuzzleSolved();
         }
     }
