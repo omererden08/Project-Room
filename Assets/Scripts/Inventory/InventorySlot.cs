@@ -24,11 +24,10 @@ public class InventorySlot : MonoBehaviour, IDragHandler, IBeginDragHandler, IEn
     private Camera mainCamera;
     private Vector2 dragStartPosition;
     private Transform puzzleTransform;
-    public float offset;
     private GameObject activeObject; // Sürüklenen nesneyi sakla
     private List<GameObject> activeObjects = new List<GameObject>();
     public int ct;
-    private const float Offset = 0.1f;
+    private const float Offset = 0.05f;
 
     private void Awake()
     {
@@ -52,15 +51,21 @@ public class InventorySlot : MonoBehaviour, IDragHandler, IBeginDragHandler, IEn
         itemIcon.sprite = item.icon;
         itemIcon.enabled = true;
         quantityText.text = item.quantity > 0 ? item.quantity.ToString() : "";
-        // Add scene object only if not already in activeObjects
-        if (newItem.sceneObjects.Count > 0)
+        
+        // Eğer öğe ekleniyorsa ve ilk kez sahneye konuyorsa active objects listesini temizle
+        if (!activeObjects.Contains(newItem.sceneObjects[0]) && newItem.sceneObjects.Count > 0)
         {
-            GameObject sceneObj = newItem.sceneObjects[newItem.sceneObjects.Count - 1];
-            if (sceneObj != null && !activeObjects.Contains(sceneObj))
+            activeObjects.Clear();
+            foreach (GameObject sceneObj in newItem.sceneObjects)
             {
-                activeObjects.Add(sceneObj);
+                if (sceneObj != null)
+                {
+                    activeObjects.Add(sceneObj);
+                    sceneObj.SetActive(false); // Başlangıçta deaktif
+                }
             }
         }
+        
         ct = newItem.sceneObjects.Count - 1;
     }
 
@@ -76,24 +81,33 @@ public class InventorySlot : MonoBehaviour, IDragHandler, IBeginDragHandler, IEn
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        if (item == null || item.sceneObjects.Count == 0)
+        if (item == null || item.sceneObjects.Count == 0 || item.quantity <= 0)
         {
             return;
         }
 
         originalPosition = transform.position;
         dragStartPosition = eventData.position;
-        activeObject = item.sceneObjects.Find(obj => obj != null);
-
-        if (activeObject != null)
+        
+        // Sadece bir nesneyi aktifleştir, diğerlerini devre dışı bırak
+        activeObject = null;
+        foreach (GameObject obj in item.sceneObjects)
         {
-            activeObject.SetActive(true);
-            if (!activeObjects.Contains(activeObject))
+            if (obj != null)
             {
-                activeObjects.Add(activeObject);
+                if (activeObject == null)
+                {
+                    activeObject = obj;
+                    activeObject.SetActive(true);
+                }
+                else
+                {
+                    obj.SetActive(false);
+                }
             }
         }
-        else
+
+        if (activeObject == null)
         {
             return;
         }
@@ -121,7 +135,6 @@ public class InventorySlot : MonoBehaviour, IDragHandler, IBeginDragHandler, IEn
         AdjustObjectBasedOnPuzzleDirection(worldPos, direction);
     }
 
-
     private void AdjustObjectBasedOnPuzzleDirection(Vector3 mouseWorldPos, PuzzleDirection direction)
     {
         if (activeObject == null || puzzleTransform == null) return;
@@ -137,7 +150,6 @@ public class InventorySlot : MonoBehaviour, IDragHandler, IBeginDragHandler, IEn
                 newPosition.y += Offset;
                 break;
             case PuzzleDirection.y:
-
                 activeObject.transform.rotation = Quaternion.Euler(0, 0, 0); // Simplify rotation calculation
                 newPosition.x += Offset;
                 break;
@@ -149,10 +161,7 @@ public class InventorySlot : MonoBehaviour, IDragHandler, IBeginDragHandler, IEn
             newPosition = puzzlePos + (newPosition - puzzlePos).normalized * interactionDistance;
         }
 
-        if (ct >= 0 && activeObjects.Count > ct)
-        {
-            activeObjects[ct].transform.position = newPosition;
-        }
+        activeObject.transform.position = newPosition;
     }
 
     private Vector3 GetMouseWorldPosition(PointerEventData eventData)
@@ -178,25 +187,19 @@ public class InventorySlot : MonoBehaviour, IDragHandler, IBeginDragHandler, IEn
             return;
         }
 
-        item.FalseAll();
+        // Bu satır silinmiş çünkü tüm nesneleri devre dışı bırakıyordu
+        // item.FalseAll();
+
         if (!gAPM.GetPuzzleManager().isAccepted(item))
         {
             GetBackItem();
-            if (ct >= 0 && item.sceneObjects.Count > ct)
-            {
-                item.sceneObjects[ct].SetActive(false);
-                activeObjects.Remove(item.sceneObjects[ct]);
-                EvntManager.TriggerEvent("UpdateSlots");
-            }
+            EvntManager.TriggerEvent("UpdateSlots");
             return;
         }
 
         if (puzzleTransform == null)
         {
-            if (activeObjects.Contains(activeObject))
-            {
-                activeObjects.Remove(activeObject);
-            }
+            activeObject.SetActive(false);
             return;
         }
 
@@ -204,16 +207,18 @@ public class InventorySlot : MonoBehaviour, IDragHandler, IBeginDragHandler, IEn
         if (distanceToPuzzle < 1)
         {
             GameObject copy = Instantiate(activeObject, activeObject.transform.position, activeObject.transform.rotation);
-            copy.SetActive(true);
             InventorySystem.Instance.RemoveItem(item.itemName, 1);
+            copy.SetActive(true);
         }
         else
         {
             InventorySystem.Instance.RemoveItem(item.itemName, 1);
         }
 
-        transform.position = originalPosition;
+        // Sadece aktif nesneyi gizleyin, diğerlerine dokunmayın
+        activeObject.SetActive(false);
         activeObject = null;
+        transform.position = originalPosition;
     }
 
     public void GetBackItem()

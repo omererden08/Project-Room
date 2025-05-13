@@ -528,7 +528,7 @@ GameObject:
   - component: {fileID: 90027007}
   - component: {fileID: 90027006}
   - component: {fileID: 90027005}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: SCM_Gear_Mid_02 (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -584,6 +584,7 @@ MonoBehaviour:
   item:
     itemName: GearLarge
     icon: {fileID: 21300000, guid: 60dd46d11dc67134b97c78bdc036a618, type: 3}
+    outlinedIcon: {fileID: 0}
     quantity: 1
     sceneObjects:
     - {fileID: 90027003}
@@ -623,6 +624,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firstPosition: {fileID: 0}
+  rotationReference: {fileID: 0}
+  rotationValue: 0
   size: 1
   SpinSpeed: 0
 --- !u!23 &90027009
@@ -1700,6 +1703,32 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 93eb987b25d42fd4cb7c337b1c933979, type: 3}
+--- !u!1 &344846063 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5772707170579605138, guid: e956a93c372ec6b48857049387188932, type: 3}
+  m_PrefabInstance: {fileID: 6931324028996204269}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &344846069
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 344846063}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.001026392, y: 0.0037094615, z: 0.0037348473}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &435254371
 GameObject:
   m_ObjectHideFlags: 0
@@ -1945,6 +1974,7 @@ MonoBehaviour:
   item:
     itemName: GearLarge
     icon: {fileID: 21300000, guid: 60dd46d11dc67134b97c78bdc036a618, type: 3}
+    outlinedIcon: {fileID: 0}
     quantity: 1
     sceneObjects:
     - {fileID: 462756641}
@@ -1984,6 +2014,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firstPosition: {fileID: 0}
+  rotationReference: {fileID: 0}
+  rotationValue: 0
   size: 1
   SpinSpeed: 0
 --- !u!23 &462756647
@@ -2588,6 +2620,7 @@ MonoBehaviour:
   slots: []
   selectedIndex: 0
   selectedItemName: 
+  isFirst: 0
 --- !u!4 &695847832
 Transform:
   m_ObjectHideFlags: 0
@@ -2845,6 +2878,11 @@ Light:
   m_LightUnit: 1
   m_LuxAtDistance: 1
   m_EnableSpotReflector: 1
+--- !u!65 &727547605 stripped
+BoxCollider:
+  m_CorrespondingSourceObject: {fileID: 7595370974776538356, guid: e956a93c372ec6b48857049387188932, type: 3}
+  m_PrefabInstance: {fileID: 6931324028996204269}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &748949013
 GameObject:
   m_ObjectHideFlags: 0
@@ -2916,6 +2954,7 @@ MonoBehaviour:
   item:
     itemName: GearMedium
     icon: {fileID: 21300000, guid: 9342f8dbece8582429c7b0041cc8f9bd, type: 3}
+    outlinedIcon: {fileID: 0}
     quantity: 1
     sceneObjects:
     - {fileID: 748949013}
@@ -2955,6 +2994,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firstPosition: {fileID: 0}
+  rotationReference: {fileID: 0}
+  rotationValue: 0
   size: 0
   SpinSpeed: 0
 --- !u!23 &748949019
@@ -3807,6 +3848,7 @@ MonoBehaviour:
   item:
     itemName: GearMedium
     icon: {fileID: 21300000, guid: 9342f8dbece8582429c7b0041cc8f9bd, type: 3}
+    outlinedIcon: {fileID: 0}
     quantity: 1
     sceneObjects:
     - {fileID: 1138006028}
@@ -3846,6 +3888,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firstPosition: {fileID: 0}
+  rotationReference: {fileID: 0}
+  rotationValue: 0
   size: 0
   SpinSpeed: 0
 --- !u!23 &1138006034
@@ -4186,6 +4230,7 @@ MonoBehaviour:
   item:
     itemName: GearMedium
     icon: {fileID: 21300000, guid: 9342f8dbece8582429c7b0041cc8f9bd, type: 3}
+    outlinedIcon: {fileID: 0}
     quantity: 1
     sceneObjects:
     - {fileID: 1264053131}
@@ -4225,6 +4270,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firstPosition: {fileID: 0}
+  rotationReference: {fileID: 0}
+  rotationValue: 0
   size: 0
   SpinSpeed: 0
 --- !u!23 &1264053137
@@ -5187,6 +5234,7 @@ MonoBehaviour:
   item:
     itemName: GearMedium
     icon: {fileID: 21300000, guid: 9342f8dbece8582429c7b0041cc8f9bd, type: 3}
+    outlinedIcon: {fileID: 0}
     quantity: 1
     sceneObjects:
     - {fileID: 1410401026}
@@ -5226,6 +5274,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firstPosition: {fileID: 0}
+  rotationReference: {fileID: 0}
+  rotationValue: 0
   size: 0
   SpinSpeed: 0
 --- !u!23 &1410401032
@@ -6350,6 +6400,7 @@ MonoBehaviour:
   item:
     itemName: GearMedium
     icon: {fileID: 21300000, guid: 9342f8dbece8582429c7b0041cc8f9bd, type: 3}
+    outlinedIcon: {fileID: 0}
     quantity: 1
     sceneObjects:
     - {fileID: 1728241296}
@@ -6389,6 +6440,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firstPosition: {fileID: 0}
+  rotationReference: {fileID: 0}
+  rotationValue: 0
   size: 0
   SpinSpeed: 0
 --- !u!23 &1728241302
@@ -6968,6 +7021,7 @@ MonoBehaviour:
   item:
     itemName: GearLarge
     icon: {fileID: 21300000, guid: 60dd46d11dc67134b97c78bdc036a618, type: 3}
+    outlinedIcon: {fileID: 0}
     quantity: 1
     sceneObjects:
     - {fileID: 1863353074}
@@ -7007,6 +7061,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firstPosition: {fileID: 0}
+  rotationReference: {fileID: 0}
+  rotationValue: 0
   size: 1
   SpinSpeed: 0
 --- !u!23 &1863353079
@@ -11928,6 +11984,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 539453148327034243, guid: e956a93c372ec6b48857049387188932, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -6.5
+      objectReference: {fileID: 0}
     - target: {fileID: 1726259476546186772, guid: e956a93c372ec6b48857049387188932, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -11984,6 +12044,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SteamCore (9)
       objectReference: {fileID: 0}
+    - target: {fileID: 2615960392672608399, guid: e956a93c372ec6b48857049387188932, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2886831828223397801, guid: e956a93c372ec6b48857049387188932, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -11997,8 +12061,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 35565201}
     - target: {fileID: 4318882318027547086, guid: e956a93c372ec6b48857049387188932, type: 3}
+      propertyPath: col
+      value: 
+      objectReference: {fileID: 727547605}
+    - target: {fileID: 4318882318027547086, guid: e956a93c372ec6b48857049387188932, type: 3}
       propertyPath: direction
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4318882318027547086, guid: e956a93c372ec6b48857049387188932, type: 3}
       propertyPath: AcceptedItems.Array.size
@@ -12024,18 +12092,34 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4963113096285817781, guid: e956a93c372ec6b48857049387188932, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -6.5
+      objectReference: {fileID: 0}
     - target: {fileID: 5772707170579605138, guid: e956a93c372ec6b48857049387188932, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6045455889280563497, guid: e956a93c372ec6b48857049387188932, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 7595370974776538356, guid: e956a93c372ec6b48857049387188932, type: 3}
+      propertyPath: m_Size.x
+      value: 0.6751241
+      objectReference: {fileID: 0}
+    - target: {fileID: 7595370974776538356, guid: e956a93c372ec6b48857049387188932, type: 3}
+      propertyPath: m_Center.x
+      value: -0.91698796
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 6963653573836985785, guid: e956a93c372ec6b48857049387188932, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5772707170579605138, guid: e956a93c372ec6b48857049387188932, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 344846069}
   m_SourcePrefab: {fileID: 100100000, guid: e956a93c372ec6b48857049387188932, type: 3}
 --- !u!33 &6940021539606906149
 MeshFilter:
@@ -12382,6 +12466,7 @@ MonoBehaviour:
   item:
     itemName: HoseClosed
     icon: {fileID: 0}
+    outlinedIcon: {fileID: 0}
     quantity: 1
     sceneObjects: []
   inPuzzleMode: 0
@@ -12934,6 +13019,7 @@ MonoBehaviour:
   item:
     itemName: Gear
     icon: {fileID: 21300000, guid: 60dd46d11dc67134b97c78bdc036a618, type: 3}
+    outlinedIcon: {fileID: 0}
     quantity: 1
     sceneObjects:
     - {fileID: 8438989690055602914}
