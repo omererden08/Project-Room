@@ -57,7 +57,7 @@ public class TeaLever : IInteractable
 
             if (TeaClock)
             {
-                token.SetActive(true);
+                token.SetActive(true);  //bug
             }
         }
         else if (!isRotating && !canLeverPull)

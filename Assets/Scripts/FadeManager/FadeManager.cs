@@ -37,6 +37,22 @@ public class FadeManager : MonoBehaviour
 
     }
 
+
+
+    public void BlackScene(string sceneName)
+    {
+        gameObject.SetActive(true);
+
+        blackFadeGroup.DOFade(1, 0f).SetUpdate(true).OnComplete(() =>
+        {
+            // Sahneyi yüklüyoruz, sonra bekleyip açacağız
+            SceneManager.LoadScene(sceneName);
+
+            StartCoroutine(FadeInAfterDelay(blackFadeGroup, blackFadeDuration));
+        });
+    }
+
+
     public void FadeBlack(string sceneName)
     {
         gameObject.SetActive(true);
