@@ -19,6 +19,7 @@ public class Piston : MonoBehaviour
     public Material mat;
     public Color colorRed;
     public Color colorGreen;
+    public GameObject hose;
     //eklenince ışık yeşil
 
     void Start()
@@ -37,6 +38,7 @@ public class Piston : MonoBehaviour
         embeddedItem.SetActive(false);
         mat.color = colorRed;
         mat.SetColor("_EmissionColor", colorRed);
+        hose.SetActive(false);
     
     }
     /*
@@ -86,6 +88,11 @@ public class Piston : MonoBehaviour
             mat.color = colorRed;
             mat.SetColor("_EmissionColor", colorRed);
 
+        }
+        if(invSystem.ChosenItem("HoseClosed"))
+        {
+            hose.SetActive(true);
+            invSystem.RemoveItem("HoseClosed", 1);
         }
 
     }

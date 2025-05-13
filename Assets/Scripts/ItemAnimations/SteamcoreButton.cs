@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using Unity.VisualScripting.Antlr3.Runtime;
-
+using DG.Tweening;
 public class SteamcoreButton : IInteractable
 {
     [Header("IndicatorObjects")]
@@ -25,14 +25,17 @@ public class SteamcoreButton : IInteractable
     private Vector3 initialPos;
     private bool isMoving = false;
     private bool isOpen = false;
-
-
+    public CollectableItem collectableItem;
+    public Material mat;
     private void Start()
     {
         target = transform.GetChild(0);
         steamcoreAnimator = steamcoreObject.GetComponent<Animator>();
         firstIndicatorAnimator = firstIndicatorObject.GetComponent<Animator>();
         secondIndicatorAnimator = secondIndicatorObject.GetComponent<Animator>();
+        mat.SetColor("_EmissionColor", Color.red);
+        mat.SetColor("_Color", Color.red);
+        collectableItem.enabled = false;
 
     }
 
@@ -52,12 +55,16 @@ public class SteamcoreButton : IInteractable
         if (isPuzzleCompleted)
         {
             //material green
+            mat.SetColor("_EmissionColor", Color.green); // Green emision color set
+            mat.SetColor("_Color", Color.green); // Green color set
+
             steamcoreAnimator.SetTrigger("Open");
 
             if (steamcoreAnimator != null)
             {
                 firstIndicatorAnimator.SetTrigger("Open");
                 secondIndicatorAnimator.SetTrigger("Open");
+                collectableItem.enabled = true;
             }
 
             steamcoreAnimator = null;

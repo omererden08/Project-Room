@@ -14,7 +14,7 @@ public class PuzzleManager : IInteractable
     [Header("Puzzle Logic")]
     [SerializeField] public bool solved = false;
     [SerializeField] private float autoExitDelay = 0.2f;
-    [SerializeField] private KeyCode exitPuzzleKey = KeyCode.Escape;
+    private KeyCode exitPuzzleKey = KeyCode.Mouse1;
 
     public PuzzleDirection direction;
     public static PuzzleManager ActivePuzzleManager => activePuzzleManager;
@@ -42,7 +42,7 @@ public class PuzzleManager : IInteractable
 
     public string[] AcceptedItems;
     
-
+    public bool isGearPuzzle = false;
 
     private void Start()
     {
@@ -209,6 +209,11 @@ public class PuzzleManager : IInteractable
         if (counter == 2)
         {
             isGameEnded = true;
+        }
+        if(isGearPuzzle)
+        {
+            LatestGear latestGear = FindAnyObjectByType<LatestGear>();
+            latestGear.StartSpin();
         }
         StartCoroutine(AutoExitAfterSolve());
     }

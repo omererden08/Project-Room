@@ -19,7 +19,7 @@ public class Slot : MonoBehaviour
     public bool isFakeSlot;
     public SlotStat currentStat;
     private GearPuzzle gearPuzzle;
-
+    public GearSize correctSize;
     public Gear CurrentGear => currentGear;
     public SlotStat CurrentStat => currentStat;
     public bool IsOccupied => currentGear != null;
@@ -31,7 +31,6 @@ public class Slot : MonoBehaviour
         currentStat = SlotStat.Incorrect; // Explicitly initialize
         //Debug.Log($"Slot {name} initialized: isFake={isFakeSlot}, stat={currentStat}");
     }
-
     public SlotStat ValidateGear(Gear gear)
     {
         currentGear = gear;
@@ -44,10 +43,9 @@ public class Slot : MonoBehaviour
             return currentStat;
         }
 
-        bool isCorrectGear = correctGears.Contains(gear);
+        bool isCorrectSize = gear.size == correctSize;
 
-
-        if (isCorrectGear )
+        if (isCorrectSize)
         {
             currentStat = isFakeSlot ? SlotStat.CorrectAndFake : SlotStat.Correct;
         }
@@ -56,11 +54,10 @@ public class Slot : MonoBehaviour
             currentStat = SlotStat.IncorrectAndFake;
         }
 
-        Debug.Log($"Slot {name}: Gear={gear.name}, Size={gear.size}, CorrectGear={isCorrectGear}, Stat={currentStat}");
+        Debug.Log($"Slot {name}: Gear={gear.name}, Size={gear.size}, CorrectSize={isCorrectSize}, Stat={currentStat}");
         gearPuzzle.UpdateGearStates();
         return currentStat;
     }
-
     public void ClearGear()
     {
         currentGear = null;

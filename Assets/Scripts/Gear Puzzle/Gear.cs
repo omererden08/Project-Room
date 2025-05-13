@@ -22,6 +22,7 @@ public class Gear : MonoBehaviour
     public Slot CurrentSlot => currentSlot;
 
     public bool IsSpinning => transform.GetComponent<Tween>()?.IsActive() ?? false;
+    public float SpinSpeed;
 
     private void Awake()
     {
@@ -29,6 +30,14 @@ public class Gear : MonoBehaviour
         gearPuzzle = FindFirstObjectByType<GearPuzzle>();
         puzzleManager = FindFirstObjectByType<PuzzleManager>();
         //Debug.Log($"Gear {name} initialized: Size={size}");
+        if(size == GearSize.Medium) 
+        {
+            SpinSpeed = 2.5f;
+        }
+        else
+        {
+            SpinSpeed = 5f;
+        }
     }
 
     private void OnMouseDown()
@@ -96,7 +105,7 @@ public class Gear : MonoBehaviour
 
         if (shouldSpin)
         {
-            transform.DORotate(new Vector3(0, clockwise ? 360 : -360, 0), 5f, RotateMode.LocalAxisAdd)
+            transform.DORotate(new Vector3(clockwise ? 360 : -360,0 , 0), SpinSpeed , RotateMode.LocalAxisAdd)
                 .SetEase(Ease.Linear)
                 .SetLoops(-1, LoopType.Restart)
                 .SetRelative();
