@@ -136,7 +136,7 @@ public class InventorySlot : MonoBehaviour, IDragHandler, IBeginDragHandler, IEn
                 break;
             case PuzzleDirection.y:
                 newPosition.x = puzzlePos.x;
-                activeObject.transform.rotation = Quaternion.LookRotation(Vector3.right, Vector3.up);
+                activeObject.transform.rotation = Quaternion.LookRotation(Vector3.forward, Vector3.up);
                 newPosition.x += offset;
                 break;
         }
