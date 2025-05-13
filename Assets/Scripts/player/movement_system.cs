@@ -50,6 +50,8 @@ public class PlayerMovementController : MonoBehaviour
 
     private void Start()
     {
+        transform.position = new Vector3(-7f, playerHeight, 6.3f); // Set initial player height
+        transform.rotation = Quaternion.Euler(0f, 110f, 0f); // Set initial player rotation
         // Initialize zoom
         if (playerCamera != null)
         {
