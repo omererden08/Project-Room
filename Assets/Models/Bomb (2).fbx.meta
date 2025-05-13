@@ -1,9 +1,59 @@
 fileFormatVersion: 2
-guid: d193e2fc9c9f7c548993d603f2685993
+guid: b5a66b22d229d894c9ad60fb9e3b76d6
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Button_A_TXT
+    second: {fileID: 2800000, guid: 9f6ebe2b1cef26d448c3caa4e94ad4ff, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Button_B_TXT
+    second: {fileID: 2800000, guid: 0e1b34f9146b8d84986012347187295a, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Button_C_TXT
+    second: {fileID: 2800000, guid: 2251a184bcce42a4d806c2348f178eb4, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Button_D_TXT
+    second: {fileID: 2800000, guid: b02327c259bc0c54993a7fcfbee686c2, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Clock_Digits_TXT
+    second: {fileID: 2800000, guid: cf993faa16f2f2c469ab687297efe072, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Indicator_02_Face
+    second: {fileID: 2800000, guid: 4729911a19bcd97449171697150331cd, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Liquid_Note
+    second: {fileID: 2800000, guid: 1a471d27425f9bd43beb9d9fb805dfd2, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Liquid_Panel_TXT
+    second: {fileID: 2800000, guid: 5ab9f44fba9b1d34eb95c6d55114e95c, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: PuzzleMachine_Platform_TXT
+    second: {fileID: 2800000, guid: b704f3a4410c9994c811623163785c98, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Tank_TXT
+    second: {fileID: 2800000, guid: 6671602ab84deff4d934a1882f9419f1, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0
