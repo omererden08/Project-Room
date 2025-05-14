@@ -21463,6 +21463,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 485117570210767539, guid: e956a93c372ec6b48857049387188932, type: 3}
+      propertyPath: item.icon
+      value: 
+      objectReference: {fileID: 21300000, guid: af25e1651377f3146911dbfcb26e68b5, type: 3}
+    - target: {fileID: 485117570210767539, guid: e956a93c372ec6b48857049387188932, type: 3}
+      propertyPath: item.outlinedIcon
+      value: 
+      objectReference: {fileID: 21300000, guid: 8d0b5af5ece931b4d87ea4b08f789329, type: 3}
     - target: {fileID: 1726259476546186772, guid: e956a93c372ec6b48857049387188932, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
