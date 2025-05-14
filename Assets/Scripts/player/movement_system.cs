@@ -17,6 +17,7 @@ public class PlayerMovementController : MonoBehaviour
     [SerializeField] private float mouseSensitivity = 100f;
 
 
+    [SerializeField] private AudioSource audioSource;
     // Internal movement variables
     private Vector3 velocity;
     private float xRotation = 0f;
