@@ -20,10 +20,14 @@ public class Piston : MonoBehaviour
     public Color colorRed;
     public Color colorGreen;
     public GameObject hose;
+    public bool canInteract;
+
+    [SerializeField] private float cooldown;
     //eklenince ışık yeşil
 
     void Start()
     {
+        canInteract = true;
 
         if (ChargedSteamCore == null)
         {
@@ -39,7 +43,7 @@ public class Piston : MonoBehaviour
         mat.color = colorRed;
         mat.SetColor("_EmissionColor", colorRed);
         hose.SetActive(false);
-    
+
     }
     /*
     void Update()
@@ -64,21 +68,24 @@ public class Piston : MonoBehaviour
     */
     public void OnMouseDown()
     {
-        Debug.Log("mouse down worked");
-        Debug.Log(invSystem.ChosenItem("Steamcore"));
-        if (invSystem.ChosenItem("Steamcore") && !isOpen)
+
+        if (invSystem.ChosenItem("Steamcore") && !isOpen && canInteract)
         {
+            StartCoroutine(CanInteract());
+
             StartCoroutine(StartPistonAnim());
+
             indicatorAnimator.SetBool("isOpen", true);
             isOpen = true;
             invSystem.RemoveItem("Steamcore", 1);
             embeddedItem.SetActive(true);
             EvntManager.TriggerEvent("subID", 1);
             mat.color = colorGreen;
-            mat.SetColor("_EmissionColor", colorGreen);
+
+
             return;
         }
-        if (isOpen)
+        if (isOpen && canInteract)
         {
             StartCoroutine(StopPistonAnim());
             indicatorAnimator.SetBool("isOpen", false);
@@ -89,7 +96,7 @@ public class Piston : MonoBehaviour
             mat.SetColor("_EmissionColor", colorRed);
 
         }
-        if(invSystem.ChosenItem("HoseClosed"))
+        if (invSystem.ChosenItem("HoseClosed"))
         {
             hose.SetActive(true);
             invSystem.RemoveItem("HoseClosed", 1);
@@ -133,5 +140,13 @@ public class Piston : MonoBehaviour
 
         pistonAnimator.speed = 0f; // �u anki frame'de dursun
         animSpeed = 0f;
+    }
+    IEnumerator CanInteract()
+    {
+        Debug.Log("merhaba");
+        canInteract = false;
+        yield return new WaitForSeconds(cooldown);
+        mat.SetColor("_EmissionColor", colorGreen);
+        canInteract = true;
     }
 }

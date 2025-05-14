@@ -43,8 +43,10 @@ public class TeaLever : IInteractable
 
 
 
-    private void Start()
+    public void Start()
     {
+
+        bomb = FindAnyObjectByType<Bomb>();
         outline = GetComponent<Outline3D>();
         outline.enabled = false;
         sPos = teaCup.transform.position;

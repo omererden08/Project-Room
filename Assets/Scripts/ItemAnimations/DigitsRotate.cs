@@ -17,8 +17,11 @@ public class DigitsRotate : MonoBehaviour
     private Dictionary<Transform, bool> isRotating = new Dictionary<Transform, bool>();
     private Dictionary<Transform, float> currentXAngles = new Dictionary<Transform, float>();
 
+    public Bomb bomb;
+
     void Start()
     {
+        bomb = FindAnyObjectByType<Bomb>();
         if (digits.Count == 0)
         {
             for (int i = 0; i < transform.childCount; i++)
@@ -30,7 +33,7 @@ public class DigitsRotate : MonoBehaviour
         foreach (Transform digit in digits)
         {
             isRotating[digit] = false;
-            currentXAngles[digit] = digit.localEulerAngles.x; // Baþlangýç açýsýný kaydet
+            currentXAngles[digit] = digit.localEulerAngles.x; // Baï¿½langï¿½ï¿½ aï¿½ï¿½sï¿½nï¿½ kaydet
             StartCoroutine(RotateSingleDigit(digit, rotationDuration));
 
         }
@@ -39,7 +42,11 @@ public class DigitsRotate : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0)) // Sol týklama
+        if(bomb.isBoombReady!)
+        {
+            EvntManager.TriggerEvent("subID", "STRT_INTER_" + Random.Range(1, 5));
+        }
+        if (Input.GetMouseButtonDown(0)) // Sol tï¿½klama
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out RaycastHit hit))
@@ -62,7 +69,7 @@ public class DigitsRotate : MonoBehaviour
 
         float startX = currentXAngles[digit];
         float targetX = startX - 36f;
-        currentXAngles[digit] = targetX; // Açýyý güncelle
+        currentXAngles[digit] = targetX; // Aï¿½ï¿½yï¿½ gï¿½ncelle
 
         float elapsed = 0f;
 
@@ -84,13 +91,13 @@ public class DigitsRotate : MonoBehaviour
     void CheckPassword()
     {
         float[] correctAngles = { 306f, 18f, 342f, 270f };
-        float tolerance = 1f; // ±1 derece tolerans
+        float tolerance = 1f; // ï¿½1 derece tolerans
 
         for (int i = 0; i < digits.Count; i++)
         {
             float angle = digits[i].localEulerAngles.x;
 
-            // Açýnýn doðru aralýkta olup olmadýðýný kontrol et
+            // Aï¿½ï¿½nï¿½n doï¿½ru aralï¿½kta olup olmadï¿½ï¿½ï¿½nï¿½ kontrol et
             if (Mathf.Abs(Mathf.DeltaAngle(angle, correctAngles[i])) > tolerance)
             {
                 Debug.Log("Password is incorrect.");
@@ -100,7 +107,7 @@ public class DigitsRotate : MonoBehaviour
 
         Debug.Log("Password is correct!");
         
-        // Þifre doðruysa yapýlacak iþlemler
+        // ï¿½ifre doï¿½ruysa yapï¿½lacak iï¿½lemler
         EvntManager.TriggerEvent("SafeOpen");
 
     }

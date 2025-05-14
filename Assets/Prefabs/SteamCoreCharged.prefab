@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &496983994924082771
+--- !u!1 &5048103628133713624
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,50 +8,50 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1059519516118255124}
-  - component: {fileID: 5602057223605355783}
-  - component: {fileID: 515754876915449988}
-  - component: {fileID: 5527397815557928747}
-  - component: {fileID: 7338322744017941817}
-  - component: {fileID: 3607446862205677640}
-  - component: {fileID: 5029165628063039598}
+  - component: {fileID: 4223452156396743252}
+  - component: {fileID: 3919662058102365261}
+  - component: {fileID: 4304862757525347575}
+  - component: {fileID: 3467144014090404262}
+  - component: {fileID: 2638050991422251494}
+  - component: {fileID: 971717305310576005}
+  - component: {fileID: 6958223372645996207}
   m_Layer: 3
-  m_Name: SteamCore
+  m_Name: SteamCoreCharged
   m_TagString: SteamCore
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
---- !u!4 &1059519516118255124
+--- !u!4 &4223452156396743252
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 496983994924082771}
+  m_GameObject: {fileID: 5048103628133713624}
   serializedVersion: 2
   m_LocalRotation: {x: -0.7069834, y: 0, z: 0, w: 0.7072302}
-  m_LocalPosition: {x: 5.9000006, y: 1.476, z: 4.5}
+  m_LocalPosition: {x: 6.1037364, y: 1.469, z: 4.826}
   m_LocalScale: {x: 100, y: 99.999985, z: 99.999985}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: -89.98, y: 0, z: 0}
---- !u!33 &5602057223605355783
+--- !u!33 &3919662058102365261
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 496983994924082771}
+  m_GameObject: {fileID: 5048103628133713624}
   m_Mesh: {fileID: 1632033031633855327, guid: 973f7e81b118e7045b4c7ffc77321674, type: 3}
---- !u!23 &515754876915449988
+--- !u!23 &4304862757525347575
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 496983994924082771}
+  m_GameObject: {fileID: 5048103628133713624}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -95,19 +95,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &5527397815557928747
+--- !u!114 &3467144014090404262
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 496983994924082771}
+  m_GameObject: {fileID: 5048103628133713624}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cc1afee17b49df44d92341c6f848af2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  outline: {fileID: 7338322744017941817}
+  outline: {fileID: 2638050991422251494}
   OutlineOki: 0
   item:
     itemName: SteamcoreCharged
@@ -115,15 +115,15 @@ MonoBehaviour:
     outlinedIcon: {fileID: 21300000, guid: 8d0b5af5ece931b4d87ea4b08f789329, type: 3}
     quantity: 1
     sceneObjects:
-    - {fileID: 496983994924082771}
+    - {fileID: 5048103628133713624}
   inPuzzleMode: 0
---- !u!114 &7338322744017941817
+--- !u!114 &2638050991422251494
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 496983994924082771}
+  m_GameObject: {fileID: 5048103628133713624}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e5750e36618fcac4594d296814a915c7, type: 3}
@@ -135,13 +135,13 @@ MonoBehaviour:
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
---- !u!136 &3607446862205677640
+--- !u!136 &971717305310576005
 CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 496983994924082771}
+  m_GameObject: {fileID: 5048103628133713624}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -158,13 +158,13 @@ CapsuleCollider:
   m_Height: 0.0033128208
   m_Direction: 1
   m_Center: {x: -0.000000002386514, y: -1.7462295e-10, z: 0}
---- !u!114 &5029165628063039598
+--- !u!114 &6958223372645996207
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 496983994924082771}
+  m_GameObject: {fileID: 5048103628133713624}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 200e60dd0033031448f72db6842d1321, type: 3}

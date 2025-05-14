@@ -73,7 +73,7 @@ public class SubtitleManager : MonoBehaviour
             if (subtitleText != null)
             {
                 //subtitleText.text = $"[{subtitle.speaker}]: {subtitle.text}";
-                subtitleText.text = $",{subtitle.text}";
+                subtitleText.text = $"{subtitle.text}";
             }
             Debug.Log($"[{subtitle.speaker}]: {subtitle.text}");
             Invoke("ClearSubtitle", defaultDuration);

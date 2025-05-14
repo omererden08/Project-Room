@@ -21,8 +21,10 @@ public class SafeRotate : IInteractable
 
 
 
-    void Start()
+    public void Start()
     {
+
+        bomb = FindAnyObjectByType<Bomb>();
         EvntManager.StartListening("SafeOpen", UnlockedSafe);
 
         closedRot = doorPivot.rotation;
@@ -70,7 +72,7 @@ public class SafeRotate : IInteractable
     {
         SafeKnobRotate();
 
-        yield return new WaitForSeconds(rotateDuration); // Animasyon süresi kadar bekle
+        yield return new WaitForSeconds(rotateDuration); // Animasyon sï¿½resi kadar bekle
 
         if (!isMoving && !isLocked)
         {
