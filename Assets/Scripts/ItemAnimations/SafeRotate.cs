@@ -17,6 +17,10 @@ public class SafeRotate : IInteractable
     private Animator safeKnobAnim;
     [SerializeField] private Animator openAnim;
 
+    public AudioClip Unlocked;
+
+
+
     void Start()
     {
         EvntManager.StartListening("SafeOpen", UnlockedSafe);
@@ -52,6 +56,7 @@ public class SafeRotate : IInteractable
             }
             else
             {
+                AudioManager.Instance.audioSource.PlayOneShot(Unlocked);
                 safeKnobAnim.SetTrigger("Correct");
             }
         }

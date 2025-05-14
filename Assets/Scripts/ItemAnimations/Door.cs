@@ -5,10 +5,7 @@ public class Door : MonoBehaviour
 {
     private bool isMoving = false;
     [SerializeField] private LayerMask interactLayer;
-    void Start()
-    {
-        
-    }
+    public AudioClip Locked;
 
     void Update()
     {
@@ -21,6 +18,7 @@ public class Door : MonoBehaviour
                 if (hit.collider.gameObject == gameObject)
                 {
                     print("Hit door");
+                    AudioManager.Instance.audioSource.PlayOneShot(Locked);
                     StartCoroutine(RotateDoor());
                 }
 

@@ -5,8 +5,14 @@ using UnityEngine.UIElements;
 
 public class DigitsRotate : MonoBehaviour
 {
+    [Header("Rotation Settings")]
     [SerializeField] private float rotationDuration = 1f;
     [SerializeField] private List<Transform> digits = new List<Transform>();
+
+    [Header("Sounds")]
+    public AudioClip Locked;
+
+
 
     private Dictionary<Transform, bool> isRotating = new Dictionary<Transform, bool>();
     private Dictionary<Transform, float> currentXAngles = new Dictionary<Transform, float>();
@@ -43,6 +49,7 @@ public class DigitsRotate : MonoBehaviour
                 if (digits.Contains(hitTransform) && !isRotating[hitTransform])
                 {
                     StartCoroutine(RotateSingleDigit(hitTransform, rotationDuration));
+                    AudioManager.Instance.audioSource.PlayOneShot(Locked);
                 }
             }
         }

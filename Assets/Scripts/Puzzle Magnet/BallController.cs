@@ -137,8 +137,6 @@ public class BallController : MonoBehaviour
 
         rb.AddForce(finalForce);
 
-        // ✅ Debug Log: Hangi yöne, ne kadar kuvvet uygulandığını yazdır
-        Debug.Log($"Magnet {directionIndex} → Direction: {forceDirection}, Force: {appliedForce}, FinalForce Vector: {finalForce}");
     }
 
 }
