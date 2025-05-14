@@ -29,6 +29,7 @@ public class DrawerAnimation : IInteractable
 
     void Start()
     {
+        bomb = FindAnyObjectByType<Bomb>();
         outline = GetComponent<Outline3D>();
         initialPos = transform.position;
         if (drawerType == DrawerType.Locked)
@@ -51,6 +52,7 @@ public class DrawerAnimation : IInteractable
 
     public override void Interact()
     {
+        if(bomb.isBoombReady == false) return;
         if (isMoving) return;
 
         if (drawerType == DrawerType.Locked)
