@@ -5,10 +5,17 @@ public class CollectableItem : IInteractable
     public Item item;
     public bool inPuzzleMode = false;
     private bool isPickedUp = false;
+    void Start()
+    {
+        bomb = FindAnyObjectByType<Bomb>();
+        outline = GetComponent<Outline3D>();
+        outline.enabled = false;
+    }
 
     public override void PickUp()
     {
         base.PickUp();
+
         if (!bomb.isBoombReady)
             return;
         if (item == null || inPuzzleMode || isPickedUp)

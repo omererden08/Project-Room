@@ -42,12 +42,10 @@ public class DigitsRotate : MonoBehaviour
 
     void Update()
     {
-        if(bomb.isBoombReady!)
-        {
-            EvntManager.TriggerEvent("subID", "STRT_INTER_" + Random.Range(1, 5));
-        }
+
         if (Input.GetMouseButtonDown(0)) // Sol t�klama
         {
+
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out RaycastHit hit))
             {
@@ -55,6 +53,11 @@ public class DigitsRotate : MonoBehaviour
 
                 if (digits.Contains(hitTransform) && !isRotating[hitTransform])
                 {
+                    if (!bomb.isBoombReady)
+                    {
+                        EvntManager.TriggerEvent("subID", "STRT_INTER_" + Random.Range(1, 5));
+                        return;
+                    }
                     StartCoroutine(RotateSingleDigit(hitTransform, rotationDuration));
                     AudioManager.Instance.audioSource.PlayOneShot(Locked);
                 }
@@ -106,7 +109,7 @@ public class DigitsRotate : MonoBehaviour
         }
 
         Debug.Log("Password is correct!");
-        
+
         // �ifre do�ruysa yap�lacak i�lemler
         EvntManager.TriggerEvent("SafeOpen");
 
