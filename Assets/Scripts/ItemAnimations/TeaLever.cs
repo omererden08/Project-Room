@@ -65,11 +65,18 @@ public class TeaLever : IInteractable
 
     public override void Interact()
     {
-        if(bomb.isBoombReady == false) return;
+        if (bomb.isBoombReady == false) return;
         Debug.Log($"Interact çağrıldı. isRotating: {isRotating}, canLeverPull: {canLeverPull}, TeaClock: {TeaClock}");
+
         if (!isRotating && canLeverPull && teaSlot.isFilled)
         {
+
+            Debug.Log("teaclockkkk");
             StartCoroutine(WorkingMachine());
+
+
+            StartCoroutine(WorkingMachine());
+
 
         }
         else if (!isRotating && !canLeverPull)

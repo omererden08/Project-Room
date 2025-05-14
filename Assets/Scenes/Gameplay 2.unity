@@ -4611,6 +4611,11 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.02419391, y: 0.031258445, z: 0.06325895}
   m_Center: {x: 0.0009421813, y: -0.0018833154, z: 0.010960295}
+--- !u!1 &1422737765 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7518972736299784633, guid: 28b2951afcbd74d4bbd830db0d446d90, type: 3}
+  m_PrefabInstance: {fileID: 2051537822}
+  m_PrefabAsset: {fileID: 0}
 --- !u!65 &1436075131
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6657,6 +6662,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: lts_bomb
       objectReference: {fileID: 0}
+    - target: {fileID: 6749669280926177128, guid: 28b2951afcbd74d4bbd830db0d446d90, type: 3}
+      propertyPath: gear
+      value: 
+      objectReference: {fileID: 1422737765}
     - target: {fileID: 7386009371369260410, guid: 28b2951afcbd74d4bbd830db0d446d90, type: 3}
       propertyPath: colliderBomb
       value: 
@@ -6701,7 +6710,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 21406275249821321, guid: 28b2951afcbd74d4bbd830db0d446d90, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
