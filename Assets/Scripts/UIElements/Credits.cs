@@ -18,8 +18,9 @@ public class Credits : MonoBehaviour
             Debug.LogError("Credits object is not assigned in the inspector.");
             return;
         }
-        gears.SetBool("start", false);
         gears = creditsGears.GetComponent<Animator>();
+
+        gears.SetBool("start", false);
         // Bu scriptin ba�l� oldu�u objeyi ba�lang�� rotasyonuna getiriyoruz
         transform.localRotation = Quaternion.Euler(90, 0, 90);
     }
