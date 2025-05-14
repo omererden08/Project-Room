@@ -6,7 +6,7 @@ public class TeaSlot : MonoBehaviour
     public Vector3 spawnPoint;
 
     public bool isFilled = true;
-    private Outline3D o3D;
+
     private InventorySystem inventorySystem;
 
     void Start()
@@ -16,8 +16,7 @@ public class TeaSlot : MonoBehaviour
         EvntManager.TriggerEvent("SetOnSlotLight");
 
         inventorySystem = FindAnyObjectByType<InventorySystem>();
-        o3D = GetComponent<Outline3D>();
-        o3D.enabled = false;
+
     }
 
 
