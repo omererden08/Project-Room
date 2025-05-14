@@ -176,6 +176,7 @@ GameObject:
   - component: {fileID: 8785553523608986439}
   - component: {fileID: 7386009371369260410}
   - component: {fileID: 7289572531847965537}
+  - component: {fileID: 1383964008631005779}
   m_Layer: 0
   m_Name: lts_bomb
   m_TagString: Bomb
@@ -230,6 +231,7 @@ Transform:
   - {fileID: 3989133795359655570}
   - {fileID: 5969318376321289386}
   - {fileID: 5167202268719459982}
+  - {fileID: 9044747873809329017}
   - {fileID: 8260975356457797358}
   - {fileID: 3686892094589402141}
   - {fileID: 3221985461236959659}
@@ -288,6 +290,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   puzzleManagers: []
+--- !u!65 &1383964008631005779
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 621166814863115160}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 5, y: 13.6, z: 5}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &630058177313989670
 GameObject:
   m_ObjectHideFlags: 0
@@ -3575,8 +3598,7 @@ Transform:
   m_LocalPosition: {x: -0.954, y: 1.8952, z: 0.631}
   m_LocalScale: {x: 0.4218422, y: 1.9665, z: 1.5125}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 9044747873809329017}
+  m_Children: []
   m_Father: {fileID: 8631730334076183749}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &2579273333784640346
@@ -3598,8 +3620,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1.1563649, y: 1, z: 1}
+  m_Center: {x: -0.07818272, y: 0, z: 0}
 --- !u!114 &2532486136470690565
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3676,11 +3698,11 @@ Transform:
   m_GameObject: {fileID: 4699544898301591550}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.136544, y: 0.3018561, z: -0.2620165}
-  m_LocalScale: {x: 2.3705547, y: 0.5085177, z: 0.661157}
+  m_LocalPosition: {x: -0.8964, y: 2.4888, z: 0.2347}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8260975356457797358}
+  m_Father: {fileID: 8631730334076183749}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &2701761369741468408
 BoxCollider:
@@ -3718,7 +3740,7 @@ MonoBehaviour:
   ball: {fileID: 8206113498702995216}
   targetScale: {x: 0.5, y: 0.5, z: 0.5}
   scaleSpeed: 5
-  puzzleManager: {fileID: 0}
+  puzzleManager: {fileID: 2532486136470690565}
 --- !u!1 &4806871605703028519
 GameObject:
   m_ObjectHideFlags: 0
@@ -7448,9 +7470,9 @@ Transform:
   m_GameObject: {fileID: 8206113498702995216}
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: -0.903, y: 1.685, z: 1.0370002}
-  m_LocalScale: {x: 80, y: 80, z: 80}
-  m_ConstrainProportionsScale: 0
+  m_LocalPosition: {x: -0.903, y: 1.6777, z: 1.0370002}
+  m_LocalScale: {x: 104.99999, y: 104.99999, z: 104.99999}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 8631730334076183749}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -7531,7 +7553,7 @@ Rigidbody:
   m_ImplicitTensor: 1
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 1
+  m_Interpolate: 0
   m_Constraints: 114
   m_CollisionDetection: 1
 --- !u!114 &5705682697275597137
@@ -7551,7 +7573,7 @@ MonoBehaviour:
   - {fileID: 6715240769282154488}
   - {fileID: 941220552075623260}
   force: 000000000000000000000000
-  forceValue: 10
+  forceValue: 6
   hitLayer:
     serializedVersion: 2
     m_Bits: 8

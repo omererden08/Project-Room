@@ -6,10 +6,10 @@ public class Finish : MonoBehaviour
     [SerializeField] private Vector3 targetScale = new Vector3(0.5f, 0.5f, 0.5f);
     [SerializeField] private float scaleSpeed;
     private bool isFinished = false;
-    public PuzzleManager puzzleManager;
+    [SerializeField] PuzzleManager puzzleManager;
     void Start()
     {
-        puzzleManager = GetComponentInParent<PuzzleManager>();
+        //puzzleManager = GetComponentInParent<PuzzleManager>();
     }
     void Update()
     {
@@ -21,6 +21,7 @@ public class Finish : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log("Triggered");
         if (other.CompareTag("Ball"))
         {
             isFinished = true;
@@ -29,14 +30,12 @@ public class Finish : MonoBehaviour
 
     void FinishPuzzle()
     {
-        ball.transform.localScale = Vector3.Lerp(transform.localScale, targetScale, Time.deltaTime * scaleSpeed);
-        if (transform.localScale.x <= 0.5f)
-        {
+        
             ball.SetActive(false);
             print("Puzzle Finished");
             puzzleManager.PuzzleSolved();
             //puzzleManager solved olacak 
-        }
+        
     }
 
 

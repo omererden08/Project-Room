@@ -5,6 +5,7 @@ public class Bomb : MonoBehaviour
 {
     public bool isBoombReady;
     [SerializeField] private float moveDuration;
+    [SerializeField] private Collider colliderBomb;
     private bool isMoving = false;
     private Vector3 initialPos;
     private Vector3 lastPos;
@@ -13,6 +14,7 @@ public class Bomb : MonoBehaviour
 
     private void Start()
     {
+        colliderBomb.enabled = false;
         isBoombReady = false;
         initialPos = transform.position;
         lastPos = new Vector3(initialPos.x, y, initialPos.z);
@@ -21,12 +23,13 @@ public class Bomb : MonoBehaviour
 
     private void BombUp()
     {
+        colliderBomb.enabled = true;
         StartCoroutine(Move(moveDuration));
     }
     private IEnumerator Move(float duration)
     {
         isMoving = true;
-
+        colliderBomb.enabled = true;
         Vector3 start = initialPos;
         Vector3 end = lastPos;
 
@@ -39,8 +42,9 @@ public class Bomb : MonoBehaviour
             elapsedTime += Time.deltaTime;
             yield return null;
         }
-        //saat başlatan event
+        EvntManager.TriggerEvent("startTimer");
         isBoombReady = true;
+        colliderBomb.enabled = false;
         transform.position = end;
         isMoving = false;
     }
