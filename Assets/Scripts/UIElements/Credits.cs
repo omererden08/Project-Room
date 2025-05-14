@@ -4,7 +4,7 @@ using System.Collections;
 public class Credits : MonoBehaviour
 {
     [SerializeField] private float rotationDuration = 0.5f;
-    [SerializeField] private GameObject creditsObject; // Bu collider içeren obje
+    [SerializeField] private GameObject creditsObject; // Bu collider iï¿½eren obje
     [SerializeField] private GameObject creditsGears;
     private Animator gears;
     private bool isRotating = false;
@@ -18,8 +18,9 @@ public class Credits : MonoBehaviour
             Debug.LogError("Credits object is not assigned in the inspector.");
             return;
         }
+        gears.SetBool("start", false);
         gears = creditsGears.GetComponent<Animator>();
-        // Bu scriptin baðlý olduðu objeyi baþlangýç rotasyonuna getiriyoruz
+        // Bu scriptin baï¿½lï¿½ olduï¿½u objeyi baï¿½langï¿½ï¿½ rotasyonuna getiriyoruz
         transform.localRotation = Quaternion.Euler(90, 0, 90);
     }
 
@@ -28,27 +29,36 @@ public class Credits : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
-            // Hover kontrolü
+            // Hover kontrolï¿½
             if (hit.transform == creditsObject.transform)
             {
-                isHovered = true; // Mouse bu objenin üzerinde
+                isHovered = true; // Mouse bu objenin ï¿½zerinde
                 if (isHovered)
                 {
-                    gears.SetTrigger("panel");  //trigger bitmiyor ciksa bile 
 
-                    Debug.Log("Mouse, Credits Object'in üzerinde.");
+                    Debug.Log("Mouse, Credits Object'in ï¿½zerinde.");
 
-                    // Týklama kontrolü
+                    // Tï¿½klama kontrolï¿½
                     if (Input.GetMouseButtonDown(0) && !isRotating)
                     {
+
                         StartCoroutine(RotateCredits(!isOpen));
+                        if (isOpen)
+                        {
+                            gears.SetBool("start", true);
+
+                        }
+                        else
+                        {
+                            gears.SetBool("start", false);
+                        }
                     }
                 }
-                
+
             }
             else
             {
-                isHovered = false; // Mouse baþka bir objeye geçti
+                isHovered = false; // Mouse baï¿½ka bir objeye geï¿½ti
             }
         }
     }

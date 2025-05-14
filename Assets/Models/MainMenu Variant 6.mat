@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-3441966782148634500
+--- !u!114 &-1057391095794185570
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
@@ -20,15 +20,15 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: MainMenuwall (2) Variant
+  m_Name: MainMenu Variant 6
   m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
-  m_Parent: {fileID: 489281804566644737, guid: 7339fd3f70156ff44b7374fd8b969168, type: 3}
-  m_ModifiedSerializedProperties: 8
+  m_Parent: {fileID: 3461920619715593240, guid: 6087bdb273fc3794cb009fb885b8e37f, type: 3}
+  m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 1
+  m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
   stringTagMap:
     RenderType: Opaque
@@ -37,15 +37,11 @@ Material:
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 2800000, guid: f2e0ec80336feab49914b642ff1a4c74, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
+    m_TexEnvs: []
     m_Ints: []
     m_Floats:
-    - _Cull: 0
-    - _Smoothness: 0
+    - _Metallic: 1
+    - _Smoothness: 0.708
     m_Colors: []
   m_BuildTextureStacks: []
   m_AllowLocking: 1
