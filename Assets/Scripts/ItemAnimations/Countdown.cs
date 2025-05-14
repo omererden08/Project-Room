@@ -11,6 +11,7 @@ public class Countdown : MonoBehaviour
     private int[] rotationSteps = new int[4]; // Kaç adım döndüğünü sayar
     private float timer = 0f;
     [SerializeField] private float rotationSpeed = 5f;
+    [SerializeField] private int stepCounter1 = 0;
     [SerializeField] private int stepCounter2 = 0;
     [SerializeField] private int stepCounter3 = 0;
     [Header("Gear")]
@@ -20,7 +21,7 @@ public class Countdown : MonoBehaviour
 
     private float targetX = 0f;
     private Quaternion targetRotation;
-
+    [SerializeField] private bool isPaused = false; // Oyun duraklatıldı mı? 
 
     private int[] maxValues = new int[4] { 9, 9, 5, 9 };
 
@@ -41,11 +42,13 @@ public class Countdown : MonoBehaviour
         values[1] = 9;
         values[2] = 5;
         values[3] = 9;
+
+        EvntManager.StartListening("pauseTimer", OnPause); // Oyun duraklatma olayını dinle
     }
 
     void Update()
     {
-        if (IsTimerZero()) return; 
+        if (isPaused) return; // Oyun duraklatıldıysa güncellemeleri atla
 
         for (int i = 0; i < 4; i++)
         {
@@ -66,6 +69,12 @@ public class Countdown : MonoBehaviour
 
     }
 
+    void OnPause()
+    {
+
+        isPaused = !isPaused;
+
+    }
 
     void RotateGear()
     {
@@ -87,7 +96,7 @@ public class Countdown : MonoBehaviour
     {
         float currentX = digits[2].localEulerAngles.x;
         float setX = NormalizeAngle(1f); // üzerine 126° ekle, normalize et
-        rotationSteps[2] = 0; 
+        rotationSteps[2] = 0;
         targetRotations[2] = initialRotations[2] * Quaternion.Euler(setX, 0f, 0f);
 
     }
@@ -98,9 +107,16 @@ public class Countdown : MonoBehaviour
         if (angle > 180f) angle -= 360f;
         return angle;
     }
-  
+
     void Tick()
     {
+
+        if (stepCounter1 == 10)
+        {
+            GameEnding();
+        }
+
+
         values[3]--;
         stepCounter3++;
 
@@ -115,7 +131,8 @@ public class Countdown : MonoBehaviour
             {
                 stepCounter2 = 0;
                 values[1]--;
-                RotateDigitSpecialFor2(); 
+                stepCounter1++;
+                RotateDigitSpecialFor2();
                 RotateDigit(1, 36);
                 RotateDigit(3, 36); // normal dönüş
                 return;
@@ -130,13 +147,13 @@ public class Countdown : MonoBehaviour
             RotateDigit(3, 36); // normal dönüş
         }
 
-
-
-        if (IsTimerZero())
-        {
-            Debug.Log("Zaman bitti");
-        }
     }
+
+    void GameEnding()
+    {
+        FadeManager.Instance.BlackScene("MainMenu");
+    }
+
 
     void RotateDigit(int index, int amount)
     {
@@ -145,8 +162,4 @@ public class Countdown : MonoBehaviour
         targetRotations[index] = initialRotations[index] * Quaternion.Euler(totalRotation, 0f, 0f);
     }
 
-    bool IsTimerZero()
-    {
-        return values[0] == 0 && values[1] == 0 && values[2] == 0 && values[3] == 0;
-    }
 }
