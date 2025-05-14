@@ -207,6 +207,7 @@ public class InventorySlot : MonoBehaviour, IDragHandler, IBeginDragHandler, IEn
         if (distanceToPuzzle < 1)
         {
             GameObject copy = Instantiate(activeObject, activeObject.transform.position, activeObject.transform.rotation);
+            //if(copy.GetComponent<Gear>() != null) copy.GetComponent<Gear>().();
             InventorySystem.Instance.RemoveItem(item.itemName, 1);
             copy.SetActive(true);
         }

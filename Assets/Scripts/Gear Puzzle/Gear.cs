@@ -20,7 +20,7 @@ public class Gear : MonoBehaviour
     private Slot currentSlot;
     private GearPuzzle gearPuzzle;
     private PuzzleManager puzzleManager;
-
+    private GetActivePuzzleManager gapm;
     public Slot CurrentSlot => currentSlot;
 
     public bool IsSpinning => transform.GetComponent<Tween>()?.IsActive() ?? false;
@@ -28,9 +28,9 @@ public class Gear : MonoBehaviour
 
     private void Awake()
     {
+        gapm = FindAnyObjectByType<GetActivePuzzleManager>();
         firstPosition = transform;
         gearPuzzle = FindFirstObjectByType<GearPuzzle>();
-        puzzleManager = FindFirstObjectByType<PuzzleManager>();
         //Debug.Log($"Gear {name} initialized: Size={size}");
         if(size == GearSize.Medium) 
         {
@@ -42,9 +42,11 @@ public class Gear : MonoBehaviour
         }
     }
 
+
     private void OnMouseDown()
     {
-        if (!puzzleManager.inPuzzleMode) return;
+        Debug.Log($"Gear {name} clicked");
+        if (!gapm.GetPuzzleManager().inPuzzleMode) return;
         Debug.Log($"Gear {name} clicked");
 
         zCoordinate = Camera.main.WorldToScreenPoint(transform.position).z;
@@ -62,7 +64,7 @@ public class Gear : MonoBehaviour
 
     private void OnMouseUp()
     {
-        if (!puzzleManager.inPuzzleMode) return;
+        if (!gapm.GetPuzzleManager().inPuzzleMode) return;
 
         isDragging = false;
         Slot nearestSlot = FindNearestSlot();

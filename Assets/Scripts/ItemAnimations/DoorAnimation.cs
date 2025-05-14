@@ -42,52 +42,49 @@ public class DoorAnimation : IInteractable
 
         if (Inventory.ChosenItem("Token"))
         {
-            if (tokenTaken <= 4)
-            {
-                Inventory.RemoveItem("Token", 1);
-                animator.SetTrigger("Door_Unlock_" + tokenTaken);
-                tokenTaken++;
-
-            }
-
-
             switch (tokenTaken)
             {
                 case 0:
                     Inventory.RemoveItem("Token", 1);
-                    EvntManager.TriggerEvent("Door_Unlock_1");
+                    animator.SetTrigger("Door_Unlock_0");
                     tokenTaken++;
+                    Debug.Log(tokenTaken);
 
                     break;
                 case 1:
                     Inventory.RemoveItem("Token", 1);
-                    EvntManager.TriggerEvent("Door_Unlock_2");
+                    animator.SetTrigger("Door_Unlock_1");
                     tokenTaken++;
+                    Debug.Log(tokenTaken);
 
 
                     break;
                 case 2:
                     Inventory.RemoveItem("Token", 1);
-                    EvntManager.TriggerEvent("Door_Unlock_3");
+                    animator.SetTrigger("Door_Unlock_2");
                     tokenTaken++;
+                    Debug.Log(tokenTaken);
 
                     break;
                 case 3:
                     Inventory.RemoveItem("Token", 1);
-                    EvntManager.TriggerEvent("Door_Unlock_4");
+                    animator.SetTrigger("Door_Unlock_3");
                     tokenTaken++;
+                    Debug.Log(tokenTaken);
 
-                    break;
-                case 4:
-                    animator.SetTrigger("Door_Unlock_All");
-                    doorCollider.enabled = false;
-                    GameEnding();
                     break;
             }
         }
+        else if (tokenTaken == 4)
+        {
+            animator.SetTrigger("Door_Unlock_All");
+            doorCollider.enabled = false;
+            Debug.Log(tokenTaken);
+
+            GameEnding();
+        }
         base.Interact();
     }
-
     public void GameEnding()
     {
         Debug.Log("game ending");

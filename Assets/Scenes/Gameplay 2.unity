@@ -1392,7 +1392,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91fbc95b47db49a4193301f3c4448fac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  puzzleEnding: {fileID: 0}
+  puzzleEnding: {fileID: 2051537826}
 --- !u!1 &337869484
 GameObject:
   m_ObjectHideFlags: 0
@@ -2932,67 +2932,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b1a20fa2be62613448d13510de3100ab, type: 3}
---- !u!1001 &741380870
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 496983994924082771, guid: 40b21ff9ea064304593a41c17f13c321, type: 3}
-      propertyPath: m_Name
-      value: SteamCore
-      objectReference: {fileID: 0}
-    - target: {fileID: 1059519516118255124, guid: 40b21ff9ea064304593a41c17f13c321, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 5.996
-      objectReference: {fileID: 0}
-    - target: {fileID: 1059519516118255124, guid: 40b21ff9ea064304593a41c17f13c321, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.845
-      objectReference: {fileID: 0}
-    - target: {fileID: 1059519516118255124, guid: 40b21ff9ea064304593a41c17f13c321, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.396
-      objectReference: {fileID: 0}
-    - target: {fileID: 1059519516118255124, guid: 40b21ff9ea064304593a41c17f13c321, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7072302
-      objectReference: {fileID: 0}
-    - target: {fileID: 1059519516118255124, guid: 40b21ff9ea064304593a41c17f13c321, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0.7069834
-      objectReference: {fileID: 0}
-    - target: {fileID: 1059519516118255124, guid: 40b21ff9ea064304593a41c17f13c321, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1059519516118255124, guid: 40b21ff9ea064304593a41c17f13c321, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1059519516118255124, guid: 40b21ff9ea064304593a41c17f13c321, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: -89.98
-      objectReference: {fileID: 0}
-    - target: {fileID: 1059519516118255124, guid: 40b21ff9ea064304593a41c17f13c321, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1059519516118255124, guid: 40b21ff9ea064304593a41c17f13c321, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5029165628063039598, guid: 40b21ff9ea064304593a41c17f13c321, type: 3}
-      propertyPath: devreSystem
-      value: 
-      objectReference: {fileID: 1740499061}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 40b21ff9ea064304593a41c17f13c321, type: 3}
 --- !u!65 &756645363
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3967,11 +3906,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 759105d1f6d9e284c9afb20764861104, type: 3}
---- !u!1 &1324743956 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 496983994924082771, guid: 40b21ff9ea064304593a41c17f13c321, type: 3}
-  m_PrefabInstance: {fileID: 741380870}
-  m_PrefabAsset: {fileID: 0}
 --- !u!65 &1327052393
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5629,17 +5563,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.013335905, y: 0.011142388, z: 0.03619436}
   m_Center: {x: 0, y: 0, z: -9.313224e-10}
---- !u!114 &1740499061 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2879276502195441480, guid: 28b2951afcbd74d4bbd830db0d446d90, type: 3}
-  m_PrefabInstance: {fileID: 2051537822}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7dc981e9dfee46c448d85269a87b4982, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1742219362 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: ce18ce20628c3664bb149f3fcfe9f44c, type: 3}
@@ -6731,6 +6654,17 @@ BoxCollider:
   m_CorrespondingSourceObject: {fileID: 1383964008631005779, guid: 28b2951afcbd74d4bbd830db0d446d90, type: 3}
   m_PrefabInstance: {fileID: 2051537822}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2051537826 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7289572531847965537, guid: 28b2951afcbd74d4bbd830db0d446d90, type: 3}
+  m_PrefabInstance: {fileID: 2051537822}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31f7f29036f8ce64d89e7d8e56ad2723, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2099848664
 GameObject:
   m_ObjectHideFlags: 0
@@ -20599,7 +20533,7 @@ PrefabInstance:
     - target: {fileID: 7393858367408218925, guid: 8f5a9bfef354d7c4d9067302a91fd8b6, type: 3}
       propertyPath: 'ChargedSteamCore.sceneObjects.Array.data[0]'
       value: 
-      objectReference: {fileID: 1324743956}
+      objectReference: {fileID: 0}
     - target: {fileID: 7740671125838864157, guid: 8f5a9bfef354d7c4d9067302a91fd8b6, type: 3}
       propertyPath: m_Name
       value: Generator
@@ -21391,9 +21325,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1728632876400317427, guid: e956a93c372ec6b48857049387188932, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2615960392672608399, guid: e956a93c372ec6b48857049387188932, type: 3}
       propertyPath: m_Name
       value: SteamCoreMachine
+      objectReference: {fileID: 0}
+    - target: {fileID: 6390010952581020900, guid: e956a93c372ec6b48857049387188932, type: 3}
+      propertyPath: isFakeSlot
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -26167,7 +26109,6 @@ SceneRoots:
   - {fileID: 543450652063195441}
   - {fileID: 543450652517717260}
   - {fileID: 543450652191944407}
-  - {fileID: 741380870}
   - {fileID: 223189263}
   - {fileID: 8002367104578590862}
   - {fileID: 2051537822}
