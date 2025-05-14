@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 5527397815557928747}
   - component: {fileID: 7338322744017941817}
   - component: {fileID: 3607446862205677640}
+  - component: {fileID: 5029165628063039598}
   m_Layer: 3
   m_Name: SteamCore
   m_TagString: SteamCore
@@ -67,7 +68,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -7090826679569474576, guid: 973f7e81b118e7045b4c7ffc77321674, type: 3}
+  - {fileID: 2100000, guid: b135c536c96a9274a9e9d539ae11ec5a, type: 2}
   - {fileID: -2411140172417787736, guid: 973f7e81b118e7045b4c7ffc77321674, type: 3}
   - {fileID: 6450010747475203773, guid: 973f7e81b118e7045b4c7ffc77321674, type: 3}
   - {fileID: 4530128419787268211, guid: 973f7e81b118e7045b4c7ffc77321674, type: 3}
@@ -107,9 +108,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outline: {fileID: 7338322744017941817}
+  OutlineOki: 0
   item:
-    itemName: Steamcore
-    icon: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+    itemName: SteamcoreCharged
+    icon: {fileID: 21300000, guid: af25e1651377f3146911dbfcb26e68b5, type: 3}
+    outlinedIcon: {fileID: 21300000, guid: 8d0b5af5ece931b4d87ea4b08f789329, type: 3}
     quantity: 1
     sceneObjects:
     - {fileID: 496983994924082771}
@@ -155,3 +158,17 @@ CapsuleCollider:
   m_Height: 0.0033128208
   m_Direction: 1
   m_Center: {x: -0.000000002386514, y: -1.7462295e-10, z: 0}
+--- !u!114 &5029165628063039598
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 496983994924082771}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 200e60dd0033031448f72db6842d1321, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  puzzleManager: {fileID: 0}
+  devreSystem: {fileID: 0}

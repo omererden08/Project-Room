@@ -4,7 +4,8 @@ using UnityEngine.Rendering;
 
 public class IInteractable : MonoBehaviour
 {
-    public  Outline3D outline;
+    public Outline3D outline;
+    public bool OutlineOki;
     //buradaki outline ne kadar mantikkli acabana
 
     void Start()
@@ -16,11 +17,15 @@ public class IInteractable : MonoBehaviour
 
     public virtual void OutlineShow()
     {
+        if (!OutlineOki)
+            return;
         outline.enabled = true;
     }
 
     public virtual void OutlineHide()
     {
+        if (!OutlineOki)
+            return;
         outline.enabled = false;
     }
 

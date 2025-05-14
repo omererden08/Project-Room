@@ -301,11 +301,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7bea198b4ee020145ad5c3c728ee06ab, type: 3}
---- !u!135 &35565201 stripped
-SphereCollider:
-  m_CorrespondingSourceObject: {fileID: 5216253296081852985, guid: e956a93c372ec6b48857049387188932, type: 3}
-  m_PrefabInstance: {fileID: 6931324028996204269}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &56489245
 GameObject:
   m_ObjectHideFlags: 0
@@ -581,10 +576,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outline: {fileID: 0}
+  OutlineOki: 0
   item:
     itemName: GearLarge
-    icon: {fileID: 21300000, guid: 60dd46d11dc67134b97c78bdc036a618, type: 3}
-    outlinedIcon: {fileID: 0}
+    icon: {fileID: 21300000, guid: d31fd5e05713e1d468c2d7218b100760, type: 3}
+    outlinedIcon: {fileID: 21300000, guid: 50faf36a8550b474eb2291c68b7a1378, type: 3}
     quantity: 1
     sceneObjects:
     - {fileID: 90027003}
@@ -625,7 +621,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   firstPosition: {fileID: 0}
   rotationReference: {fileID: 0}
-  rotationValue: 0
+  rotationValue: 2
   size: 1
   SpinSpeed: 0
 --- !u!23 &90027009
@@ -1198,6 +1194,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outline: {fileID: 0}
+  OutlineOki: 0
   targetPos: {fileID: 269510036}
   keyObject: {fileID: 0}
   isMoving: 0
@@ -1703,32 +1700,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 93eb987b25d42fd4cb7c337b1c933979, type: 3}
---- !u!1 &344846063 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5772707170579605138, guid: e956a93c372ec6b48857049387188932, type: 3}
-  m_PrefabInstance: {fileID: 6931324028996204269}
-  m_PrefabAsset: {fileID: 0}
---- !u!65 &344846069
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 344846063}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.001026392, y: 0.0037094615, z: 0.0037348473}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &435254371
 GameObject:
   m_ObjectHideFlags: 0
@@ -1863,6 +1834,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outline: {fileID: 0}
+  OutlineOki: 0
   targetPos: {fileID: 0}
   keyObject: {fileID: 0}
   isMoving: 0
@@ -1900,6 +1872,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outline: {fileID: 0}
+  OutlineOki: 0
   targetPos: {fileID: 1169081001}
   keyObject: {fileID: 0}
   isMoving: 0
@@ -1971,10 +1944,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outline: {fileID: 0}
+  OutlineOki: 0
   item:
     itemName: GearLarge
-    icon: {fileID: 21300000, guid: 60dd46d11dc67134b97c78bdc036a618, type: 3}
-    outlinedIcon: {fileID: 0}
+    icon: {fileID: 21300000, guid: d31fd5e05713e1d468c2d7218b100760, type: 3}
+    outlinedIcon: {fileID: 21300000, guid: 50faf36a8550b474eb2291c68b7a1378, type: 3}
     quantity: 1
     sceneObjects:
     - {fileID: 462756641}
@@ -2015,7 +1989,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   firstPosition: {fileID: 0}
   rotationReference: {fileID: 0}
-  rotationValue: 0
+  rotationValue: 2
   size: 1
   SpinSpeed: 0
 --- !u!23 &462756647
@@ -2294,6 +2268,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outline: {fileID: 0}
+  OutlineOki: 0
   targetPos: {fileID: 0}
   keyObject: {fileID: 919132148971241556}
   isMoving: 0
@@ -2331,6 +2306,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outline: {fileID: 0}
+  OutlineOki: 0
   targetPos: {fileID: 1667839138}
   keyObject: {fileID: 0}
   isMoving: 0
@@ -2368,6 +2344,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outline: {fileID: 0}
+  OutlineOki: 0
 --- !u!114 &561104427
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2878,11 +2855,6 @@ Light:
   m_LightUnit: 1
   m_LuxAtDistance: 1
   m_EnableSpotReflector: 1
---- !u!65 &727547605 stripped
-BoxCollider:
-  m_CorrespondingSourceObject: {fileID: 7595370974776538356, guid: e956a93c372ec6b48857049387188932, type: 3}
-  m_PrefabInstance: {fileID: 6931324028996204269}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &748949013
 GameObject:
   m_ObjectHideFlags: 0
@@ -2951,6 +2923,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outline: {fileID: 0}
+  OutlineOki: 0
   item:
     itemName: GearMedium
     icon: {fileID: 21300000, guid: 9342f8dbece8582429c7b0041cc8f9bd, type: 3}
@@ -3845,6 +3818,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outline: {fileID: 0}
+  OutlineOki: 0
   item:
     itemName: GearMedium
     icon: {fileID: 21300000, guid: 9342f8dbece8582429c7b0041cc8f9bd, type: 3}
@@ -4227,6 +4201,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outline: {fileID: 0}
+  OutlineOki: 0
   item:
     itemName: GearMedium
     icon: {fileID: 21300000, guid: 9342f8dbece8582429c7b0041cc8f9bd, type: 3}
@@ -4418,6 +4393,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outline: {fileID: 0}
+  OutlineOki: 0
   targetPos: {fileID: 1442669765}
   keyObject: {fileID: 0}
   isMoving: 0
@@ -4673,6 +4649,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outline: {fileID: 0}
+  OutlineOki: 0
 --- !u!1 &1373852807
 GameObject:
   m_ObjectHideFlags: 0
@@ -4921,6 +4898,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outline: {fileID: 0}
+  OutlineOki: 0
 --- !u!1 &1404461252
 GameObject:
   m_ObjectHideFlags: 0
@@ -5231,6 +5209,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outline: {fileID: 0}
+  OutlineOki: 0
   item:
     itemName: GearMedium
     icon: {fileID: 21300000, guid: 9342f8dbece8582429c7b0041cc8f9bd, type: 3}
@@ -6397,6 +6376,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outline: {fileID: 0}
+  OutlineOki: 0
   item:
     itemName: GearMedium
     icon: {fileID: 21300000, guid: 9342f8dbece8582429c7b0041cc8f9bd, type: 3}
@@ -6893,6 +6873,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outline: {fileID: 0}
+  OutlineOki: 0
 --- !u!1 &1820791715
 GameObject:
   m_ObjectHideFlags: 0
@@ -7018,10 +6999,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outline: {fileID: 0}
+  OutlineOki: 0
   item:
     itemName: GearLarge
-    icon: {fileID: 21300000, guid: 60dd46d11dc67134b97c78bdc036a618, type: 3}
-    outlinedIcon: {fileID: 0}
+    icon: {fileID: 21300000, guid: d31fd5e05713e1d468c2d7218b100760, type: 3}
+    outlinedIcon: {fileID: 21300000, guid: 50faf36a8550b474eb2291c68b7a1378, type: 3}
     quantity: 1
     sceneObjects:
     - {fileID: 1863353074}
@@ -7062,7 +7044,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   firstPosition: {fileID: 0}
   rotationReference: {fileID: 0}
-  rotationValue: 0
+  rotationValue: 2
   size: 1
   SpinSpeed: 0
 --- !u!23 &1863353079
@@ -7188,6 +7170,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outline: {fileID: 0}
+  OutlineOki: 0
 --- !u!1 &1906477916 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3274412388905071137, guid: 93eb987b25d42fd4cb7c337b1c933979, type: 3}
@@ -7206,6 +7189,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outline: {fileID: 0}
+  OutlineOki: 0
   targetPos: {fileID: 0}
   keyObject: {fileID: 0}
   isMoving: 0
@@ -7937,6 +7921,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outline: {fileID: 0}
+  OutlineOki: 0
 --- !u!114 &2128908788
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11980,14 +11965,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 102560584342261306, guid: e956a93c372ec6b48857049387188932, type: 3}
-      propertyPath: m_IsActive
-      value: 0
+    - target: {fileID: 485117570210767539, guid: e956a93c372ec6b48857049387188932, type: 3}
+      propertyPath: item.icon
+      value: 
+      objectReference: {fileID: 21300000, guid: af25e1651377f3146911dbfcb26e68b5, type: 3}
+    - target: {fileID: 485117570210767539, guid: e956a93c372ec6b48857049387188932, type: 3}
+      propertyPath: item.itemName
+      value: SteamcoreCharged
       objectReference: {fileID: 0}
-    - target: {fileID: 539453148327034243, guid: e956a93c372ec6b48857049387188932, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -6.5
-      objectReference: {fileID: 0}
+    - target: {fileID: 485117570210767539, guid: e956a93c372ec6b48857049387188932, type: 3}
+      propertyPath: item.outlinedIcon
+      value: 
+      objectReference: {fileID: 21300000, guid: 8d0b5af5ece931b4d87ea4b08f789329, type: 3}
     - target: {fileID: 1726259476546186772, guid: e956a93c372ec6b48857049387188932, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -12028,98 +12017,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1728632876400317427, guid: e956a93c372ec6b48857049387188932, type: 3}
-      propertyPath: m_Layer
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1728632876400317427, guid: e956a93c372ec6b48857049387188932, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2141847771800142690, guid: e956a93c372ec6b48857049387188932, type: 3}
-      propertyPath: m_Name
-      value: GearPuzzleManager
-      objectReference: {fileID: 0}
     - target: {fileID: 2615960392672608399, guid: e956a93c372ec6b48857049387188932, type: 3}
       propertyPath: m_Name
       value: SteamCore (9)
       objectReference: {fileID: 0}
-    - target: {fileID: 2615960392672608399, guid: e956a93c372ec6b48857049387188932, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2886831828223397801, guid: e956a93c372ec6b48857049387188932, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3300006497904643038, guid: e956a93c372ec6b48857049387188932, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4277071277004634386, guid: e956a93c372ec6b48857049387188932, type: 3}
-      propertyPath: collectableItem
-      value: 
-      objectReference: {fileID: 35565201}
-    - target: {fileID: 4318882318027547086, guid: e956a93c372ec6b48857049387188932, type: 3}
-      propertyPath: col
-      value: 
-      objectReference: {fileID: 727547605}
-    - target: {fileID: 4318882318027547086, guid: e956a93c372ec6b48857049387188932, type: 3}
-      propertyPath: direction
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4318882318027547086, guid: e956a93c372ec6b48857049387188932, type: 3}
-      propertyPath: AcceptedItems.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4318882318027547086, guid: e956a93c372ec6b48857049387188932, type: 3}
-      propertyPath: 'AcceptedItems.Array.data[0]'
-      value: GearLarge
-      objectReference: {fileID: 0}
-    - target: {fileID: 4318882318027547086, guid: e956a93c372ec6b48857049387188932, type: 3}
-      propertyPath: 'AcceptedItems.Array.data[1]'
-      value: GearMedium
-      objectReference: {fileID: 0}
-    - target: {fileID: 4416401616585144246, guid: e956a93c372ec6b48857049387188932, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4663519367538227004, guid: e956a93c372ec6b48857049387188932, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4744574526260894744, guid: e956a93c372ec6b48857049387188932, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4963113096285817781, guid: e956a93c372ec6b48857049387188932, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -6.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5772707170579605138, guid: e956a93c372ec6b48857049387188932, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6045455889280563497, guid: e956a93c372ec6b48857049387188932, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7595370974776538356, guid: e956a93c372ec6b48857049387188932, type: 3}
-      propertyPath: m_Size.x
-      value: 0.6751241
-      objectReference: {fileID: 0}
-    - target: {fileID: 7595370974776538356, guid: e956a93c372ec6b48857049387188932, type: 3}
-      propertyPath: m_Center.x
-      value: -0.91698796
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 6963653573836985785, guid: e956a93c372ec6b48857049387188932, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 5772707170579605138, guid: e956a93c372ec6b48857049387188932, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 344846069}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e956a93c372ec6b48857049387188932, type: 3}
 --- !u!33 &6940021539606906149
 MeshFilter:
@@ -12463,6 +12368,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outline: {fileID: 7407764149566105694}
+  OutlineOki: 0
   item:
     itemName: HoseClosed
     icon: {fileID: 0}
@@ -13016,6 +12922,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outline: {fileID: 0}
+  OutlineOki: 0
   item:
     itemName: Gear
     icon: {fileID: 21300000, guid: 60dd46d11dc67134b97c78bdc036a618, type: 3}

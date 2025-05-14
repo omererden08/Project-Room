@@ -46,10 +46,9 @@ GameObject:
   - component: {fileID: 4313054655725065049}
   - component: {fileID: 2565253666415860269}
   - component: {fileID: 3037183776229915659}
-  - component: {fileID: 7805157625558462228}
   - component: {fileID: 6637869506840854409}
   - component: {fileID: 2593985327188724685}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Key_Hole
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -152,19 +151,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.005771679, y: 0.01080941, z: 0.0029074496}
   m_Center: {x: 0.00037810148, y: 0.004711546, z: -0.00014051315}
---- !u!114 &7805157625558462228
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2724044136029426956}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4223a5322e1e5044aa171b179d93035f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  outline: {fileID: 0}
 --- !u!114 &6637869506840854409
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -195,14 +181,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4cba1db89ac8cf45b9dfa91950c63e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  outline: {fileID: 0}
-  targetPos: {fileID: 0}
-  keyObject: {fileID: 0}
+  outline: {fileID: 6637869506840854409}
+  OutlineOki: 0
+  targetPos: {fileID: 5001256735676253507}
+  keyObject: {fileID: 3175341999304240383}
   interactLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   isMoving: 0
-  drawerType: 0
+  drawerType: 1
 --- !u!1 &3175341999304240383
 GameObject:
   m_ObjectHideFlags: 0
@@ -439,6 +426,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outline: {fileID: 0}
+  OutlineOki: 0
   targetPos: {fileID: 0}
   keyObject: {fileID: 0}
   interactLayer:
