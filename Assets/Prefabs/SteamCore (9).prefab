@@ -229,6 +229,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outline: {fileID: 8022915117259356546}
+  OutlineOki: 0
+  bomb: {fileID: 0}
+  isCollect: 0
   indicator: {fileID: 5763765180523287625}
   indicatorAnimationName: tube4
   animationSpeed: 1
@@ -777,6 +780,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outline: {fileID: 2510805350095029577}
+  OutlineOki: 0
+  bomb: {fileID: 0}
+  isCollect: 0
   nuts:
   - {fileID: 4233042145562664456}
   - {fileID: 2235619813977979518}
@@ -944,6 +950,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outline: {fileID: 5805727183339184494}
+  OutlineOki: 0
+  bomb: {fileID: 0}
+  isCollect: 0
   cameraFocusPoint: {fileID: 5640028857110457070}
   cameraDistance: {x: 1, y: -1, z: 0}
   transitionDuration: 1.5
@@ -1211,6 +1220,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outline: {fileID: 7434735027665699402}
+  OutlineOki: 0
+  bomb: {fileID: 0}
+  isCollect: 0
   indicator: {fileID: 6940349089102644621}
   indicatorAnimationName: tube3
   animationSpeed: 1
@@ -2854,6 +2866,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outline: {fileID: 8352615055720551689}
+  OutlineOki: 0
+  bomb: {fileID: 0}
+  isCollect: 0
   indicator: {fileID: 498572696508223884}
   indicatorAnimationName: tube1
   animationSpeed: 1
@@ -3207,8 +3222,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outline: {fileID: 7710925359345776208}
+  OutlineOki: 0
+  bomb: {fileID: 0}
+  isCollect: 0
   item:
-    itemName: Steamcore
+    itemName: SteamcoreCharged
     icon: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
     outlinedIcon: {fileID: 0}
     quantity: 1
@@ -3849,6 +3867,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outline: {fileID: 7791903102041642244}
+  OutlineOki: 0
+  bomb: {fileID: 0}
+  isCollect: 0
   steamcoreObject: {fileID: 6531873441514115940}
   firstIndicatorObject: {fileID: 4930022909260749335}
   secondIndicatorObject: {fileID: 1464635579992559173}
@@ -4036,6 +4057,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outline: {fileID: 8965559880606671324}
+  OutlineOki: 0
+  bomb: {fileID: 0}
+  isCollect: 0
   indicator: {fileID: 8534019523582297563}
   indicatorAnimationName: tube2
   animationSpeed: 1

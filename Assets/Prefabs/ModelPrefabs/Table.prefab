@@ -149,8 +149,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.005771679, y: 0.01080941, z: 0.0029074496}
-  m_Center: {x: 0.00037810148, y: 0.004711546, z: -0.00014051315}
+  m_Size: {x: 0.0057716784, y: 0.0007572446, z: 0.0029074498}
+  m_Center: {x: 0.00037810145, y: -0.00031453374, z: -0.00014051318}
 --- !u!114 &6637869506840854409
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -182,6 +182,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outline: {fileID: 0}
+  OutlineOki: 0
+  bomb: {fileID: 0}
+  isCollect: 0
   targetPos: {fileID: 0}
   keyObject: {fileID: 0}
   interactLayer:
@@ -428,6 +431,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outline: {fileID: 0}
+  OutlineOki: 0
+  bomb: {fileID: 0}
+  isCollect: 0
   targetPos: {fileID: 0}
   keyObject: {fileID: 0}
   interactLayer:

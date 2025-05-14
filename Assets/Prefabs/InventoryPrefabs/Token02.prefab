@@ -29,13 +29,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8250715323188847527}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+  m_LocalRotation: {x: -0.7069834, y: 0, z: 0, w: 0.7072302}
   m_LocalPosition: {x: -0.3592, y: 1.25, z: -6.3985004}
   m_LocalScale: {x: 18.818089, y: 18.818089, z: 17.689978}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -89.98, y: 0, z: 0}
 --- !u!33 &6472488890003382492
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -103,9 +103,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outline: {fileID: 0}
+  OutlineOki: 0
+  bomb: {fileID: 0}
+  isCollect: 0
   item:
     itemName: Token
-    icon: {fileID: 21300000, guid: 9342f8dbece8582429c7b0041cc8f9bd, type: 3}
+    icon: {fileID: 21300000, guid: f348f2ac74be88e4fac2f098adedd33e, type: 3}
+    outlinedIcon: {fileID: 21300000, guid: 32ab5245315638c4680e7fcbc8fa0ef4, type: 3}
     quantity: 1
     sceneObjects: []
   inPuzzleMode: 0

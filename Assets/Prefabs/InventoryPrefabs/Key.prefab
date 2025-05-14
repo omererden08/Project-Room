@@ -29,13 +29,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8052220958583447685}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.5, y: -0.49999997, z: -0.5, w: -0.5}
+  m_LocalRotation: {x: -0.5, y: 0.5, z: 0.5, w: 0.5}
   m_LocalPosition: {x: 0.968688, y: 0.7668381, z: -6.1760197}
   m_LocalScale: {x: 2.8373687, y: 2.8373687, z: 2.8373687}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 90}
 --- !u!33 &1500149197158319592
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -102,11 +102,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outline: {fileID: -6464872953291212084}
+  OutlineOki: 0
+  bomb: {fileID: 0}
+  isCollect: 0
   item:
-    itemName: Key
-    icon: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+    itemName: KeyDrawer
+    icon: {fileID: 21300000, guid: 73dfd89a0d7642b46a99e1d66096cef7, type: 3}
+    outlinedIcon: {fileID: 21300000, guid: 13967ace239030a438361819d4a1338e, type: 3}
     quantity: 1
-    sceneObjects: []
+    sceneObjects:
+    - {fileID: 8052220958583447685}
   inPuzzleMode: 0
 --- !u!114 &-6464872953291212084
 MonoBehaviour:

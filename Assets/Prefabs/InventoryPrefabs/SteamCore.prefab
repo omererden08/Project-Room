@@ -21,7 +21,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1059519516118255124
 Transform:
   m_ObjectHideFlags: 0
@@ -109,8 +109,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   outline: {fileID: 7338322744017941817}
   OutlineOki: 0
+  bomb: {fileID: 0}
+  isCollect: 0
   item:
-    itemName: SteamcoreCharged
+    itemName: Steamcore
     icon: {fileID: 21300000, guid: af25e1651377f3146911dbfcb26e68b5, type: 3}
     outlinedIcon: {fileID: 21300000, guid: 8d0b5af5ece931b4d87ea4b08f789329, type: 3}
     quantity: 1

@@ -167,14 +167,18 @@ MonoBehaviour:
   isOpen: 0
   embeddedItem: {fileID: 3991221847232535648}
   ChargedSteamCore:
-    itemName: ChargedSteamcore
-    icon: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
+    itemName: SteamcoreCharged
+    icon: {fileID: 21300000, guid: af25e1651377f3146911dbfcb26e68b5, type: 3}
+    outlinedIcon: {fileID: 21300000, guid: 8d0b5af5ece931b4d87ea4b08f789329, type: 3}
     quantity: 1
     sceneObjects:
-    - {fileID: 496983994924082771, guid: 40b21ff9ea064304593a41c17f13c321, type: 3}
+    - {fileID: 5048103628133713624, guid: 8fbb364b49d74a448b0d51421cab9fef, type: 3}
   mat: {fileID: 2100000, guid: baebb59c543e228449aa8ce86625fdb3, type: 2}
   colorRed: {r: 1, g: 0, b: 0, a: 1}
   colorGreen: {r: 0, g: 1, b: 0, a: 1}
+  hose: {fileID: 0}
+  canInteract: 1
+  cooldown: 4
 --- !u!65 &1463272881262586788
 BoxCollider:
   m_ObjectHideFlags: 0

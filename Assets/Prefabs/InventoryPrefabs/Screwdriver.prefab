@@ -103,9 +103,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outline: {fileID: 0}
+  OutlineOki: 0
+  bomb: {fileID: 0}
+  isCollect: 0
   item:
     itemName: Screwdriver
-    icon: {fileID: 10915, guid: 0000000000000000f000000000000000, type: 0}
+    icon: {fileID: 21300000, guid: df3421e5dd0646642ac5b22ea6ff9b94, type: 3}
+    outlinedIcon: {fileID: 21300000, guid: ab97c1cdd30fb704b8971c871a0d4e75, type: 3}
     quantity: 1
     sceneObjects:
     - {fileID: 3846078638819634545}

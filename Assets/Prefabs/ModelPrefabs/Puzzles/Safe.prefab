@@ -160,6 +160,7 @@ MonoBehaviour:
   rotationDuration: 0.3
   digits: []
   Locked: {fileID: 0}
+  bomb: {fileID: 0}
 --- !u!1 &1636300619946781525
 GameObject:
   m_ObjectHideFlags: 0
@@ -208,6 +209,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outline: {fileID: 0}
+  OutlineOki: 0
+  bomb: {fileID: 0}
+  isCollect: 0
   doorPivot: {fileID: 726687669609094054}
   duration: 1
   openAngle: -60
@@ -607,6 +611,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outline: {fileID: 0}
+  OutlineOki: 0
+  bomb: {fileID: 0}
+  isCollect: 0
   doorPivot: {fileID: 726687669609094054}
   duration: 1
   openAngle: -60
