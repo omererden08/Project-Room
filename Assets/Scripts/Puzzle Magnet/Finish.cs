@@ -6,7 +6,11 @@ public class Finish : MonoBehaviour
     [SerializeField] private Vector3 targetScale = new Vector3(0.5f, 0.5f, 0.5f);
     [SerializeField] private float scaleSpeed;
     private bool isFinished = false;
-
+    public PuzzleManager puzzleManager;
+    void Start()
+    {
+        puzzleManager = GetComponentInParent<PuzzleManager>();
+    }
     void Update()
     {
         if (isFinished)
@@ -30,6 +34,7 @@ public class Finish : MonoBehaviour
         {
             ball.SetActive(false);
             print("Puzzle Finished");
+            puzzleManager.PuzzleSolved();
             //puzzleManager solved olacak 
         }
     }

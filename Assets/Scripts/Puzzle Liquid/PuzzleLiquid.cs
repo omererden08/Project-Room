@@ -12,6 +12,7 @@ public class PuzzleLiquid : MonoBehaviour
     public Tube targetTube;
     public PuzzleManager pm;
     public bool isSolved = false;
+    public bool HoseConnected = false;
 
     void Start()
     {

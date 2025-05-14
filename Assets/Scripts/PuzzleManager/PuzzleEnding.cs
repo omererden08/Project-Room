@@ -5,19 +5,22 @@ using UnityEngine.Events;
 public class PuzzleEnding : MonoBehaviour
 {
     public PuzzleManager[] puzzleManagers;
-    public UnityAction AllPuzzlesSolvedAction;
     void Awake() => puzzleManagers = FindObjectsOfType<PuzzleManager>();
-
-    public void EndCheck()
+    void Start()
     {
-        if(puzzleManagers.All(pm => pm.solved))
+        Debug.Log("Puzzles found: " + puzzleManagers.Length);
+    }
+
+    public bool EndCheck()
+    {
+        if (puzzleManagers.All(pm => pm.solved))
         {
-            EndGame();
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 
-    public void EndGame()
-    {
-        AllPuzzlesSolvedAction.Invoke();
-    }
 }

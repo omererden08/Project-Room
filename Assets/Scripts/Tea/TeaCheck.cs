@@ -14,7 +14,6 @@ public class TeaCheck : IInteractable
     void Start()
     {
         teaAnimation = FindAnyObjectByType<TeaAnimation>();
-        Debug.Log("here>>>>>>>>>>>>>>>>>>>>>>>>>>>");
         EvntManager.StartListening("SetToken", SetToken);
         EvntManager.StartListening("SetTea", SetTea);
         teaSlot = FindAnyObjectByType<TeaSlot>();
@@ -39,6 +38,7 @@ public class TeaCheck : IInteractable
         transform.position = firstPosition.position;
         isToken = false;
         tL.canLeverPull = true; // Lever tekrar kullanılabilir
+        inSlot = true;
         token.SetActive(false);
         Debug.Log("SetTea çağrıldı. canLeverPull: " + tL.canLeverPull);
     }
