@@ -10,8 +10,8 @@ public class FadeManager : MonoBehaviour
     [SerializeField] private CanvasGroup blackFadeGroup;
     [SerializeField] private CanvasGroup whiteFadeGroup;
     [SerializeField] private float blackFadeDuration;
-    [SerializeField] private float whiteFadeDuration; 
-
+    [SerializeField] private float whiteFadeDuration;
+    [SerializeField] private float delayTime;
 
     private void Awake()
     {
@@ -57,14 +57,19 @@ public class FadeManager : MonoBehaviour
     {
         gameObject.SetActive(true);
 
-        blackFadeGroup.DOFade(1, blackFadeDuration).SetUpdate(true).OnComplete(() =>
-        {
-            // Sahneyi yüklüyoruz, sonra bekleyip açacağız
-            SceneManager.LoadScene(sceneName);
+        float delayBeforeFade = delayTime; // Örneğin 0.5 saniye gecikme
 
-            StartCoroutine(FadeInAfterDelay(blackFadeGroup, blackFadeDuration));
-        });
+        // Delay’den sonra fade başlasın
+        DOVirtual.DelayedCall(delayBeforeFade, () =>
+        {
+            blackFadeGroup.DOFade(1, blackFadeDuration).SetUpdate(true).OnComplete(() =>
+            {
+                SceneManager.LoadScene(sceneName);
+                StartCoroutine(FadeInAfterDelay(blackFadeGroup, blackFadeDuration));
+            });
+        }).SetUpdate(true);
     }
+
     public void FadeWhite(string sceneName)
     {
         gameObject.SetActive(true);
