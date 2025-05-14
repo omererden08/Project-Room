@@ -22,6 +22,7 @@ public class Countdown : MonoBehaviour
     private float targetX = 0f;
     private Quaternion targetRotation;
     [SerializeField] private bool isPaused = false; // Oyun duraklatıldı mı? 
+    public bool isStarted = false; // Oyun başladı mı?
 
     private int[] maxValues = new int[4] { 9, 9, 5, 9 };
 
@@ -44,30 +45,40 @@ public class Countdown : MonoBehaviour
         values[3] = 9;
 
         EvntManager.StartListening("pauseTimer", OnPause); // Oyun duraklatma olayını dinle
+        EvntManager.StartListening("startTimer", StartCountdown); // Oyun başlama olayını dinle
+
     }
 
     void Update()
     {
         if (isPaused) return; // Oyun duraklatıldıysa güncellemeleri atla
 
-        for (int i = 0; i < 4; i++)
+        if (isStarted)
         {
-            digits[i].localRotation = Quaternion.Slerp(
-                digits[i].localRotation,
-                targetRotations[i],
-                Time.deltaTime * rotationSpeed
-            );
-        }
+            for (int i = 0; i < 4; i++)
+            {
+                digits[i].localRotation = Quaternion.Slerp(
+                    digits[i].localRotation,
+                    targetRotations[i],
+                    Time.deltaTime * rotationSpeed
+                );
+            }
 
-        timer += Time.deltaTime;
-        if (timer >= 1f)
-        {
-            timer = 0f;
-            Tick();
+            timer += Time.deltaTime;
+            if (timer >= 1f)
+            {
+                timer = 0f;
+                Tick();
+            }
+            RotateGear();
         }
-        RotateGear();
-
     }
+
+    void StartCountdown()
+    {
+        isStarted = true;
+    }
+
 
     void OnPause()
     {
