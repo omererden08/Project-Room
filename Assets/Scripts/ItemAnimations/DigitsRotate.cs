@@ -104,7 +104,7 @@ public class DigitsRotate : MonoBehaviour
             if (Mathf.Abs(Mathf.DeltaAngle(angle, correctAngles[i])) > tolerance)
             {
                 Debug.Log("Password is incorrect.");
-                return;
+                
             }
         }
 
