@@ -84,7 +84,7 @@ public class PuzzleLiquid : MonoBehaviour
         target.currentLitre += transferAmount;
 
         Debug.Log($"Transferred {transferAmount}L from {chosen.name} ({chosen.currentLitre}L left) to {target.name} ({target.currentLitre}L now)");
-
+        EvntManager.TriggerEvent("ResetToggle");
         return true;
     }
 
@@ -92,6 +92,7 @@ public class PuzzleLiquid : MonoBehaviour
     public void SetChosen(Tube ch)
     {
         chosenTube = ch;
+
         Debug.Log(chosenTube != null ? $"Chosen tube set: {chosenTube.name}" : "Chosen tube cleared");
     }
 
