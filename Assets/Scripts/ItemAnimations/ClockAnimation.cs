@@ -24,6 +24,7 @@ public class ClockAnimation : IInteractable
 
     private void Start()
     {
+        bomb = FindAnyObjectByType<Bomb>();
         outline = GetComponent<Outline3D>();
         outline.enabled = false;
         tL = FindAnyObjectByType<TeaLever>();
@@ -33,7 +34,7 @@ public class ClockAnimation : IInteractable
 
     public override void Interact()
     {
-        if (!isRotating)
+        if (!isRotating && bomb.isBoombReady)
         {
             StartCoroutine(RotateValveAndClock());
         }
