@@ -2260,7 +2260,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tea
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 471720371350776329, guid: c7dbd75e420f60c41a54f197a383670f, type: 3}
     m_RemovedGameObjects:
     - {fileID: 1441347654694109860, guid: c7dbd75e420f60c41a54f197a383670f, type: 3}
     m_AddedGameObjects:
@@ -2274,6 +2275,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3169612181248590295, guid: c7dbd75e420f60c41a54f197a383670f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6118479545086040593}
+    - targetCorrespondingSourceObject: {fileID: 3169612181248590295, guid: c7dbd75e420f60c41a54f197a383670f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4735049204630239036}
   m_SourcePrefab: {fileID: 100100000, guid: c7dbd75e420f60c41a54f197a383670f, type: 3}
 --- !u!4 &6298961995540910942 stripped
 Transform:
@@ -2320,6 +2324,28 @@ MonoBehaviour:
     sceneObjects:
     - {fileID: 7953823222219487641}
   inPuzzleMode: 0
+--- !u!64 &4735049204630239036
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7953823222219487641}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 7965660181126641760, guid: 4916e8a4003e75f42b9ef020b5010bfc, type: 3}
 --- !u!114 &7996708759833460650 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3127491932718581732, guid: c7dbd75e420f60c41a54f197a383670f, type: 3}

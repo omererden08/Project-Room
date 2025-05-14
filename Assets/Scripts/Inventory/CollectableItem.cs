@@ -29,7 +29,7 @@ public class CollectableItem : IInteractable
         if (added)
         {
             gameObject.SetActive(false);
-            EvntManager.TriggerEvent("subID", "selamlama");
+            Debug.Log("Nesne alındı: " + item.itemName);
         }
         else
         {

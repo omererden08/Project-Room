@@ -74,6 +74,11 @@ public class TeaAnimation : MonoBehaviour
         top.SetActive(false);
         canDrinkable = false;
     }
+
+    public void TokenTakenEnd()
+    {
+        
+    }
     public IEnumerator ChockMovement(float seconds)
     {
         while (true)

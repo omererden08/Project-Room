@@ -3908,18 +3908,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2011374492752148164, guid: 759105d1f6d9e284c9afb20764861104, type: 3}
-      propertyPath: bomb
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 2640765561127370037, guid: 759105d1f6d9e284c9afb20764861104, type: 3}
-      propertyPath: bomb
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6118479545086040593, guid: 759105d1f6d9e284c9afb20764861104, type: 3}
-      propertyPath: bomb
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 6827258801151771675, guid: 759105d1f6d9e284c9afb20764861104, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.374
@@ -4126,7 +4114,15 @@ PrefabInstance:
     - target: {fileID: 7823968385994152508, guid: 01484bdd72fb4fe47bd2b530573d8867, type: 3}
       propertyPath: bomb
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 691893001}
+    - target: {fileID: 7823968385994152508, guid: 01484bdd72fb4fe47bd2b530573d8867, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 1953544751}
+    - target: {fileID: 7823968385994152508, guid: 01484bdd72fb4fe47bd2b530573d8867, type: 3}
+      propertyPath: Inventory
+      value: 
+      objectReference: {fileID: 1415302904}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -6191,6 +6187,11 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.04521454, y: 0.025961649, z: 0.002256041}
   m_Center: {x: 0.00075671985, y: -0.010015529, z: 0.000016996662}
+--- !u!95 &1953544751 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 6985129816350224474, guid: 01484bdd72fb4fe47bd2b530573d8867, type: 3}
+  m_PrefabInstance: {fileID: 1341121955}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1995513245
 GameObject:
   m_ObjectHideFlags: 0
