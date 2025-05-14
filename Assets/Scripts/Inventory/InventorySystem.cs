@@ -65,6 +65,7 @@ public class InventorySystem : MonoBehaviour
                     if (obj != null && !existingItem.sceneObjects.Contains(obj))
                     {
                         existingItem.sceneObjects.Add(item.sceneObjects[0]);
+                        existingItem.quantity++;
                     }
                 }
             }
