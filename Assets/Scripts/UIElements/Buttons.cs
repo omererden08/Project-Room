@@ -7,9 +7,14 @@ public class Buttons : MonoBehaviour
     [SerializeField] private Transform target;
     [SerializeField] private GameObject gear1;
     [SerializeField] private GameObject gear2;
+    [SerializeField] private GameObject door;
+    private Animator gear1Animator;
+    private Animator gear2Animator;
     private Vector3 initialPos;
     private bool isMoving = false;
     [SerializeField] private float moveDuration;
+
+    private bool isHovered;
 
     public enum ButtonType
     {
@@ -27,6 +32,8 @@ public class Buttons : MonoBehaviour
         {
             target = transform.GetChild(0);
         }
+        gear1Animator = gear1.GetComponent<Animator>();
+        gear2Animator = gear2.GetComponent<Animator>();
     }
 
 
@@ -35,29 +42,56 @@ public class Buttons : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
-            // Hover kontrolü
             if (hit.transform == this.transform)
             {
-                switch (buttonType)
+                if (!isHovered)
                 {
-                    case ButtonType.Start:
-                        FadeManager.Instance.FadeBlack("Gameplay 2");
-                        break;
+                    isHovered = true;
 
-                    case ButtonType.Quit:
-                        FadeManager.Instance.Quit();
-                        break;
+                    switch (buttonType)
+                    {
+                        case ButtonType.Start:
+                            gear1Animator.SetBool("start", true);
+                            gear2Animator.SetBool("quit", false);
+                            break;
+
+                        case ButtonType.Quit:
+                            gear2Animator.SetBool("quit", true);
+                            gear1Animator.SetBool("start", false);
+                            break;
+                    }
+
+                    Debug.Log("Hover baþladý");
                 }
 
-                Debug.Log("Mouse, button Object'in üzerinde.");
-
-                // Týklama kontrolü
                 if (Input.GetMouseButtonDown(0) && !isMoving)
                 {
                     OnButtonPressed();
                 }
             }
+            else
+            {
+                if (isHovered)
+                {
+                    isHovered = false;
+                    ResetAnimatorStates();
+                }
+            }
         }
+        else
+        {
+            if (isHovered)
+            {
+                isHovered = false;
+                ResetAnimatorStates();
+            }
+        }
+    }
+
+    private void ResetAnimatorStates()
+    {
+        gear1Animator.SetBool("start", false);
+        gear2Animator.SetBool("quit", false);
     }
 
     private void OnButtonPressed()
@@ -70,6 +104,7 @@ public class Buttons : MonoBehaviour
         switch (buttonType)
         {
             case ButtonType.Start:
+                door.GetComponent<Animator>().SetTrigger("Door_Unlock_All");
                 FadeManager.Instance.FadeBlack("Gameplay 2");
                 break;
 
@@ -115,5 +150,9 @@ public class Buttons : MonoBehaviour
 
         isMoving = false;
     }
+
+    
+
+
 
 }

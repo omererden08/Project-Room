@@ -5,10 +5,12 @@ public class Credits : MonoBehaviour
 {
     [SerializeField] private float rotationDuration = 0.5f;
     [SerializeField] private GameObject creditsObject; // Bu collider içeren obje
+    [SerializeField] private GameObject creditsGears;
+    private Animator gears;
     private bool isRotating = false;
     private bool isOpen = false;
+    private bool isHovered = false;
 
-    
     private void Start()
     {
         if (creditsObject == null)
@@ -16,7 +18,7 @@ public class Credits : MonoBehaviour
             Debug.LogError("Credits object is not assigned in the inspector.");
             return;
         }
-
+        gears = creditsGears.GetComponent<Animator>();
         // Bu scriptin baðlý olduðu objeyi baþlangýç rotasyonuna getiriyoruz
         transform.localRotation = Quaternion.Euler(90, 0, 90);
     }
@@ -29,13 +31,24 @@ public class Credits : MonoBehaviour
             // Hover kontrolü
             if (hit.transform == creditsObject.transform)
             {
-                Debug.Log("Mouse, Credits Object'in üzerinde.");
-
-                // Týklama kontrolü
-                if (Input.GetMouseButtonDown(0) && !isRotating)
+                isHovered = true; // Mouse bu objenin üzerinde
+                if (isHovered)
                 {
-                    StartCoroutine(RotateCredits(!isOpen));
+                    gears.SetTrigger("panel");  //trigger bitmiyor ciksa bile 
+
+                    Debug.Log("Mouse, Credits Object'in üzerinde.");
+
+                    // Týklama kontrolü
+                    if (Input.GetMouseButtonDown(0) && !isRotating)
+                    {
+                        StartCoroutine(RotateCredits(!isOpen));
+                    }
                 }
+                
+            }
+            else
+            {
+                isHovered = false; // Mouse baþka bir objeye geçti
             }
         }
     }
