@@ -35,6 +35,7 @@ public class PlayerMovementController : MonoBehaviour
 
     private void Awake()
     {
+        audioSource = GetComponent<AudioSource>();
         controller = GetComponent<CharacterController>();
         inputHandler = GetComponent<PlayerInputHandler>();
 
@@ -71,6 +72,7 @@ public class PlayerMovementController : MonoBehaviour
 
     private void HandleMovement()
     {
+
         isGrounded = controller.isGrounded;
         if (isGrounded && velocity.y < 0)
         {

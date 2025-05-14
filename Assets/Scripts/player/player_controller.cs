@@ -10,9 +10,14 @@ public class PlayerController : MonoBehaviour
     private PlayerMovementController movementController;
     private InteractionSystem interactionSystem;
 
-    
+    [Header("Sounds")]
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip[] walkSound;
+
     [SerializeField] private Transform dropPosition;
-    
+
+    Vector3 lastPosition;
+    bool isMoving;
     // Pause state
     private bool _isPaused = false;
     public bool IsPaused
@@ -42,20 +47,25 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         // Get required components
+        audioSource = GetComponent<AudioSource>();
         inputHandler = GetComponent<PlayerInputHandler>();
         movementController = GetComponent<PlayerMovementController>();
         interactionSystem = GetComponent<InteractionSystem>();
+        lastPosition = transform.position;
 
-        
+
         // Set drop position if not assigned
         if (dropPosition == null)
         {
             dropPosition = transform;
         }
     }
-    
 
-    
+    private void Update()
+    {
+        HandleSound();
+    }
+
     private void HandleInteract()
     {
         if (interactionSystem != null)
@@ -63,9 +73,43 @@ public class PlayerController : MonoBehaviour
             interactionSystem.InteractWithCurrent();
         }
     }
-    
 
-    
+    void HandleSound()
+    {
+        float distanceMoved = Vector3.Distance(transform.position, lastPosition);
+
+        // Eðer hareket ediyorsa
+        if (distanceMoved > 0.01f)
+        {
+            if (!isMoving)
+            {
+                isMoving = true;
+
+                if (audioSource != null && walkSound.Length > 0)
+                {
+                    int randomIndex = UnityEngine.Random.Range(0, walkSound.Length);
+                    audioSource.clip = walkSound[randomIndex];
+                    audioSource.loop = true;
+                    audioSource.Play();
+                }
+            }
+        }
+        else
+        {
+            if (isMoving)
+            {
+                isMoving = false;
+
+                if (audioSource != null)
+                {
+                    audioSource.Stop();
+                }
+            }
+        }
+
+        lastPosition = transform.position;
+    }
+
 
     // Public methods to pause/resume the controller
     public void PauseController()
