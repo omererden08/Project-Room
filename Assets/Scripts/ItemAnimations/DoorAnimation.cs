@@ -49,13 +49,41 @@ public class DoorAnimation : IInteractable
                 tokenTaken++;
 
             }
-            else
-            {
-                animator.SetTrigger("Door_Unlock_All");
-                doorCollider.enabled = false;
-                GameEnding();
-            }
 
+
+            switch (tokenTaken)
+            {
+                case 0:
+                    Inventory.RemoveItem("Token", 1);
+                    EvntManager.TriggerEvent("Door_Unlock_1");
+                    tokenTaken++;
+
+                    break;
+                case 1:
+                    Inventory.RemoveItem("Token", 1);
+                    EvntManager.TriggerEvent("Door_Unlock_2");
+                    tokenTaken++;
+
+
+                    break;
+                case 2:
+                    Inventory.RemoveItem("Token", 1);
+                    EvntManager.TriggerEvent("Door_Unlock_3");
+                    tokenTaken++;
+
+                    break;
+                case 3:
+                    Inventory.RemoveItem("Token", 1);
+                    EvntManager.TriggerEvent("Door_Unlock_4");
+                    tokenTaken++;
+
+                    break;
+                case 4:
+                    animator.SetTrigger("Door_Unlock_All");
+                    doorCollider.enabled = false;
+                    GameEnding();
+                    break;
+            }
         }
         base.Interact();
     }
