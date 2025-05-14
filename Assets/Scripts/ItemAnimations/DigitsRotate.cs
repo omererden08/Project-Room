@@ -10,7 +10,7 @@ public class DigitsRotate : MonoBehaviour
     [SerializeField] private List<Transform> digits = new List<Transform>();
 
     [Header("Sounds")]
-    public AudioClip Locked;
+    //public AudioClip Locked;
 
 
 
@@ -59,7 +59,7 @@ public class DigitsRotate : MonoBehaviour
                         return;
                     }
                     StartCoroutine(RotateSingleDigit(hitTransform, rotationDuration));
-                    AudioManager.Instance.audioSource.PlayOneShot(Locked);
+                    //AudioManager.Instance.audioSource.PlayOneShot(Locked);
                 }
             }
         }
