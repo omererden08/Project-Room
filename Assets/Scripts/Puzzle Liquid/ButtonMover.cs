@@ -28,7 +28,6 @@ public class ButtonMover : MonoBehaviour
     void Start()
     {
         EvntManager.StartListening("ResetToggle", ResetToggle);
-        ResetToggle();
         initialPos = transform.position;
 
         if (targetPos == null && transform.childCount > 0)
