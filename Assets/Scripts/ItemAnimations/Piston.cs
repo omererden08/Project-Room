@@ -4,7 +4,7 @@ using DG.Tweening;
 
 public class Piston : MonoBehaviour
 {
-
+    
     [SerializeField] private GameObject indicatorObject;
     public InventorySystem invSystem;
     private Animator indicatorAnimator;
@@ -21,6 +21,7 @@ public class Piston : MonoBehaviour
     public Color colorGreen;
     public GameObject hose;
     public bool canInteract;
+    private PuzzleLiquid puzzleLiquid;
 
     [SerializeField] private float cooldown;
     //eklenince ışık yeşil
@@ -28,7 +29,8 @@ public class Piston : MonoBehaviour
     void Start()
     {
         canInteract = true;
-
+        hose.SetActive(false);
+        puzzleLiquid = FindAnyObjectByType<PuzzleLiquid>();
         if (ChargedSteamCore == null)
         {
             Debug.Log("ChargedSteamcore is null");
@@ -45,27 +47,7 @@ public class Piston : MonoBehaviour
         hose.SetActive(false);
 
     }
-    /*
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space) && !isOpen)
-        {
-            StartCoroutine(StartPistonAnim());
-            //taktığında çalışacak animasyon
 
-            indicatorAnimator.SetBool("isOpen", true);
-            isOpen = true;
-        }
-
-        if (Input.GetKeyDown(KeyCode.E) && isOpen)
-        {
-            StartCoroutine(StopPistonAnim());
-            //çıkardığında çalışacak animator 
-            indicatorAnimator.SetBool("isOpen", false);
-            isOpen = false;
-        }
-    }
-    */
     public void OnMouseDown()
     {
 
@@ -98,6 +80,7 @@ public class Piston : MonoBehaviour
         }
         if (invSystem.ChosenItem("HoseClosed"))
         {
+            puzzleLiquid.HoseConnected=true;
             hose.SetActive(true);
             invSystem.RemoveItem("HoseClosed", 1);
         }

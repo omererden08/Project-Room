@@ -39,6 +39,7 @@ public class Bomb : MonoBehaviour
             elapsedTime += Time.deltaTime;
             yield return null;
         }
+        //saat başlatan event
         isBoombReady = true;
         transform.position = end;
         isMoving = false;

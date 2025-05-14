@@ -56,14 +56,15 @@ public class InventorySystem : MonoBehaviour
         Item existingItem = items.Find(i => i.itemName == item.itemName);
         if (existingItem != null)
         {
-            existingItem.quantity++;
+            if (existingItem.quantity < 1)
+                existingItem.quantity++;
             if (item.sceneObjects != null && item.sceneObjects.Count > 0)
             {
                 foreach (var obj in item.sceneObjects)
                 {
                     if (obj != null && !existingItem.sceneObjects.Contains(obj))
                     {
-                        existingItem.sceneObjects.Add(obj);
+                        existingItem.sceneObjects.Add(item.sceneObjects[0]);
                     }
                 }
             }
@@ -109,7 +110,8 @@ public class InventorySystem : MonoBehaviour
             {
                 if (existingItem.sceneObjects != null)
                 {
-                    existingItem.sceneObjects.Clear();
+                    //existingItem.sceneObjects.Clear();
+                    //buradad siliyor
                 }
                 items.Remove(existingItem);
 

@@ -42,6 +42,7 @@ public class PuzzleManager : IInteractable
     public string[] AcceptedItems;
 
     public bool isGearPuzzle = false;
+    public bool isLiquidPuzzle = false;
     public void Start()
     {
 
@@ -101,7 +102,22 @@ public class PuzzleManager : IInteractable
             return;
         }
         if (!inPuzzleMode && CanSolvable)
-            StartPuzzle();
+        {
+            if (isLiquidPuzzle)
+            {
+                if (FindAnyObjectByType<PuzzleLiquid>().HoseConnected)
+                {
+                    StartPuzzle();
+                }
+                else
+                {
+                    EvntManager.TriggerEvent("subID", "GNRL_INTER");
+                }
+            }
+            else
+                StartPuzzle();
+
+        }
         else
             ExitPuzzle();
     }

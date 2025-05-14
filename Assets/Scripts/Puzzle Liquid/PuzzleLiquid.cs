@@ -16,6 +16,7 @@ public class PuzzleLiquid : MonoBehaviour
 
     void Start()
     {
+        HoseConnected = false;
         pm=GetComponentInParent<PuzzleManager>();
         EvntManager.StartListening("CheckLevelLiq",CheckLevelLiq);
         // Initialize tubes array by finding all Tube components in the scene
