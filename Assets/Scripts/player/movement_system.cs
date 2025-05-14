@@ -17,6 +17,7 @@ public class PlayerMovementController : MonoBehaviour
     [SerializeField] private float mouseSensitivity = 100f;
 
 
+    [SerializeField] private AudioSource audioSource;
     // Internal movement variables
     private Vector3 velocity;
     private float xRotation = 0f;
@@ -35,6 +36,7 @@ public class PlayerMovementController : MonoBehaviour
 
     private void Awake()
     {
+        audioSource = GetComponent<AudioSource>();
         controller = GetComponent<CharacterController>();
         inputHandler = GetComponent<PlayerInputHandler>();
 
@@ -71,6 +73,7 @@ public class PlayerMovementController : MonoBehaviour
 
     private void HandleMovement()
     {
+
         isGrounded = controller.isGrounded;
         if (isGrounded && velocity.y < 0)
         {
