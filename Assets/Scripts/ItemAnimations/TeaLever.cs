@@ -33,6 +33,16 @@ public class TeaLever : IInteractable
     public TeaCheck teaCheck;
     public TeaAnimation teaAnimation;
     private TeaSlot teaSlot;
+
+    public AudioClip Locked;
+    public AudioClip Pulling;
+    public AudioClip Machine;
+    public AudioClip CupDrop;
+    public AudioClip TeaReady;
+
+
+
+
     private void Start()
     {
         outline = GetComponent<Outline3D>();
@@ -83,6 +93,7 @@ public class TeaLever : IInteractable
     private IEnumerator PullingLever(bool down)
     {
         isRotating = true;
+        AudioManager.Instance.audioSource.PlayOneShot(Pulling);
         lightAnim.SetTrigger("Play");
         Quaternion startRot = transform.localRotation;
         Quaternion endRot = Quaternion.Euler(down ? -113f : -68f, -63f, 90f);
@@ -103,7 +114,7 @@ public class TeaLever : IInteractable
     private IEnumerator TryPulling()
     {
         isRotating = true;
-
+        AudioManager.Instance.audioSource.PlayOneShot(Locked);
         Quaternion startRot = transform.localRotation;
         Quaternion endRot = Quaternion.Euler(-108f, -63f, 90f);
 
@@ -140,6 +151,7 @@ public class TeaLever : IInteractable
     private IEnumerator WorkingMachine()
     {
         isRotating = true;
+        AudioManager.Instance.audioSource.PlayOneShot(Machine);
         yield return StartCoroutine(PullingLever(false));
         yield return StartCoroutine(IndicatorRoutine(true));
 
@@ -186,6 +198,7 @@ public class TeaLever : IInteractable
             canLeverPull = false;
             inSlot = true;
             isMoving = false;
+            AudioManager.Instance.audioSource.PlayOneShot(CupDrop);
             Debug.Log("abugat düştü");
         });
 

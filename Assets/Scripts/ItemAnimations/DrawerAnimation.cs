@@ -12,6 +12,10 @@ public class DrawerAnimation : IInteractable
     [Header("Interaction")]
     [SerializeField] private LayerMask interactLayer;
 
+    [Header("Sounds")]
+    public AudioClip Locked;
+    public AudioClip Opened;
+    public AudioClip Unlocked;
     private Vector3 initialPos;
     [SerializeField] private bool isMoving = false;
     private bool isOpen = false;
@@ -53,6 +57,7 @@ public class DrawerAnimation : IInteractable
         {
             if (isLocked)
             {
+                AudioManager.Instance.audioSource.PlayOneShot(Locked);
                 Debug.Log("�ekmece kilitli, anahtar gerekiyor!");
                 if (inventory.ChosenItem("KeyDrawer"))
                 {
@@ -68,12 +73,14 @@ public class DrawerAnimation : IInteractable
             {
                 isMoving = true;
                 StartCoroutine(OpenLockedSequence());
+                AudioManager.Instance.audioSource.PlayOneShot(Unlocked);
                 drawerType = DrawerType.Normal; // Kilit a��ld�ktan sonra normal �ekmeceye ge�
             }
         }
         else
         {
             isMoving = true;
+            AudioManager.Instance.audioSource.PlayOneShot(Opened);
             ToggleDrawer(moveDuration); // normal �ekmece
 
         }

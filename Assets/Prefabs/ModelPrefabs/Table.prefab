@@ -48,7 +48,7 @@ GameObject:
   - component: {fileID: 3037183776229915659}
   - component: {fileID: 6637869506840854409}
   - component: {fileID: 2593985327188724685}
-  m_Layer: 3
+  m_Layer: 6
   m_Name: Key_Hole
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -181,15 +181,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4cba1db89ac8cf45b9dfa91950c63e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  outline: {fileID: 6637869506840854409}
-  OutlineOki: 0
-  targetPos: {fileID: 5001256735676253507}
-  keyObject: {fileID: 3175341999304240383}
+  outline: {fileID: 0}
+  targetPos: {fileID: 0}
+  keyObject: {fileID: 0}
   interactLayer:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 0
+  Locked: {fileID: 0}
+  Opened: {fileID: 0}
+  Unlocked: {fileID: 0}
   isMoving: 0
-  drawerType: 1
+  drawerType: 0
 --- !u!1 &3175341999304240383
 GameObject:
   m_ObjectHideFlags: 0
@@ -426,12 +428,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outline: {fileID: 0}
-  OutlineOki: 0
   targetPos: {fileID: 0}
   keyObject: {fileID: 0}
   interactLayer:
     serializedVersion: 2
     m_Bits: 0
+  Locked: {fileID: 0}
+  Opened: {fileID: 0}
+  Unlocked: {fileID: 0}
   isMoving: 0
   drawerType: 0
 --- !u!114 &8954634624026528447
