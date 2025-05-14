@@ -116,9 +116,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4daa552cd91b2a439bffc35a529b261, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blackFadeGroup: {fileID: 0}
-  whiteFadeGroup: {fileID: 0}
-  fadeDuration: 1
+  blackFadeGroup: {fileID: 9061949543141965377}
+  whiteFadeGroup: {fileID: 1935635043478574412}
+  blackFadeDuration: 1
+  whiteFadeDuration: 3
+  delayTime: 1.5
 --- !u!1 &5278137583845418134
 GameObject:
   m_ObjectHideFlags: 0
@@ -132,7 +134,7 @@ GameObject:
   - component: {fileID: 7702167826480419298}
   - component: {fileID: 1935635043478574412}
   m_Layer: 5
-  m_Name: EndImage
+  m_Name: WhiteImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -220,7 +222,7 @@ GameObject:
   - component: {fileID: 1358054029906407793}
   - component: {fileID: 9061949543141965377}
   m_Layer: 5
-  m_Name: FadeImage
+  m_Name: BlackImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

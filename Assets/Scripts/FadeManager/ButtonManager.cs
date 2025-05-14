@@ -16,7 +16,7 @@ public class ButtonManager : MonoBehaviour
     public void StartGame()
     {
         audioSource.Play();
-        FadeManager.Instance.FadeBlack("Gameplay 2");
+        FadeManager.Instance.FadeBlack("Intro");
     }
 
     public void ReturnMenu()

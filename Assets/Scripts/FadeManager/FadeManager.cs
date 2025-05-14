@@ -70,6 +70,34 @@ public class FadeManager : MonoBehaviour
         }).SetUpdate(true);
     }
 
+    public void FadeToNextScene()
+    {
+        gameObject.SetActive(true);
+
+        float delayBeforeFade = delayTime;
+
+        // Şu anki sahnenin index'ini al ve bir sonrakini hedefle
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        int nextSceneIndex = currentSceneIndex + 1;
+
+        // Eğer geçerli bir sahne varsa yükle
+        if (nextSceneIndex < SceneManager.sceneCountInBuildSettings)
+        {
+
+            blackFadeGroup.DOFade(1, blackFadeDuration).SetUpdate(true).OnComplete(() =>
+            {
+                SceneManager.LoadScene(nextSceneIndex);
+                StartCoroutine(FadeInAfterDelay(blackFadeGroup, blackFadeDuration));
+            }
+        ).SetUpdate(true);
+        }
+        else
+        {
+            Debug.LogWarning("Next scene index exceeds the total scenes in Build Settings.");
+        }
+    }
+
+
     public void FadeWhite(string sceneName)
     {
         gameObject.SetActive(true);

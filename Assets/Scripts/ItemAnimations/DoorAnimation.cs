@@ -9,6 +9,8 @@ public class DoorAnimation : IInteractable
     public bool isLocked = false;
     public int tokenTaken;
     private Collider doorCollider;
+    public AudioClip bombSound;
+
     void Start()
     {
         Inventory = FindAnyObjectByType<InventorySystem>();
@@ -19,6 +21,8 @@ public class DoorAnimation : IInteractable
 
     public void LockDoor()
     {
+        AudioManager.Instance.audioSource.volume = 0.2f;
+        AudioManager.Instance.audioSource.PlayOneShot(bombSound);
         animator.SetTrigger("Door_Lock");
         EvntManager.TriggerEvent("BombUpStart");
         isLocked = true;

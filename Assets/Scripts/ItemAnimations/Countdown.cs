@@ -23,6 +23,7 @@ public class Countdown : MonoBehaviour
     private Quaternion targetRotation;
     [SerializeField] private bool isPaused = false; // Oyun duraklatıldı mı? 
     public bool isStarted = false; // Oyun başladı mı?
+    public AudioClip bombSound;
 
     private int[] maxValues = new int[4] { 9, 9, 5, 9 };
 
@@ -162,6 +163,8 @@ public class Countdown : MonoBehaviour
 
     void GameEnding()
     {
+        AudioManager.Instance.audioSource.volume = 0.3f;
+        AudioManager.Instance.audioSource.PlayOneShot(bombSound); 
         FadeManager.Instance.BlackScene("MainMenu");
     }
 

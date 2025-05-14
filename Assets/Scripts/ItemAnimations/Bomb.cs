@@ -24,6 +24,7 @@ public class Bomb : MonoBehaviour
     private void BombUp()
     {
         colliderBomb.enabled = true;
+
         StartCoroutine(Move(moveDuration));
     }
     private IEnumerator Move(float duration)
