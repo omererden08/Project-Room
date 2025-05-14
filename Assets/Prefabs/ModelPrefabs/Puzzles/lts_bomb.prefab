@@ -230,6 +230,7 @@ Transform:
   - {fileID: 3989133795359655570}
   - {fileID: 5969318376321289386}
   - {fileID: 5167202268719459982}
+  - {fileID: 9044747873809329017}
   - {fileID: 8260975356457797358}
   - {fileID: 3686892094589402141}
   - {fileID: 3221985461236959659}
@@ -3575,8 +3576,7 @@ Transform:
   m_LocalPosition: {x: -0.954, y: 1.8952, z: 0.631}
   m_LocalScale: {x: 0.4218422, y: 1.9665, z: 1.5125}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 9044747873809329017}
+  m_Children: []
   m_Father: {fileID: 8631730334076183749}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &2579273333784640346
@@ -3676,11 +3676,11 @@ Transform:
   m_GameObject: {fileID: 4699544898301591550}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.136544, y: 0.3018561, z: -0.2620165}
-  m_LocalScale: {x: 2.3705547, y: 0.5085177, z: 0.661157}
+  m_LocalPosition: {x: -0.8964, y: 2.4888, z: 0.2347}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8260975356457797358}
+  m_Father: {fileID: 8631730334076183749}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &2701761369741468408
 BoxCollider:
@@ -3718,7 +3718,7 @@ MonoBehaviour:
   ball: {fileID: 8206113498702995216}
   targetScale: {x: 0.5, y: 0.5, z: 0.5}
   scaleSpeed: 5
-  puzzleManager: {fileID: 0}
+  puzzleManager: {fileID: 2532486136470690565}
 --- !u!1 &4806871605703028519
 GameObject:
   m_ObjectHideFlags: 0
