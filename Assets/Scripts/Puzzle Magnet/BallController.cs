@@ -125,6 +125,7 @@ public class BallController : MonoBehaviour
 
     void Move(int directionIndex)
     {
+
         if (directionIndex < 0 || directionIndex >= directions.Length || magnet[directionIndex] == null)
         {
             Debug.LogWarning("Invalid direction index or no magnet assigned.");
