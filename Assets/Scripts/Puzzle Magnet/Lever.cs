@@ -4,40 +4,30 @@ using System.Collections;
 public class Lever : MonoBehaviour
 {
     private Quaternion targetRotation;
-    private Vector3 targetPosition;
     private Quaternion initialRotation;
-    private Vector3 initialPosition;
-    public bool isOpen = false;
+    [SerializeField] private Outline3D outline; // Outline bileşenini referans al
 
     [SerializeField] private float moveDuration;
-    [SerializeField] private Transform leverSwitch;
-    [Tooltip("Dogru olmasina diggat et")]
-    public PuzzleManager puzzleManager;
+    
+    public bool isOpen = false;
     public bool isClicked = false;
     private bool isMoving = false;
 
-    private void Start()
+    void Start()
     {
-        puzzleManager = GetComponentInParent<PuzzleManager>();
-        foreach (Transform child in transform)
-        {
-            if (child.CompareTag("LeverSwitch"))
-            {
-                leverSwitch = child;
-                break;
-            }
-        }
+        outline = GetComponent<Outline3D>();
+        outline.enabled = false; // Başlangıçta outline'ı gizle
+        // Başlangıçta localRotation.z = -20 dereceye ayarla
+        initialRotation = Quaternion.Euler(0f, 0f, -20f);
+        targetRotation = Quaternion.Euler(0f, 0f, 20f);
 
-        initialRotation = leverSwitch.localRotation;
-        initialPosition = leverSwitch.localPosition;
-
-        targetRotation = Quaternion.Euler(0, 0, 35);
-        targetPosition = initialPosition + Vector3.up * 3;
+        transform.localRotation = initialRotation;
     }
+
 
     private void Update()
     {
-        if (!isMoving && isClicked && puzzleManager.inPuzzleMode)
+        if (!isMoving && isClicked)
         {
             StartCoroutine(MoveLever(isOpen)); // isOpen'ı tersine çevirmeden doğrudan kullan
             isClicked = false; // Reset isClicked to prevent multiple clicks
@@ -47,30 +37,26 @@ public class Lever : MonoBehaviour
     private IEnumerator MoveLever(bool open)
     {
         isMoving = true;
-        Vector3 fromPos = leverSwitch.localPosition;
-        Quaternion fromRot = leverSwitch.localRotation;
-
-        Vector3 toPos = open ? targetPosition : initialPosition;
+        Quaternion fromRot = transform.localRotation;
         Quaternion toRot = open ? targetRotation : initialRotation;
 
         float elapsedTime = 0f;
-        float duration = moveDuration > 0 ? moveDuration : 1f; // moveDuration sıfır veya negatifse varsayılan 1 saniye
+        float duration = moveDuration > 0 ? moveDuration : 1f;
 
         while (elapsedTime < duration)
         {
             float t = elapsedTime / duration;
-            leverSwitch.localPosition = Vector3.Lerp(fromPos, toPos, t);
-            leverSwitch.localRotation = Quaternion.Lerp(fromRot, toRot, t);
+            transform.localRotation = Quaternion.Slerp(fromRot, toRot, t);
             elapsedTime += Time.deltaTime;
             yield return null;
         }
 
-        leverSwitch.localPosition = toPos;
-        leverSwitch.localRotation = toRot;
-
+        transform.localRotation = toRot;
         isMoving = false;
         isOpen = open;
+
     }
+
 
     // Dışarıdan isMoving durumunu kontrol etmek için metod
     public bool IsMoving()

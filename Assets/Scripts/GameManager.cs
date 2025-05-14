@@ -8,7 +8,6 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private Volume volume;
     [SerializeField] private GameObject pauseObject;
-
     private DepthOfField dof;
 
     private void Start()
@@ -52,6 +51,7 @@ public class GameManager : MonoBehaviour
         pauseObject.gameObject.SetActive(true);
         EvntManager.TriggerEvent("DisableCh"); // Oyun pause olacak
         EvntManager.TriggerEvent("pause"); // Oyun pause olacak
+        EvntManager.TriggerEvent("pauseTimer"); // Oyun pause olacak
     }
 
     public void ResumeGame()
@@ -60,6 +60,7 @@ public class GameManager : MonoBehaviour
         pauseObject.gameObject.SetActive(false);
         EvntManager.TriggerEvent("EnableCh"); // Oyun pause olacak
         EvntManager.TriggerEvent("pause");
+        EvntManager.TriggerEvent("pauseTimer"); // Oyun pause olacak
     }
 
 

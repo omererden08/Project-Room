@@ -12,7 +12,7 @@ public class BallController : MonoBehaviour
     [SerializeField] private LayerMask hitLayer;
 
     private Lever[] levers = new Lever[3];
-    private readonly Vector3[] directions = { Vector3.right, Vector3.left, Vector3.up };
+    private readonly Vector3[] directions = { Vector3.forward, Vector3.back, Vector3.up };
 
     void Start()
     {
@@ -132,6 +132,13 @@ public class BallController : MonoBehaviour
         }
 
         int appliedForce = (directions[directionIndex] == Vector3.up) ? force[directionIndex] : -force[directionIndex];
-        rb.AddForce(directions[directionIndex] * appliedForce);
+        Vector3 forceDirection = directions[directionIndex];
+        Vector3 finalForce = forceDirection * appliedForce;
+
+        rb.AddForce(finalForce);
+
+        // ✅ Debug Log: Hangi yöne, ne kadar kuvvet uygulandığını yazdır
+        Debug.Log($"Magnet {directionIndex} → Direction: {forceDirection}, Force: {appliedForce}, FinalForce Vector: {finalForce}");
     }
+
 }
