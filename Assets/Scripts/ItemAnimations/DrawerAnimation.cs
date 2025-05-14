@@ -25,7 +25,7 @@ public class DrawerAnimation : IInteractable
 
     [SerializeField] private DrawerType drawerType = DrawerType.Normal;
 
-
+    private InventorySystem inventory;
 
     void Start()
     {
@@ -34,6 +34,7 @@ public class DrawerAnimation : IInteractable
         if (drawerType == DrawerType.Locked)
         {
             keyAnimator = keyObject.GetComponent<Animator>();
+            inventory = FindAnyObjectByType<InventorySystem>();
         }
 
 
@@ -58,6 +59,14 @@ public class DrawerAnimation : IInteractable
             {
                 AudioManager.Instance.audioSource.PlayOneShot(Locked);
                 Debug.Log("�ekmece kilitli, anahtar gerekiyor!");
+                if (inventory.ChosenItem("KeyDrawer"))
+                {
+                    inventory.RemoveItem("KeyDrawer", 1);
+                    isLocked = false;
+                    isMoving = true;
+                    StartCoroutine(OpenLockedSequence());
+                    drawerType = DrawerType.Normal;
+                }
                 return; // Kilitliyse ve a��lmam��sa hi�bir �ey yapma
             }
             else

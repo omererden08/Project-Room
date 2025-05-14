@@ -1,8 +1,10 @@
 using UnityEngine;
 using System.Collections;
-
+using Unity.VisualScripting;
+using System.Linq;
 public class DevreSystem : MonoBehaviour
 {
+    public PuzzleManager puzzleManager;
     public Disk[] disks;
 
     public Disk disk1;
@@ -35,102 +37,54 @@ public class DevreSystem : MonoBehaviour
     {
         Debug.Log($"CalculateSpin called for slot {triggeringSlot.name} with stat: {triggeringSlot.stat}, isActive: {triggeringSlot.isActive()}");
 
-        bool hasL = false;
-        bool hasM = false;
-        bool hasR = false;
+        int disk1Dir = 0, disk2Dir = 0, disk3Dir = 0;
 
-        // Check all slots in coreSlotDisks
-        Debug.Log($"Checking {coreSlotDisks.Length} slots in coreSlotDisks array");
+        // Her aktif slotun katkısını topla
         foreach (var slot in coreSlotDisks)
         {
             if (slot.isActive())
             {
-                Debug.Log($"Active slot found: {slot.name} with stat: {slot.stat}");
+                Debug.Log($"Active slot: {slot.name} with stat: {slot.stat}");
                 switch (slot.stat)
                 {
                     case CoreSlotStat.L:
-                        hasL = true;
+                        disk1Dir += 1; // L: disk1 ve disk2 saat yönü
+                        disk2Dir += 1;
                         break;
                     case CoreSlotStat.M:
-                        hasM = true;
+                        disk1Dir -= 1; // M: hepsi saat tersi
+                        disk2Dir -= 1;
+                        disk3Dir -= 1;
                         break;
                     case CoreSlotStat.R:
-                        hasR = true;
+                        disk2Dir += 1; // R: disk2 ve disk3 saat yönü
+                        disk3Dir += 1;
                         break;
                 }
             }
         }
 
-        Debug.Log($"Slot states - L: {hasL}, M: {hasM}, R: {hasR}");
+        // Yönleri sınırla (-1, 0, +1)
+        disk1Dir = Mathf.Clamp(disk1Dir, -1, 1);
+        disk2Dir = Mathf.Clamp(disk2Dir, -1, 1);
+        disk3Dir = Mathf.Clamp(disk3Dir, -1, 1);
 
-        // Calculate new spin directions
-        int disk1Dir = 0, disk2Dir = 0, disk3Dir = 0;
-        if (hasL && !hasM && !hasR)
-        {
-            Debug.Log("L only: Spinning disk1 (+1), disk2 (+1)");
-            disk1Dir = 1;
-            disk2Dir = 1;
-        }
-        else if (!hasL && hasM && !hasR)
-        {
-            Debug.Log("M only: Spinning disk1 (-1), disk2 (-1), disk3 (-1)");
-            disk1Dir = -1;
-            disk2Dir = -1;
-            disk3Dir = -1;
-        }
-        else if (!hasL && !hasM && hasR)
-        {
-            Debug.Log("R only: Spinning disk2 (+1), disk3 (+1)");
-            disk2Dir = 1;
-            disk3Dir = 1;
-        }
-        else if (hasL && hasM && !hasR)
-        {
-            Debug.Log("L + M: Spinning disk1 (+1), disk2 (-1), disk3 (-1)");
-            disk1Dir = 1;
-            disk2Dir = -1;
-            disk3Dir = -1;
-        }
-        else if (!hasL && hasM && hasR)
-        {
-            Debug.Log("M + R: Spinning disk1 (-1), disk2 (-1), disk3 (+1)");
-            disk1Dir = -1;
-            disk2Dir = -1;
-            disk3Dir = 1;
-        }
-        else if (hasL && !hasM && hasR)
-        {
-            Debug.Log("L + R: Spinning disk1 (+1), disk2 (+1), disk3 (+1)");
-            disk1Dir = 1;
-            disk2Dir = 1;
-            disk3Dir = 1;
-        }
-        else if (hasL && hasM && hasR)
-        {
-            Debug.Log("L + M + R: Spinning disk1 (0), disk2 (0), disk3 (0)");
-            disk1Dir = 0;
-            disk2Dir = 0;
-            disk3Dir = 0;
-        }
-        else
-        {
-            Debug.Log("No slots active: No spinning");
-        }
+        Debug.Log($"Calculated directions - Disk1: {disk1Dir}, Disk2: {disk2Dir}, Disk3: {disk3Dir}");
 
-        // Apply spins only if directions changed
-        if (disk1Dir != lastSpinDirections[0])
+        // Yönleri uygula (null kontrolü ile)
+        if (disk1Dir != lastSpinDirections[0] && disk1 != null)
         {
             disk1.Stop();
             disk1.Spin(disk1Dir);
             lastSpinDirections[0] = disk1Dir;
         }
-        if (disk2Dir != lastSpinDirections[1])
+        if (disk2Dir != lastSpinDirections[1] && disk2 != null)
         {
             disk2.Stop();
             disk2.Spin(disk2Dir);
             lastSpinDirections[1] = disk2Dir;
         }
-        if (disk3Dir != lastSpinDirections[2])
+        if (disk3Dir != lastSpinDirections[2] && disk3 != null)
         {
             disk3.Stop();
             disk3.Spin(disk3Dir);
@@ -140,15 +94,10 @@ public class DevreSystem : MonoBehaviour
 
     public void NotifySlotStateChanged()
     {
-        bool anySlotActive = false;
-        foreach (var slot in coreSlotDisks)
-        {
-            if (slot.isActive())
-            {
-                anySlotActive = true;
-                break;
-            }
-        }
+        var activeSlots = coreSlotDisks.Where(s => s.isActive()).Select(s => $"{s.name} (Stat: {s.stat})").ToList();
+        Debug.Log($"NotifySlotStateChanged: Active slots: {(activeSlots.Count > 0 ? string.Join(", ", activeSlots) : "None")}");
+
+        bool anySlotActive = activeSlots.Count > 0;
 
         if (anySlotActive && !isCheckingWin && !hasWon)
         {
@@ -210,6 +159,7 @@ public class DevreSystem : MonoBehaviour
         if (angle < 0) angle += 360;
         return angle;
     }
+
     void Awake()
     {
         disks = FindObjectsByType<Disk>(FindObjectsSortMode.None);
@@ -228,10 +178,11 @@ public class DevreSystem : MonoBehaviour
                     break;
             }
         }
+        puzzleManager = GetComponent<PuzzleManager>();
     }
+
     public void Start()
     {
-
         if (disk1 == null || disk2 == null || disk3 == null)
         {
             Debug.LogError("One or more disks are not assigned in DevreSystem!", this);
@@ -246,12 +197,12 @@ public class DevreSystem : MonoBehaviour
             }
             else
             {
-                Debug.Log($"Found {coreSlotDisks.Length} CoreSlotDisks: {string.Join(", ", System.Linq.Enumerable.Select(coreSlotDisks, s => s.name))}");
+                Debug.Log($"Found {coreSlotDisks.Length} CoreSlotDisks: {string.Join(", ", coreSlotDisks.Select(s => s.name))}");
             }
         }
         else
         {
-            Debug.Log($"coreSlotDisks contains {coreSlotDisks.Length} slots: {string.Join(", ", System.Linq.Enumerable.Select(coreSlotDisks, s => s.name))}");
+            Debug.Log($"coreSlotDisks contains {coreSlotDisks.Length} slots: {string.Join(", ", coreSlotDisks.Select(s => s.name))}");
         }
         disk1.SetRotation(disk1Direction);
         disk2.SetRotation(disk2Direction);

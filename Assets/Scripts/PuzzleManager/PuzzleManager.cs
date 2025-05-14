@@ -35,17 +35,17 @@ public class PuzzleManager : IInteractable
     public bool CanSolvable;
 
 
-    private bool isGameEnded = false;
     private int counter = 0;
 
     public Collider col;
 
     public string[] AcceptedItems;
-    
-    public bool isGearPuzzle = false;
 
-    private void Start()
+    public bool isGearPuzzle = false;
+    public void Start()
     {
+
+        bomb = FindAnyObjectByType<Bomb>();
         col = GetComponent<Collider>();
         col.enabled = true;
         outline = GetComponent<Outline3D>();
@@ -72,10 +72,7 @@ public class PuzzleManager : IInteractable
         {
             ExitPuzzle();
         }
-        if (isGameEnded)
-        {
-            EndGame();
-        }
+
 
     }
     public bool isAccepted(Item item)
@@ -88,7 +85,6 @@ public class PuzzleManager : IInteractable
     }
     void EndGame()
     {
-        isGameEnded = true;
 
         Debug.Log("Oyun bitti!");
         int nextSceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
@@ -100,7 +96,10 @@ public class PuzzleManager : IInteractable
     public override void Interact()
     {
         base.Interact(); // Temel sınıfın Interact metodunu çağırır
-
+        if (!bomb.isBoombReady)
+        {
+            return;
+        }
         if (!inPuzzleMode && CanSolvable)
             StartPuzzle();
         else
@@ -128,7 +127,7 @@ public class PuzzleManager : IInteractable
         UnityEngine.Vector3 targetPosition = cameraFocusPoint.position +
                                         directionToCamera + cameraDistance +
                                         UnityEngine.Vector3.up;
-        
+
         Sequence cameraSequence = DOTween.Sequence();
         mainCamera.transform.SetParent(null);
 
@@ -167,7 +166,7 @@ public class PuzzleManager : IInteractable
             playerController?.ResumeController();
             inPuzzleMode = false;
             activePuzzleManager = null;
-            col.enabled=true;
+            col.enabled = true;
         });
     }
 
@@ -203,14 +202,10 @@ public class PuzzleManager : IInteractable
         LightMaterial.EnableKeyword("_EMISSION");
         LightMaterial.SetColor("_EmissionColor", Color.green);
         CanSolvable = false;
-        //end control in here
+
         Debug.Log("Puzzle solved!");
-        counter++;
-        if (counter == 2)
-        {
-            isGameEnded = true;
-        }
-        if(isGearPuzzle)
+
+        if (isGearPuzzle)
         {
             LatestGear latestGear = FindAnyObjectByType<LatestGear>();
             latestGear.StartSpin();

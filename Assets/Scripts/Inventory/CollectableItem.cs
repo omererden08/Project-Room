@@ -5,10 +5,19 @@ public class CollectableItem : IInteractable
     public Item item;
     public bool inPuzzleMode = false;
     private bool isPickedUp = false;
+    void Start()
+    {
+        bomb = FindAnyObjectByType<Bomb>();
+        outline = GetComponent<Outline3D>();
+        outline.enabled = false;
+    }
 
     public override void PickUp()
     {
         base.PickUp();
+
+        if (!bomb.isBoombReady)
+            return;
         if (item == null || inPuzzleMode || isPickedUp)
         {
             Debug.LogWarning("PickUp: Geçersiz item, puzzle modu aktif veya nesne zaten alındı");
@@ -32,6 +41,9 @@ public class CollectableItem : IInteractable
     public override void Interact()
     {
         base.Interact();
+
+        if (!bomb.isBoombReady)
+            return;
         if (item == null)
         {
             Debug.LogWarning("Interact: Item null");

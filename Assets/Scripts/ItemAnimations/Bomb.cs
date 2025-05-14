@@ -3,6 +3,7 @@ using System.Collections;
 
 public class Bomb : MonoBehaviour
 {
+    public bool isBoombReady;
     [SerializeField] private float moveDuration;
     private bool isMoving = false;
     private Vector3 initialPos;
@@ -12,6 +13,7 @@ public class Bomb : MonoBehaviour
 
     private void Start()
     {
+        isBoombReady = false;
         initialPos = transform.position;
         lastPos = new Vector3(initialPos.x, y, initialPos.z);
         EvntManager.StartListening("BombUp", BombUp);
@@ -37,7 +39,7 @@ public class Bomb : MonoBehaviour
             elapsedTime += Time.deltaTime;
             yield return null;
         }
-
+        isBoombReady = true;
         transform.position = end;
         isMoving = false;
     }

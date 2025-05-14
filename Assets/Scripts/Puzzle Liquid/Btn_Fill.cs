@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class Btn_Fill : MonoBehaviour
 {
-    public Tube tube;
-    public PuzzleLiquid puzzleLiquid;
+    private Tube tube;
+    private PuzzleLiquid puzzleLiquid;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
