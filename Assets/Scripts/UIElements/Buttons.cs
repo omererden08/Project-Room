@@ -105,7 +105,7 @@ public class Buttons : MonoBehaviour
         {
             case ButtonType.Start:
                 door.GetComponent<Animator>().SetTrigger("Door_Unlock_All");
-                FadeManager.Instance.FadeBlack("Gameplay 2");
+                FadeManager.Instance.FadeBlack("Intro");
                 break;
 
             case ButtonType.Quit:
