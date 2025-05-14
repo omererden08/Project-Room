@@ -35,10 +35,9 @@ public class TeaLever : IInteractable
     private TeaSlot teaSlot;
 
     public AudioClip Locked;
-    public AudioClip Pulling;
+    //public AudioClip Pulling;
     public AudioClip Machine;
     public AudioClip CupDrop;
-    public AudioClip TeaReady;
 
 
 
@@ -93,7 +92,6 @@ public class TeaLever : IInteractable
     private IEnumerator PullingLever(bool down)
     {
         isRotating = true;
-        AudioManager.Instance.audioSource.PlayOneShot(Pulling);
         lightAnim.SetTrigger("Play");
         Quaternion startRot = transform.localRotation;
         Quaternion endRot = Quaternion.Euler(down ? -113f : -68f, -63f, 90f);
