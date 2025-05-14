@@ -1113,7 +1113,10 @@ GameObject:
   - component: {fileID: 3178201876198341858}
   - component: {fileID: 616818323850493860}
   - component: {fileID: 2958756088895113747}
-  m_Layer: 0
+  - component: {fileID: 1986850102094448087}
+  - component: {fileID: 1531007184284889351}
+  - component: {fileID: 2985499310010568778}
+  m_Layer: 3
   m_Name: Lever_Switch_03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1190,6 +1193,61 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &1986850102094448087
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1291648638803827216}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.0013495436, y: 0.00049997197, z: 0.00049905945}
+  m_Center: {x: -0.0027231867, y: 0.000022881437, z: 0.000003924768}
+--- !u!114 &1531007184284889351
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1291648638803827216}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60757196697b35943a33e7737998acdc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outline: {fileID: 2985499310010568778}
+  moveDuration: 0.4
+  isOpen: 0
+  isClicked: 0
+--- !u!114 &2985499310010568778
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1291648638803827216}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5750e36618fcac4594d296814a915c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 2
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1 &1427522096844024613
 GameObject:
   m_ObjectHideFlags: 0
@@ -2279,7 +2337,10 @@ GameObject:
   - component: {fileID: 3214571386394250496}
   - component: {fileID: 1151993383972898978}
   - component: {fileID: 6665424465299836065}
-  m_Layer: 0
+  - component: {fileID: 8218438682082942973}
+  - component: {fileID: 5901238207691413167}
+  - component: {fileID: 6695307354814706439}
+  m_Layer: 3
   m_Name: Lever_Switch_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2356,6 +2417,61 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &8218438682082942973
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3376255556129608872}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.0013495436, y: 0.00049997197, z: 0.00049905945}
+  m_Center: {x: -0.0027231867, y: 0.000022881437, z: 0.000003924768}
+--- !u!114 &5901238207691413167
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3376255556129608872}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60757196697b35943a33e7737998acdc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outline: {fileID: 6695307354814706439}
+  moveDuration: 0.4
+  isOpen: 0
+  isClicked: 0
+--- !u!114 &6695307354814706439
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3376255556129608872}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5750e36618fcac4594d296814a915c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 2
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1 &3643263784351079016
 GameObject:
   m_ObjectHideFlags: 0
@@ -2890,6 +3006,9 @@ GameObject:
   - component: {fileID: 4980593182664004907}
   - component: {fileID: 7959976383016128873}
   - component: {fileID: 863388549298930134}
+  - component: {fileID: 1647822371066179938}
+  - component: {fileID: 1520562264391554427}
+  - component: {fileID: 6681288183433859744}
   m_Layer: 0
   m_Name: Maze_Ball
   m_TagString: Untagged
@@ -2907,7 +3026,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071067}
   m_LocalPosition: {x: -0.9114561, y: 1.6846303, z: 1.0290138}
-  m_LocalScale: {x: 100, y: 100, z: 100}
+  m_LocalScale: {x: 80, y: 80, z: 80}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8477767754534803242}
@@ -2965,6 +3084,75 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!54 &1647822371066179938
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4491772239849621432}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 1
+  m_Constraints: 114
+  m_CollisionDetection: 1
+--- !u!114 &1520562264391554427
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4491772239849621432}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3566bf7c1948c444871d1425a85d78f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  magnet:
+  - {fileID: 1291648638803827216}
+  - {fileID: 7433791448677879746}
+  - {fileID: 3376255556129608872}
+  force: 000000000000000000000000
+  forceValue: 10
+  hitLayer:
+    serializedVersion: 2
+    m_Bits: 8
+--- !u!135 &6681288183433859744
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4491772239849621432}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.00030614017
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4730811652455406835
 GameObject:
   m_ObjectHideFlags: 0
@@ -3902,7 +4090,10 @@ GameObject:
   - component: {fileID: 7989374315086908790}
   - component: {fileID: 1941601521943662287}
   - component: {fileID: 264914266717167137}
-  m_Layer: 0
+  - component: {fileID: 7571279529059321861}
+  - component: {fileID: 8081851864777820991}
+  - component: {fileID: 7652417492452307145}
+  m_Layer: 3
   m_Name: Lever_Switch_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3979,6 +4170,61 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &7571279529059321861
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7433791448677879746}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.0013495436, y: 0.00049997197, z: 0.00049905945}
+  m_Center: {x: -0.0027231867, y: 0.000022881437, z: 0.000003924768}
+--- !u!114 &8081851864777820991
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7433791448677879746}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60757196697b35943a33e7737998acdc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outline: {fileID: 7652417492452307145}
+  moveDuration: 0.4
+  isOpen: 0
+  isClicked: 0
+--- !u!114 &7652417492452307145
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7433791448677879746}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5750e36618fcac4594d296814a915c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 2
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1 &7482853696443246930
 GameObject:
   m_ObjectHideFlags: 0
