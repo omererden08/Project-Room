@@ -12,8 +12,13 @@ public class Btn_Empty : MonoBehaviour
     }
 
 
-
+    /*
     void OnMouseDown()
+    {
+        puzzleLiquid.EmptyTube(tube);
+    }
+    */
+    public void Empty()
     {
         puzzleLiquid.EmptyTube(tube);
     }

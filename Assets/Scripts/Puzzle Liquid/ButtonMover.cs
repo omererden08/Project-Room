@@ -1,13 +1,15 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.Events;
 
 public class ButtonMover : MonoBehaviour
 {
     public enum ButtonType
     {
-        Toggle,   // Aç-kapa
-        OneShot   // Açýlýr, sonra otomatik geri döner
+        Toggle,   
+        OneShot   
     }
+    [SerializeField] private UnityEvent unityAction;
 
     [Header("Movement Settings")]
     [SerializeField] private Transform targetPos;
@@ -19,7 +21,7 @@ public class ButtonMover : MonoBehaviour
     private Vector3 initialPos;
     private Coroutine moveCoroutine;
     private bool isMoving = false;
-    private bool isOpen = false; // Sadece Toggle tipi için kullanýlýr
+    private bool isOpen = false;
 
     void Start()
     {
@@ -29,23 +31,14 @@ public class ButtonMover : MonoBehaviour
         {
             targetPos = transform.GetChild(0);
         }
-    }
 
-    void Update()
-    {
-        if (Input.GetMouseButtonDown(0))
+        if (targetPos == null)
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-
-            if (Physics.Raycast(ray, out hit) && hit.transform == transform)
-            {
-                OnButtonPressed();
-            }
+            Debug.LogError($"TargetPos is null on {gameObject.name}");
         }
     }
 
-    private void OnButtonPressed()
+    public void OnMouseDown()
     {
         if (isMoving)
             return;
@@ -74,6 +67,43 @@ public class ButtonMover : MonoBehaviour
         moveCoroutine = StartCoroutine(Move(goingOpen, moveDuration));
     }
 
+    // Public method to move to target position
+    public void MoveToTarget()
+    {
+        if (isMoving || isOpen)
+        {
+            Debug.Log($"MoveToTarget skipped on {gameObject.name}: isMoving={isMoving}, isOpen={isOpen}");
+            return;
+        }
+
+        if (moveCoroutine != null)
+            StopCoroutine(moveCoroutine);
+
+        moveCoroutine = StartCoroutine(Move(true, moveDuration));
+    }
+
+    // Public method to move to initial position
+    public void MoveToInitial()
+    {
+        if (moveCoroutine != null)
+        {
+            StopCoroutine(moveCoroutine);
+            moveCoroutine = null;
+        }
+
+        // Force reset if not already at initial position
+        if (isOpen || isMoving)
+        {
+            isMoving = true;
+            moveCoroutine = StartCoroutine(Move(false, moveDuration));
+            Debug.Log($"Moving {gameObject.name} to initial position");
+        }
+        else
+        {
+            Debug.Log($"MoveToInitial skipped on {gameObject.name}: Already at initial position");
+        }
+    }
+
     private IEnumerator Move(bool open, float duration)
     {
         isMoving = true;
@@ -92,9 +122,11 @@ public class ButtonMover : MonoBehaviour
         }
 
         transform.position = end;
+        AreYouWinningDad();
         isOpen = open;
         isMoving = false;
         moveCoroutine = null;
+        Debug.Log($"{gameObject.name} moved to {(open ? "target" : "initial")} position");
     }
 
     private IEnumerator OneShotMove(float duration)
@@ -106,12 +138,13 @@ public class ButtonMover : MonoBehaviour
 
         float elapsedTime = 0f;
 
-        // Gidiþ
+        // Move to target
         while (elapsedTime < duration)
         {
             float t = elapsedTime / duration;
             transform.position = Vector3.Lerp(start, end, t);
             elapsedTime += Time.deltaTime;
+            AreYouWinningDad();
             yield return null;
         }
 
@@ -119,7 +152,7 @@ public class ButtonMover : MonoBehaviour
 
         yield return new WaitForSeconds(0.2f);
 
-        // Dönüþ
+        // Move back
         elapsedTime = 0f;
         while (elapsedTime < duration)
         {
@@ -133,5 +166,11 @@ public class ButtonMover : MonoBehaviour
 
         isMoving = false;
         moveCoroutine = null;
+        Debug.Log($"{gameObject.name} completed OneShot move");
+    }
+
+    public void AreYouWinningDad()
+    {
+        unityAction?.Invoke();
     }
 }

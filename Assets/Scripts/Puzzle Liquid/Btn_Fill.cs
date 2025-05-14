@@ -10,11 +10,18 @@ public class Btn_Fill : MonoBehaviour
         tube = GetComponentInParent<Tube>();
         puzzleLiquid = FindObjectOfType<PuzzleLiquid>();
     }
-
+    /*
 
     void OnMouseDown()
     {
         puzzleLiquid.FillTube(tube);
+    }
+    */
+
+    public void Fill()
+    {
+        puzzleLiquid.FillTube(tube);
+
     }
 }
 
