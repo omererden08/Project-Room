@@ -1,22 +1,23 @@
 using UnityEngine;
 using TMPro;
 using DG.Tweening;
+using UnityEngine.UI;
 public class UIPaper : MonoBehaviour
 {
     public RectTransform paper;
     public RectTransform targetPositions;
-    public TextMeshProUGUI contentText;
+    public Image paperImage;
     public RectTransform closedPosition;
     private bool isActive;
 
     void Start()
     {
+        paperImage = GetComponent<Image>();
         paper.anchoredPosition = closedPosition.anchoredPosition;
         isActive = false;
     }
-    public void WritePaper(string content)
+    public void WritePaper()
     {
-        contentText.text = content;
         OpenPaper();
     }
     public void OpenPaper()
@@ -27,7 +28,7 @@ public class UIPaper : MonoBehaviour
     }
     void Update()
     {
-        if (isActive && Input.GetKeyDown(KeyCode.Escape))
+        if (isActive && Input.GetMouseButton(1))
         {
             ClosePaper();
         }

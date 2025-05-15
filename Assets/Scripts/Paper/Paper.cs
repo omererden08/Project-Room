@@ -1,21 +1,22 @@
 using System;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 public class Paper : IInteractable
 {
-    public String paperName;
-    public String content;
     public UIPaper uiPaper;
+    public PaperData paperData;
 
     void Start()
     {
         outline = GetComponent<Outline3D>();
         outline.enabled = false;
-        uiPaper = FindObjectOfType<UIPaper>();
     }
     public override void Interact()
     {
-        uiPaper.WritePaper(content);
+        Image paperImage = uiPaper.GetComponent<Image>();
+        paperImage.sprite = paperData.paperImage;
+        uiPaper.WritePaper();
         base.Interact();
     }
 
