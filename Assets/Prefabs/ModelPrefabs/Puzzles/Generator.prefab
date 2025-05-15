@@ -102,7 +102,6 @@ GameObject:
   - component: {fileID: 5678603866083563716}
   - component: {fileID: 8812548011965958966}
   - component: {fileID: 7393858367408218925}
-  - component: {fileID: 1463272881262586788}
   m_Layer: 0
   m_Name: PistonAnimators
   m_TagString: Untagged
@@ -167,39 +166,18 @@ MonoBehaviour:
   isOpen: 0
   embeddedItem: {fileID: 3991221847232535648}
   ChargedSteamCore:
-    itemName: SteamcoreCharged
+    itemName: Steamcore
     icon: {fileID: 21300000, guid: af25e1651377f3146911dbfcb26e68b5, type: 3}
     outlinedIcon: {fileID: 21300000, guid: 8d0b5af5ece931b4d87ea4b08f789329, type: 3}
     quantity: 1
     sceneObjects:
-    - {fileID: 5048103628133713624, guid: 8fbb364b49d74a448b0d51421cab9fef, type: 3}
+    - {fileID: 0}
   mat: {fileID: 2100000, guid: baebb59c543e228449aa8ce86625fdb3, type: 2}
   colorRed: {r: 1, g: 0, b: 0, a: 1}
   colorGreen: {r: 0, g: 1, b: 0, a: 1}
   hose: {fileID: 0}
   canInteract: 1
   cooldown: 4
---- !u!65 &1463272881262586788
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1150931124557783748}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1.3649683, y: 2.390627, z: 3.031809}
-  m_Center: {x: -6.573766, y: 1.3046865, z: 2.334002}
 --- !u!1 &1885745816175687065
 GameObject:
   m_ObjectHideFlags: 0
@@ -502,6 +480,7 @@ GameObject:
   - component: {fileID: 8749489898900939165}
   - component: {fileID: 696395288242779665}
   - component: {fileID: 2915138708022848687}
+  - component: {fileID: 7760813446491698055}
   m_Layer: 0
   m_Name: Generator_Body
   m_TagString: Untagged
@@ -555,14 +534,14 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -3037090796526886629, guid: 973f7e81b118e7045b4c7ffc77321674, type: 3}
+  - {fileID: 2100000, guid: 169587762f147eb40826cd3762ec493c, type: 2}
   - {fileID: -8743970492306125950, guid: 973f7e81b118e7045b4c7ffc77321674, type: 3}
-  - {fileID: -7669148038651809288, guid: 973f7e81b118e7045b4c7ffc77321674, type: 3}
+  - {fileID: 2100000, guid: 7a8e2ceb78521964fbe2f8edb56a7e8d, type: 2}
   - {fileID: -6631774973440041878, guid: 973f7e81b118e7045b4c7ffc77321674, type: 3}
   - {fileID: 6117951237245800971, guid: 973f7e81b118e7045b4c7ffc77321674, type: 3}
   - {fileID: 3096479952622673369, guid: 973f7e81b118e7045b4c7ffc77321674, type: 3}
   - {fileID: -8924857132611590471, guid: 973f7e81b118e7045b4c7ffc77321674, type: 3}
-  - {fileID: 1432811907779654318, guid: 973f7e81b118e7045b4c7ffc77321674, type: 3}
+  - {fileID: 2100000, guid: f28e28d356e2ec34caf8bcbade97af90, type: 2}
   - {fileID: -3848514737960951238, guid: 973f7e81b118e7045b4c7ffc77321674, type: 3}
   - {fileID: -7375462213000488746, guid: 973f7e81b118e7045b4c7ffc77321674, type: 3}
   m_StaticBatchInfo:
@@ -586,6 +565,28 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &7760813446491698055
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6999898043975048801}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -7445769411504167856, guid: 973f7e81b118e7045b4c7ffc77321674, type: 3}
 --- !u!1 &7168851710078768421
 GameObject:
   m_ObjectHideFlags: 0

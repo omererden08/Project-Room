@@ -5,7 +5,7 @@ public class NextScene : MonoBehaviour
 
     private void Start()
     {
-        Cursor.visible = true;
+        Cursor.visible = false;
     }
 
     private void Update()
