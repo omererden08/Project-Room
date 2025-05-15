@@ -1132,8 +1132,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.033733416, y: 0.0035883288, z: 0.010555593}
-  m_Center: {x: -1.2319631e-10, y: -0.005, z: 3.9363302e-17}
+  m_Size: {x: 0.033733416, y: 0.0036810245, z: 0.010555593}
+  m_Center: {x: -2.7791425e-11, y: -0.0060187685, z: 8.969384e-18}
 --- !u!1 &244002303 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 859362115739346112, guid: c74c6c57736dadf429cdf7d64c1e4cec, type: 3}
@@ -2408,8 +2408,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.033733416, y: 0.0045460146, z: 0.010555593}
-  m_Center: {x: 4.2453988e-10, y: -0.005, z: 5.9445884e-17}
+  m_Size: {x: 0.033733416, y: 0.0022211233, z: 0.010555593}
+  m_Center: {x: 9.813937e-11, y: -0.008862572, z: 6.2843115e-17}
 --- !u!1 &605543004 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6564245661080994537, guid: f5ab0da7fa590b44aaf7fd7758f05d91, type: 3}
@@ -5650,11 +5650,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 5661566483666915845, guid: ce18ce20628c3664bb149f3fcfe9f44c, type: 3}
---- !u!95 &1769312677 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 8120079358619699016, guid: f5ab0da7fa590b44aaf7fd7758f05d91, type: 3}
-  m_PrefabInstance: {fileID: 738157896073242667}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1769449844
 GameObject:
   m_ObjectHideFlags: 0
@@ -8712,6 +8707,10 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 73f66f0bdbf8b32408a1aeb828211e99, type: 2}
+    - target: {fileID: 2368362679323269737, guid: f5ab0da7fa590b44aaf7fd7758f05d91, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2538072915128448767, guid: f5ab0da7fa590b44aaf7fd7758f05d91, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3.99
@@ -8771,7 +8770,7 @@ PrefabInstance:
     - target: {fileID: 6664227714589374549, guid: f5ab0da7fa590b44aaf7fd7758f05d91, type: 3}
       propertyPath: openAnim
       value: 
-      objectReference: {fileID: 1769312677}
+      objectReference: {fileID: 0}
     - target: {fileID: 7308728752260966423, guid: f5ab0da7fa590b44aaf7fd7758f05d91, type: 3}
       propertyPath: Locked
       value: 
