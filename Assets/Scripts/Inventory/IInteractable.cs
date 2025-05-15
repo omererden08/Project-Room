@@ -37,7 +37,7 @@ public class IInteractable : MonoBehaviour
     {
         if (!bomb.isBoombReady)
         {
-            EvntManager.TriggerEvent("subID", "STRT_INTER_" + Random.Range(1, 5));
+            //EvntManager.TriggerEvent("subID", "STRT_INTER_" + Random.Range(1, 5));
             return;
         }
     }
@@ -47,7 +47,7 @@ public class IInteractable : MonoBehaviour
         Debug.Log("Interact");
         if(!isCollect)
         {
-            EvntManager.TriggerEvent("subID", "STRT_INTER_" + Random.Range(1, 5));
+            //EvntManager.TriggerEvent("subID", "STRT_INTER_" + Random.Range(1, 5));
             return;
         }
     }

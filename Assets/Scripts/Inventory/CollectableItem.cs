@@ -17,7 +17,10 @@ public class CollectableItem : IInteractable
         base.PickUp();
 
         if (!bomb.isBoombReady)
+        {
+            EvntManager.TriggerEvent("subID", "STRT_INTER_" + Random.Range(1, 5));
             return;
+        }
         if (item == null || inPuzzleMode || isPickedUp)
         {
             Debug.LogWarning("PickUp: Geçersiz item, puzzle modu aktif veya nesne zaten alındı");
@@ -43,7 +46,11 @@ public class CollectableItem : IInteractable
         base.Interact();
 
         if (!bomb.isBoombReady)
+        {
+            EvntManager.TriggerEvent("subID", "STRT_INTER_" + Random.Range(1, 5));
             return;
+        }
+
         if (item == null)
         {
             Debug.LogWarning("Interact: Item null");

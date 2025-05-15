@@ -61,7 +61,7 @@ public class Piston : MonoBehaviour
             isOpen = true;
             invSystem.RemoveItem("Steamcore", 1);
             embeddedItem.SetActive(true);
-            EvntManager.TriggerEvent("subID", 1);
+            EvntManager.TriggerEvent("subID", "SCM_INTER");
             mat.color = colorGreen;
 
 
