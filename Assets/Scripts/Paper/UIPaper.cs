@@ -1,11 +1,12 @@
 using UnityEngine;
 using TMPro;
 using DG.Tweening;
+using UnityEngine.UI;
 public class UIPaper : MonoBehaviour
 {
     public RectTransform paper;
     public RectTransform targetPositions;
-    public TextMeshProUGUI contentText;
+    public Image paperImage;
     public RectTransform closedPosition;
     private bool isActive;
 
@@ -14,9 +15,9 @@ public class UIPaper : MonoBehaviour
         paper.anchoredPosition = closedPosition.anchoredPosition;
         isActive = false;
     }
-    public void WritePaper(string content)
+    public void WritePaper()
     {
-        contentText.text = content;
+        paperImage.sprite = 
         OpenPaper();
     }
     public void OpenPaper()

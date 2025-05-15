@@ -15,7 +15,7 @@ public class Paper : IInteractable
     }
     public override void Interact()
     {
-        uiPaper.WritePaper(content);
+        uiPaper.WritePaper();
         base.Interact();
     }
 
