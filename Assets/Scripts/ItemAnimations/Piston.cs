@@ -50,7 +50,7 @@ public class Piston : MonoBehaviour
 
     public void OnMouseDown()
     {
-
+        Debug.Log("Piston clicked");
         if (invSystem.ChosenItem("SteamcoreCharged") && !isOpen && canInteract)
         {
             StartCoroutine(CanInteract());
