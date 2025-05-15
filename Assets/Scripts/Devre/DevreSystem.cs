@@ -27,7 +27,7 @@ public class DevreSystem : MonoBehaviour
     [Tooltip("Target Y rotation for disk3 (degrees)")]
     public float disk3TargetAngle = 0f;
     [Tooltip("Tolerance for win condition (degrees)")]
-    public float toleranceDegrees = 5f;
+    public float toleranceDegrees = 15f;
 
     private bool isCheckingWin = false;
     private bool hasWon = false;

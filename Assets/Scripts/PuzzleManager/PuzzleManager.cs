@@ -111,7 +111,7 @@ public class PuzzleManager : IInteractable
         {
             if (isLiquidPuzzle)
             {
-                if (FindAnyObjectByType<PuzzleLiquid>().HoseConnected && FindAnyObjectByType<PuzzleLiquid>().isSolved)
+                if (FindAnyObjectByType<PuzzleLiquid>().HoseConnected && FindAnyObjectByType<Piston>().isOpen )
                 {
                     StartPuzzle();
                 }
