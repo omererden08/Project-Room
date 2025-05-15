@@ -78,7 +78,7 @@ public class PlayerController : MonoBehaviour
     {
         float distanceMoved = Vector3.Distance(transform.position, lastPosition);
 
-        // Eðer hareket ediyorsa
+        // Eï¿½er hareket ediyorsa
         if (distanceMoved > 0.01f)
         {
             if (!isMoving)
@@ -90,6 +90,7 @@ public class PlayerController : MonoBehaviour
                     int randomIndex = UnityEngine.Random.Range(0, walkSound.Length);
                     audioSource.clip = walkSound[randomIndex];
                     audioSource.loop = true;
+                    audioSource.volume = 0.2f;
                     audioSource.Play();
                 }
             }
