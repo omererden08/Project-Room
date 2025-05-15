@@ -32,9 +32,12 @@ public class BallController : MonoBehaviour
         {
             Magnet();
         }
-        MoveAll();
     }
+    private void FixedUpdate()
+    {
+        MoveAll();
 
+    }
     public void Magnet()
     {
         // Herhangi bir lever hareket halindeyse yeni tıklama işlemini engelle
