@@ -18,6 +18,10 @@ public class ClockAnimation : IInteractable
     [SerializeField] private float bigHandRotationAmount = 180f;
     [SerializeField] private float smallHandRotationAmount = 15f;
 
+
+    [Header("Sounds")]
+    public AudioClip valveSound;
+
     private LayerMask interactLayer;
     private bool isRotating = false;
     private TeaLever tL;
@@ -36,6 +40,8 @@ public class ClockAnimation : IInteractable
     {
         if (!isRotating && bomb.isBoombReady)
         {
+            AudioManager.Instance.audioSource.volume = 0.3f;
+            AudioManager.Instance.audioSource.PlayOneShot(valveSound);
             StartCoroutine(RotateValveAndClock());
         }
 
@@ -50,7 +56,7 @@ public class ClockAnimation : IInteractable
         float elapsedTime = 0f;
 
         float startValveZ = transform.eulerAngles.z;
-        float endValveZ = startValveZ + 360f;
+        float endValveZ = startValveZ + 180f;
 
         float startBigZ = clockBigHand.eulerAngles.z;
         float endBigZ = startBigZ + bigHandRotationAmount;

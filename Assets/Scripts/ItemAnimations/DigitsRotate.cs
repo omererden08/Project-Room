@@ -94,25 +94,31 @@ public class DigitsRotate : MonoBehaviour
     void CheckPassword()
     {
         float[] correctAngles = { 306f, 18f, 342f, 270f };
-        float tolerance = 1f; // �1 derece tolerans
+        float tolerance = 1f;
+        bool isCorrect = true;
 
         for (int i = 0; i < digits.Count; i++)
         {
-            float angle = digits[i].localEulerAngles.x;
+            float currentAngle = digits[i].localEulerAngles.x;
+            float difference = Mathf.Abs(Mathf.DeltaAngle(currentAngle, correctAngles[i]));
 
-            // A��n�n do�ru aral�kta olup olmad���n� kontrol et
-            if (Mathf.Abs(Mathf.DeltaAngle(angle, correctAngles[i])) > tolerance)
+            if (difference > tolerance)
             {
-                Debug.Log("Password is incorrect.");
-                return;
+                isCorrect = false;
+                break; // Hatalı bir açı varsa diğerlerini kontrol etmeye gerek yok
             }
         }
 
-        Debug.Log("Password is correct!");
-
-        // �ifre do�ruysa yap�lacak i�lemler
-        EvntManager.TriggerEvent("SafeOpen");
-
+        if (isCorrect)
+        {
+            Debug.Log("Password is correct!");
+            EvntManager.TriggerEvent("SafeOpen");
+        }
+        else
+        {
+            Debug.Log("Password is incorrect.");
+        }
     }
+
 
 }
