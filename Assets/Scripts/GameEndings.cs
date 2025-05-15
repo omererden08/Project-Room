@@ -17,7 +17,7 @@ public class GameEndings : MonoBehaviour
         }
         else
         {
-            AudioManager.Instance.audioSource.volume = 0.3f;
+            AudioManager.Instance.audioSource.volume = 0.05f;
             AudioManager.Instance.audioSource.PlayOneShot(bombSound);
             FadeManager.Instance.BlackScene("MainMenu");
         }

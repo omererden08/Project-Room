@@ -159,7 +159,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotationDuration: 0.3
   digits: []
-  Locked: {fileID: 0}
   bomb: {fileID: 0}
 --- !u!1 &1636300619946781525
 GameObject:
@@ -217,7 +216,6 @@ MonoBehaviour:
   openAngle: -60
   rotateDuration: 1.5
   openAnim: {fileID: 0}
-  Unlocked: {fileID: 0}
 --- !u!1 &1692802009909201733
 GameObject:
   m_ObjectHideFlags: 0
@@ -359,6 +357,7 @@ GameObject:
   - component: {fileID: 7027373975360437601}
   - component: {fileID: 3933891838114310962}
   - component: {fileID: 7724190354699905985}
+  - component: {fileID: 195688977512893028}
   m_Layer: 0
   m_Name: Safe_Body
   m_TagString: Untagged
@@ -435,6 +434,28 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &195688977512893028
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1979757538718066430}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 7209524884032746536, guid: e2e1810f0a89e534e9c7b1c93e67445e, type: 3}
 --- !u!1 &2497253254677710941
 GameObject:
   m_ObjectHideFlags: 0
@@ -619,7 +640,6 @@ MonoBehaviour:
   openAngle: -60
   rotateDuration: 1.5
   openAnim: {fileID: 2368362679323269737}
-  Unlocked: {fileID: 0}
 --- !u!1 &5163313827652646547
 GameObject:
   m_ObjectHideFlags: 0

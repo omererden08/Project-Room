@@ -21,7 +21,7 @@ public class DoorAnimation : IInteractable
 
     public void LockDoor()
     {
-        AudioManager.Instance.audioSource.volume = 0.3f;
+        AudioManager.Instance.audioSource.volume = 0.05f;
         AudioManager.Instance.audioSource.PlayOneShot(bombSound);
         animator.SetTrigger("Door_Lock");
         EvntManager.TriggerEvent("BombUpStart");
