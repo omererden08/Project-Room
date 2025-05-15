@@ -11,30 +11,30 @@ public class Finish : MonoBehaviour
     {
         //puzzleManager = GetComponentInParent<PuzzleManager>();
     }
-    void Update()
-    {
-        if (isFinished)
-        {
-            FinishPuzzle();
-        }
-    }
+
 
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log("Triggered");
         if (other.CompareTag("Ball"))
         {
-            isFinished = true;
+            FinishPuzzle();
         }
     }
 
     void FinishPuzzle()
     {
-        
+
+        if (!isFinished)
+        {
+
+            isFinished = true;
             ball.SetActive(false);
             print("Puzzle Finished");
             puzzleManager.PuzzleSolved();
             //puzzleManager solved olacak 
+        }
+
         
     }
 
