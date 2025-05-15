@@ -29,7 +29,7 @@ public class CoreSlotDisk : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("SteamCore"))
+        if (other.gameObject.tag == "SteamCore")
         {
             Debug.Log($"SteamCore entered slot {name} with stat {stat}, starting smooth spin");
             isColliding = true;
@@ -48,7 +48,7 @@ public class CoreSlotDisk : MonoBehaviour
 
     void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.CompareTag("SteamCore") && isColliding && Time.time >= lastRecalcTime + recalcInterval)
+        if (other.gameObject.tag == "SteamCore" && isColliding && Time.time >= lastRecalcTime + recalcInterval)
         {
             Debug.Log($"SteamCore still in slot {name} with stat {stat}, recalculating spin");
             if (dS != null)
@@ -65,7 +65,7 @@ public class CoreSlotDisk : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.CompareTag("SteamCore"))
+        if (other.gameObject.tag == "SteamCore")
         {
             Debug.Log($"SteamCore exited slot {name} with stat {stat}, stopping smooth spin");
             isColliding = false;

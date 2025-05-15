@@ -43,6 +43,10 @@ public class PuzzleManager : IInteractable
 
     public bool isGearPuzzle = false;
     public bool isLiquidPuzzle = false;
+    public bool isMagnetPuzzle = false;
+
+
+    public GameObject bombembed;
     public void Start()
     {
 
@@ -50,6 +54,8 @@ public class PuzzleManager : IInteractable
         col = GetComponent<Collider>();
         col.enabled = true;
         outline = GetComponent<Outline3D>();
+        if(bombembed != null)
+            bombembed.GetComponent<Collider>().enabled = false;
         outline.enabled = false;
         CanSolvable = true;
         LightMaterial.color = Color.red;
@@ -225,6 +231,12 @@ public class PuzzleManager : IInteractable
         {
             LatestGear latestGear = FindAnyObjectByType<LatestGear>();
             latestGear.StartSpin();
+        }
+        if (isMagnetPuzzle)
+        {
+            //bombanın animasyonu buraya
+            bombembed.GetComponent<Collider>().enabled = true;
+
         }
         StartCoroutine(AutoExitAfterSolve());
     }
