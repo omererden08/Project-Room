@@ -90,7 +90,7 @@ public class PlayerController : MonoBehaviour
                     int randomIndex = UnityEngine.Random.Range(0, walkSound.Length);
                     audioSource.clip = walkSound[randomIndex];
                     audioSource.loop = true;
-                    audioSource.volume = 0.2f;
+                    audioSource.volume = 0.05f;
                     audioSource.Play();
                 }
             }

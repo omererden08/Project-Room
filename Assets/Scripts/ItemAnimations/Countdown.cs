@@ -27,10 +27,15 @@ public class Countdown : MonoBehaviour
 
     private int[] maxValues = new int[4] { 9, 9, 5, 9 };
 
+    [SerializeField] private GameObject backgroundMusic;
+    AudioSource audioSource;
+
+
+
     void Start()
     {
         targetRotation = transform.localRotation;
-
+        audioSource = backgroundMusic.GetComponent<AudioSource>();
         for (int i = 0; i < 4; i++)
         {
             digits[i] = transform.GetChild(i);
@@ -77,12 +82,21 @@ public class Countdown : MonoBehaviour
 
     void StartCountdown()
     {
+        audioSource.Play();
         isStarted = true;
     }
 
 
     void OnPause()
     {
+        if (!isPaused)
+        {
+            audioSource.Pause();
+        }
+        else
+        {
+            audioSource.UnPause();
+        }
 
         isPaused = !isPaused;
 
@@ -163,7 +177,7 @@ public class Countdown : MonoBehaviour
 
     void GameEnding()
     {
-        AudioManager.Instance.audioSource.volume = 0.3f;
+        AudioManager.Instance.audioSource.volume = 0.05f;
         AudioManager.Instance.audioSource.PlayOneShot(bombSound);
         FadeManager.Instance.BlackScene("MainMenu");
     }
