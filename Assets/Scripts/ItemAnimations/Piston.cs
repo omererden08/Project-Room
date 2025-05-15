@@ -51,7 +51,7 @@ public class Piston : MonoBehaviour
     public void OnMouseDown()
     {
 
-        if (invSystem.ChosenItem("Steamcore") && !isOpen && canInteract)
+        if (invSystem.ChosenItem("SteamcoreCharged") && !isOpen && canInteract)
         {
             StartCoroutine(CanInteract());
 
@@ -59,7 +59,7 @@ public class Piston : MonoBehaviour
 
             indicatorAnimator.SetBool("isOpen", true);
             isOpen = true;
-            invSystem.RemoveItem("Steamcore", 1);
+            invSystem.RemoveItem("SteamcoreCharged", 1);
             embeddedItem.SetActive(true);
             EvntManager.TriggerEvent("subID", "SCM_INTER");
             mat.color = colorGreen;
