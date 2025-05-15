@@ -35,7 +35,7 @@ public class DevreSystem : MonoBehaviour
 
     public void CalculateSpin(CoreSlotDisk triggeringSlot)
     {
-        Debug.Log($"CalculateSpin called for slot {triggeringSlot.name} with stat: {triggeringSlot.stat}, isActive: {triggeringSlot.isActive()}");
+       // Debug.Log($"CalculateSpin called for slot {triggeringSlot.name} with stat: {triggeringSlot.stat}, isActive: {triggeringSlot.isActive()}");
 
         int disk1Dir = 0, disk2Dir = 0, disk3Dir = 0;
 
@@ -44,7 +44,7 @@ public class DevreSystem : MonoBehaviour
         {
             if (slot.isActive())
             {
-                Debug.Log($"Active slot: {slot.name} with stat: {slot.stat}");
+               //Debug.Log($"Active slot: {slot.name} with stat: {slot.stat}");
                 switch (slot.stat)
                 {
                     case CoreSlotStat.L:
@@ -69,7 +69,7 @@ public class DevreSystem : MonoBehaviour
         disk2Dir = Mathf.Clamp(disk2Dir, -1, 1);
         disk3Dir = Mathf.Clamp(disk3Dir, -1, 1);
 
-        Debug.Log($"Calculated directions - Disk1: {disk1Dir}, Disk2: {disk2Dir}, Disk3: {disk3Dir}");
+        //Debug.Log($"Calculated directions - Disk1: {disk1Dir}, Disk2: {disk2Dir}, Disk3: {disk3Dir}");
 
         // Yönleri uygula (null kontrolü ile)
         if (disk1Dir != lastSpinDirections[0] && disk1 != null)
@@ -95,7 +95,7 @@ public class DevreSystem : MonoBehaviour
     public void NotifySlotStateChanged()
     {
         var activeSlots = coreSlotDisks.Where(s => s.isActive()).Select(s => $"{s.name} (Stat: {s.stat})").ToList();
-        Debug.Log($"NotifySlotStateChanged: Active slots: {(activeSlots.Count > 0 ? string.Join(", ", activeSlots) : "None")}");
+        //Debug.Log($"NotifySlotStateChanged: Active slots: {(activeSlots.Count > 0 ? string.Join(", ", activeSlots) : "None")}");
 
         bool anySlotActive = activeSlots.Count > 0;
 
@@ -111,6 +111,10 @@ public class DevreSystem : MonoBehaviour
             isCheckingWin = false;
         }
     }
+    void FixedUpdate()
+    {
+        CheckWinCondition();
+    }
 
     private IEnumerator CheckWinConditionCoroutine()
     {
@@ -118,7 +122,7 @@ public class DevreSystem : MonoBehaviour
         while (isCheckingWin && !hasWon)
         {
             CheckWinCondition();
-            yield return new WaitForSeconds(1f); // Check every 1 second
+            yield return new WaitForSeconds(0.2f);
         }
     }
 
@@ -126,9 +130,9 @@ public class DevreSystem : MonoBehaviour
     {
         if (hasWon) return;
 
-        float disk1Angle = NormalizeAngle(disk1.transform.eulerAngles.y);
-        float disk2Angle = NormalizeAngle(disk2.transform.eulerAngles.y);
-        float disk3Angle = NormalizeAngle(disk3.transform.eulerAngles.y);
+        float disk1Angle = NormalizeAngle(disk1.transform.eulerAngles.x);
+        float disk2Angle = NormalizeAngle(disk2.transform.eulerAngles.x);
+        float disk3Angle = NormalizeAngle(disk3.transform.eulerAngles.x);
 
         float disk1Target = NormalizeAngle(disk1TargetAngle);
         float disk2Target = NormalizeAngle(disk2TargetAngle);
@@ -147,6 +151,7 @@ public class DevreSystem : MonoBehaviour
             Debug.Log("Puzzle Complete! All disks are within tolerance of target angles.");
             hasWon = true;
             isCheckingWin = false;
+            puzzleManager.PuzzleSolved();
             disk1.Stop();
             disk2.Stop();
             disk3.Stop();

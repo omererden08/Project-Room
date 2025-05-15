@@ -4832,7 +4832,7 @@ Transform:
   m_GameObject: {fileID: 1442669764}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.0487, z: 0}
+  m_LocalPosition: {x: 0, y: -0.0635, z: 0}
   m_LocalScale: {x: 1.033769, y: 1.033769, z: 1.033769}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6793,7 +6793,7 @@ PrefabInstance:
       objectReference: {fileID: 278455708}
     - target: {fileID: 2879276502195441480, guid: 28b2951afcbd74d4bbd830db0d446d90, type: 3}
       propertyPath: toleranceDegrees
-      value: 15
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 4463768138620606056, guid: 28b2951afcbd74d4bbd830db0d446d90, type: 3}
       propertyPath: m_Size.x
@@ -24216,7 +24216,7 @@ MonoBehaviour:
   OutlineOki: 0
   bomb: {fileID: 691893001}
   isCollect: 0
-  targetPos: {fileID: 0}
+  targetPos: {fileID: 1442669765}
   keyObject: {fileID: 0}
   interactLayer:
     serializedVersion: 2
