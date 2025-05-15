@@ -12,12 +12,12 @@ public class UIPaper : MonoBehaviour
 
     void Start()
     {
+        paperImage = GetComponent<Image>();
         paper.anchoredPosition = closedPosition.anchoredPosition;
         isActive = false;
     }
     public void WritePaper()
     {
-        paperImage.sprite = 
         OpenPaper();
     }
     public void OpenPaper()
@@ -28,7 +28,7 @@ public class UIPaper : MonoBehaviour
     }
     void Update()
     {
-        if (isActive && Input.GetKeyDown(KeyCode.Escape))
+        if (isActive && Input.GetMouseButton(1))
         {
             ClosePaper();
         }
