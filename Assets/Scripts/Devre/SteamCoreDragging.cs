@@ -14,7 +14,7 @@ public class SteamCoreDragging : MonoBehaviour
     {
         devreSystem = FindObjectOfType<DevreSystem>();
         puzzleManager = devreSystem.puzzleManager;
-        transform.rotation = Quaternion.Euler(90, 0, -90);
+        //transform.rotation = Quaternion.Euler(90, 0, -90);
     }
 
 

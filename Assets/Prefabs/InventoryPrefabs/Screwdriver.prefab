@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8537485119267231333}
   - component: {fileID: 8033351881985611966}
   - component: {fileID: 282559920017576825}
-  - component: {fileID: 6370784479236588735}
+  - component: {fileID: 626507246504257078}
   m_Layer: 6
   m_Name: Screwdriver
   m_TagString: Untagged
@@ -103,7 +103,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outline: {fileID: 0}
-  OutlineOki: 0
+  OutlineOki: 1
   bomb: {fileID: 0}
   isCollect: 0
   item:
@@ -132,8 +132,8 @@ MonoBehaviour:
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
---- !u!136 &6370784479236588735
-CapsuleCollider:
+--- !u!64 &626507246504257078
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -150,8 +150,7 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.0066304985
-  m_Height: 0.093116045
-  m_Direction: 1
-  m_Center: {x: -0.0000028624402, y: -0.01639896, z: 0.00008849844}
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -1282210680534842956, guid: e58ff7ff37d46624089a2069775074b3, type: 3}
