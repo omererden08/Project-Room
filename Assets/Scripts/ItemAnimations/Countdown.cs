@@ -34,6 +34,7 @@ public class Countdown : MonoBehaviour
 
     void Start()
     {
+
         targetRotation = transform.localRotation;
         audioSource = backgroundMusic.GetComponent<AudioSource>();
         for (int i = 0; i < 4; i++)
@@ -55,9 +56,17 @@ public class Countdown : MonoBehaviour
 
     }
 
+
+
     void Update()
     {
         if (isPaused) return; // Oyun duraklatıldıysa güncellemeleri atla
+
+        if (!isStarted)
+        {
+            audioSource.Pause();
+        }
+
 
         if (isStarted)
         {
