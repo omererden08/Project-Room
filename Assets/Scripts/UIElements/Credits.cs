@@ -20,7 +20,7 @@ public class Credits : MonoBehaviour
         }
         gears = creditsGears.GetComponent<Animator>();
 
-        gears.SetBool("start", false);
+        gears.SetBool("start", true);
         // Bu scriptin ba�l� oldu�u objeyi ba�lang�� rotasyonuna getiriyoruz
         transform.localRotation = Quaternion.Euler(90, 0, 90);
     }
@@ -33,33 +33,11 @@ public class Credits : MonoBehaviour
             // Hover kontrol�
             if (hit.transform == creditsObject.transform)
             {
-                isHovered = true; // Mouse bu objenin �zerinde
-                if (isHovered)
+
+                if (Input.GetMouseButtonDown(0) && !isRotating)
                 {
-
-                    Debug.Log("Mouse, Credits Object'in �zerinde.");
-
-                    // T�klama kontrol�
-                    if (Input.GetMouseButtonDown(0) && !isRotating)
-                    {
-
-                        StartCoroutine(RotateCredits(!isOpen));
-                        if (isOpen)
-                        {
-                            gears.SetBool("start", true);
-
-                        }
-                        else
-                        {
-                            gears.SetBool("start", false);
-                        }
-                    }
+                    StartCoroutine(RotateCredits(!isOpen));
                 }
-
-            }
-            else
-            {
-                isHovered = false; // Mouse ba�ka bir objeye ge�ti
             }
         }
     }
@@ -77,11 +55,13 @@ public class Credits : MonoBehaviour
 
         while (elapsedTime < duration)
         {
+            gears.SetBool("start", false);
             float t = elapsedTime / duration;
             transform.localRotation = Quaternion.Slerp(fromRot, toRot, t);
             elapsedTime += Time.deltaTime;
             yield return null;
         }
+        gears.SetBool("start", true);
 
         transform.localRotation = toRot;
         isRotating = false;
