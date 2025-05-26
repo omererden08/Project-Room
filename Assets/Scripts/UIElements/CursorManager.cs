@@ -2,12 +2,9 @@ using UnityEngine;
 
 public class CursorManager : MonoBehaviour
 {
-    
-    void Update()
+    private void Start()
     {
-        if(Cursor.visible == false)
-        {
-            Cursor.visible = true;
-        }
+        Cursor.visible = true;
     }
+ 
 }
