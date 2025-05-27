@@ -5553,6 +5553,24 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.003186458, y: 0.0044410354, z: 0.00026171317}
   m_Center: {x: -0.00000034377445, y: -0.0000027567144, z: 0.000103890685}
+--- !u!114 &1680578532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1680578523}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5750e36618fcac4594d296814a915c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 2
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1 &1705891806
 GameObject:
   m_ObjectHideFlags: 0
@@ -10152,6 +10170,7 @@ GameObject:
   - component: {fileID: 1654166537593223241}
   - component: {fileID: 2666763992563577902}
   - component: {fileID: 2666763992563577903}
+  - component: {fileID: 2666763992563577904}
   m_Layer: 3
   m_Name: Paper_01
   m_TagString: Untagged
@@ -10789,6 +10808,7 @@ GameObject:
   - component: {fileID: 5225902681666220833}
   - component: {fileID: 5225902681666220834}
   - component: {fileID: 5225902681666220835}
+  - component: {fileID: 5225902681666220836}
   m_Layer: 3
   m_Name: Paper_05
   m_TagString: Untagged
@@ -12722,6 +12742,24 @@ MonoBehaviour:
   isCollect: 0
   uiPaper: {fileID: 1068105276}
   paperData: {fileID: 11400000, guid: da81695c731bf594d8651973d5b5e98c, type: 2}
+--- !u!114 &2666763992563577904
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1254001342965220502}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5750e36618fcac4594d296814a915c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 2
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1 &2672456236919209781
 GameObject:
   m_ObjectHideFlags: 0
@@ -17860,6 +17898,24 @@ MonoBehaviour:
   isCollect: 0
   uiPaper: {fileID: 1068105276}
   paperData: {fileID: 11400000, guid: 5c787d8549e597841bc405c0adb395d5, type: 2}
+--- !u!114 &5225902681666220836
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1589182469687811681}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5750e36618fcac4594d296814a915c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 2
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!4 &5227544104888472088
 Transform:
   m_ObjectHideFlags: 0
@@ -18747,6 +18803,10 @@ PrefabInstance:
       propertyPath: drawerType
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2593985327188724685, guid: 8197e5d1a4ebe4042a0f7d82927ffefc, type: 3}
+      propertyPath: interactLayer.m_Bits
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 2724044136029426956, guid: 8197e5d1a4ebe4042a0f7d82927ffefc, type: 3}
       propertyPath: m_Layer
       value: 3
@@ -18853,12 +18913,18 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1050035485242138551, guid: 8197e5d1a4ebe4042a0f7d82927ffefc, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1680578528}
+    - targetCorrespondingSourceObject: {fileID: 1050035485242138551, guid: 8197e5d1a4ebe4042a0f7d82927ffefc, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1680578532}
     - targetCorrespondingSourceObject: {fileID: 2724044136029426956, guid: 8197e5d1a4ebe4042a0f7d82927ffefc, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2044491877}
     - targetCorrespondingSourceObject: {fileID: 2668235014793555221, guid: 8197e5d1a4ebe4042a0f7d82927ffefc, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5661734525009803822}
+    - targetCorrespondingSourceObject: {fileID: 2668235014793555221, guid: 8197e5d1a4ebe4042a0f7d82927ffefc, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5661734525009803827}
   m_SourcePrefab: {fileID: 100100000, guid: 8197e5d1a4ebe4042a0f7d82927ffefc, type: 3}
 --- !u!1 &5661734525009803820 stripped
 GameObject:
@@ -18888,6 +18954,24 @@ MonoBehaviour:
   isCollect: 0
   uiPaper: {fileID: 1068105276}
   paperData: {fileID: 11400000, guid: d0f8feb913d75224a8c462e2f996fb9b, type: 2}
+--- !u!114 &5661734525009803827
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5661734525009803821}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5750e36618fcac4594d296814a915c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 2
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!4 &5666261586902256926
 Transform:
   m_ObjectHideFlags: 0
@@ -19784,6 +19868,7 @@ GameObject:
   - component: {fileID: 3830204044102293873}
   - component: {fileID: 6929074341784992861}
   - component: {fileID: 6929074341784992862}
+  - component: {fileID: 6929074341784992863}
   m_Layer: 3
   m_Name: Paper_06
   m_TagString: Untagged
@@ -20194,6 +20279,7 @@ GameObject:
   - component: {fileID: 8858562784851669534}
   - component: {fileID: 8858562784851669535}
   - component: {fileID: 8858562784851669536}
+  - component: {fileID: 8858562784851669537}
   m_Layer: 3
   m_Name: Paper_04
   m_TagString: Untagged
@@ -21527,6 +21613,24 @@ MonoBehaviour:
   isCollect: 0
   uiPaper: {fileID: 1068105276}
   paperData: {fileID: 11400000, guid: f9274d2d54a9d184690642cd36e8d17d, type: 2}
+--- !u!114 &6929074341784992863
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6065191820282817203}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5750e36618fcac4594d296814a915c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 2
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!23 &6930332390377233176
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -25778,6 +25882,24 @@ MonoBehaviour:
   isCollect: 0
   uiPaper: {fileID: 1068105276}
   paperData: {fileID: 11400000, guid: 4279859d47c447c4bab73619fe8670d2, type: 2}
+--- !u!114 &8858562784851669537
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6234596652536956472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5750e36618fcac4594d296814a915c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 2
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!23 &8873820310347499442
 MeshRenderer:
   m_ObjectHideFlags: 0

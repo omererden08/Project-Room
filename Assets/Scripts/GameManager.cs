@@ -15,19 +15,19 @@ public class GameManager : MonoBehaviour
         pauseObject.gameObject.SetActive(false);
         if (volume.profile.TryGet(out dof))
         {
-            // Ýlk durumda kapalý baþlat
+            // ï¿½lk durumda kapalï¿½ baï¿½lat
             dof.active = false;
         }
         else
         {
-            Debug.LogWarning("DepthOfField bulunamadý.");
+            Debug.LogWarning("DepthOfField bulunamadï¿½.");
         }
     }
 
 
     private void Update()
     {
-           
+
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (dof.active)
@@ -52,10 +52,13 @@ public class GameManager : MonoBehaviour
         EvntManager.TriggerEvent("DisableCh"); // Oyun pause olacak
         EvntManager.TriggerEvent("pause"); // Oyun pause olacak
         EvntManager.TriggerEvent("pauseTimer"); // Oyun pause olacak
+        Time.timeScale = 0f;
+
     }
 
     public void ResumeGame()
     {
+        Time.timeScale = 1f;
         DisableBlur();
         pauseObject.gameObject.SetActive(false);
         EvntManager.TriggerEvent("EnableCh"); // Oyun pause olacak
@@ -72,7 +75,7 @@ public class GameManager : MonoBehaviour
             dof.mode.value = DepthOfFieldMode.Gaussian;
             dof.gaussianStart.value = nearStart;
             dof.gaussianEnd.value = nearEnd;
-            dof.gaussianMaxRadius.value = 4f; // Bulanýklýk miktarý
+            dof.gaussianMaxRadius.value = 4f; // Bulanï¿½klï¿½k miktarï¿½
         }
     }
 
