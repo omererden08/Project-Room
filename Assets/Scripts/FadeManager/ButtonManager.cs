@@ -15,23 +15,31 @@ public class ButtonManager : MonoBehaviour
 
     public void StartGame()
     {
+        Time.timeScale = 1f;
         audioSource.Play();
-        FadeManager.Instance.FadeBlack("Intro");
+        FadeManager.Instance.FadeBlackDelayed("Intro");
     }
 
     public void ReturnMenu()
     {
+        Time.timeScale = 1f;
+
         audioSource.Play();
         FadeManager.Instance.FadeBlack("MainMenu");
     }
     public void Restart()
     {
+        Time.timeScale = 1f;
+
         audioSource.Play();
         FadeManager.Instance.FadeBlack("Gameplay");
     }
     public void Quit()
     {
+        Time.timeScale = 1f;
+
         audioSource.Play();
         FadeManager.Instance.Quit();
+
     }
 }

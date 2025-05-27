@@ -12,9 +12,20 @@ public class InventoryAnimation : MonoBehaviour
     public bool inAnimation;
     public void Start()
     {
-        if (InventoryUI == null) { Debug.LogError("InventoryAnimation: InventoryUI is null"); }
-        if (ClosedPosition == null) { Debug.LogError("InventoryAnimation: ClosedPosition is null"); }
-        if (OpenedPosition == null) { Debug.LogError("InventoryAnimation: OpenedPosition is null"); }
+        if (InventoryUI == null)
+        {
+            Debug.LogError("InventoryAnimation: InventoryUI is null");
+            InventoryUI = GameObject.FindGameObjectWithTag("IUI").GetComponent<RectTransform>();
+        }
+        if (ClosedPosition == null)
+        {
+            Debug.LogError("InventoryAnimation: ClosedPosition is null");
+            ClosedPosition = GameObject.FindGameObjectWithTag("CUI").GetComponent<RectTransform>();
+        }
+        if (OpenedPosition == null)
+        {
+            Debug.LogError("InventoryAnimation: OpenedPosition is null");
+            OpenedPosition = GameObject.FindGameObjectWithTag("OUI").GetComponent<RectTransform>();}
 
         ToClosedPosition();
         EvntManager.StartListening("OpenInventory", ToOpenPosition);

@@ -1930,6 +1930,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -1200
       objectReference: {fileID: 0}
+    - target: {fileID: 5625894371422672109, guid: 93eb987b25d42fd4cb7c337b1c933979, type: 3}
+      propertyPath: m_TagString
+      value: OUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 5961140458977684853, guid: 93eb987b25d42fd4cb7c337b1c933979, type: 3}
+      propertyPath: m_TagString
+      value: CUI
+      objectReference: {fileID: 0}
     - target: {fileID: 6967020340902003154, guid: 93eb987b25d42fd4cb7c337b1c933979, type: 3}
       propertyPath: m_SizeDelta.x
       value: 800
@@ -1941,6 +1949,10 @@ PrefabInstance:
     - target: {fileID: 6967020340902003154, guid: 93eb987b25d42fd4cb7c337b1c933979, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -1200
+      objectReference: {fileID: 0}
+    - target: {fileID: 8753765183846722275, guid: 93eb987b25d42fd4cb7c337b1c933979, type: 3}
+      propertyPath: m_TagString
+      value: IUI
       objectReference: {fileID: 0}
     - target: {fileID: 9019622100703210604, guid: 93eb987b25d42fd4cb7c337b1c933979, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target

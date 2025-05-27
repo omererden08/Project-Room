@@ -53,8 +53,9 @@ public class FadeManager : MonoBehaviour
     }
 
 
-    public void FadeBlack(string sceneName)
+    public void FadeBlackDelayed(string sceneName)
     {
+        Time.timeScale = 1f;
         gameObject.SetActive(true);
 
         float delayBeforeFade = delayTime; // Örneğin 0.5 saniye gecikme
@@ -70,8 +71,24 @@ public class FadeManager : MonoBehaviour
         }).SetUpdate(true);
     }
 
+    public void FadeBlack(string sceneName)
+    {
+        Time.timeScale = 1f;
+        gameObject.SetActive(true);
+
+        blackFadeGroup.DOFade(1, blackFadeDuration).SetUpdate(true).OnComplete(() =>
+        {
+            SceneManager.LoadScene(sceneName);
+            StartCoroutine(FadeInAfterDelay(blackFadeGroup, blackFadeDuration));
+        });
+
+    }
+
+
+
     public void FadeWhite(string sceneName)
     {
+        Time.timeScale = 1f;
         gameObject.SetActive(true);
         whiteFadeGroup.alpha = 0;
 
