@@ -61,7 +61,7 @@ public class Buttons : MonoBehaviour
                             break;
                     }
 
-                    Debug.Log("Hover baþladý");
+                    Debug.Log("Hover baï¿½ladï¿½");
                 }
 
                 if (Input.GetMouseButtonDown(0) && !isMoving)
@@ -105,7 +105,7 @@ public class Buttons : MonoBehaviour
         {
             case ButtonType.Start:
                 door.GetComponent<Animator>().SetTrigger("Door_Unlock_All");
-                FadeManager.Instance.FadeBlack("Intro");
+                FadeManager.Instance.FadeBlackDelayed("Intro");
                 break;
 
             case ButtonType.Quit:
@@ -123,7 +123,7 @@ public class Buttons : MonoBehaviour
 
         float elapsedTime = 0f;
 
-        // Gidiþ
+        // Gidiï¿½
         while (elapsedTime < duration)
         {
             float t = elapsedTime / duration;
@@ -136,7 +136,7 @@ public class Buttons : MonoBehaviour
 
         yield return new WaitForSeconds(0.2f);
 
-        // Dönüþ
+        // Dï¿½nï¿½ï¿½
         elapsedTime = 0f;
         while (elapsedTime < duration)
         {
