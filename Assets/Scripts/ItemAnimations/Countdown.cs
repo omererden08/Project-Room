@@ -30,13 +30,16 @@ public class Countdown : MonoBehaviour
     [SerializeField] private GameObject backgroundMusic;
     AudioSource audioSource;
 
+    private void Awake()
+    {
+        audioSource = backgroundMusic.GetComponent<AudioSource>();
 
+    }
 
     void Start()
     {
 
         targetRotation = transform.localRotation;
-        audioSource = backgroundMusic.GetComponent<AudioSource>();
         for (int i = 0; i < 4; i++)
         {
             digits[i] = transform.GetChild(i);
