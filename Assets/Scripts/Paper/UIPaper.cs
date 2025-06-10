@@ -22,7 +22,7 @@ public class UIPaper : MonoBehaviour
     }
     public void OpenPaper()
     {
-        paper.DOAnchorPos(targetPositions.anchoredPosition, 0.5f).SetEase(Ease.OutBack).OnComplete(() => Time.timeScale = 0f);
+        paper.DOAnchorPos(targetPositions.anchoredPosition, 0.5f).SetEase(Ease.OutBack);
         isActive = true;
         Debug.Log("Opening paper");
     }
@@ -35,7 +35,7 @@ public class UIPaper : MonoBehaviour
     }
     public void ClosePaper()
     {
-        Time.timeScale = 1f;
+
         paper.DOAnchorPos(closedPosition.anchoredPosition, 0.5f).SetEase(Ease.OutBack);
         isActive = false;
         Debug.Log("Closing paper");
