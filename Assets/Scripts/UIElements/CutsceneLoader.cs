@@ -3,37 +3,47 @@ using UnityEngine.UI;
 
 public class CutsceneLoader : MonoBehaviour
 {
-    [SerializeField] private Sprite[] cutsceneSprites;
-    [SerializeField] private Image imageRenderer;
+    [SerializeField] private Sprite[] cutsceneSprites;  // Tüm cutscene görselleri
+    [SerializeField] private Image imageRenderer;       // UI Image bileþeni
 
     private int spriteIndex = 0;
+    private bool isFinished = false;
 
     private void Start()
     {
-        imageRenderer = GetComponent<Image>();
+        // imageRenderer sahneden atanmadýysa, bu nesnedeki Image bileþenini al
+        if (imageRenderer == null)
+            imageRenderer = GetComponent<Image>();
+
         Cursor.visible = false;
 
         // Ýlk sprite’ý göster
-        if (cutsceneSprites.Length > 0)
+        if (cutsceneSprites != null && cutsceneSprites.Length > 0)
         {
             imageRenderer.sprite = cutsceneSprites[spriteIndex];
+        }
+        else
+        {
+            Debug.LogWarning("Cutscene sprites are not assigned.");
+            isFinished = true;
         }
     }
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && !isFinished)
         {
             NextCutScene();
         }
     }
 
-    void NextCutScene()
+    private void NextCutScene()
     {
         spriteIndex++;
 
         if (spriteIndex >= cutsceneSprites.Length)
         {
+            isFinished = true;
             FadeManager.Instance.FadeToNextScene();
             return;
         }
